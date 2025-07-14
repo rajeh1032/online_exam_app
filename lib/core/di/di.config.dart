@@ -24,10 +24,18 @@ import '../../presentation/features/auth/data/repositories/auth_repositories_imp
     as _i344;
 import '../../presentation/features/auth/domain/repositories/auth_repositories.dart'
     as _i323;
+import '../../presentation/features/auth/domain/usecases/forget_password_use_case.dart'
+    as _i625;
 import '../../presentation/features/auth/domain/usecases/sign_in_use_case.dart'
     as _i306;
-import '../../presentation/features/auth/presentation/auth/cubit/auth_view_model.dart'
-    as _i520;
+import '../../presentation/features/auth/domain/usecases/verify_reset_code_use_case.dart'
+    as _i562;
+import '../../presentation/features/auth/presentation/auth/cubit/view_models/auth_view_model.dart'
+    as _i10;
+import '../../presentation/features/auth/presentation/auth/cubit/view_models/forget_password_view_model.dart'
+    as _i712;
+import '../../presentation/features/auth/presentation/auth/cubit/view_models/verification_code_view_model.dart'
+    as _i730;
 import '../provider/app_config_provider.dart' as _i291;
 import 'modules/dio_modules.dart' as _i288;
 import 'modules/shared_preferences_module.dart' as _i813;
@@ -62,8 +70,18 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i344.AuthRepositoriesImpl(gh<_i866.AuthRemoteDataSource>()));
     gh.factory<_i306.SignInUseCase>(
         () => _i306.SignInUseCase(gh<_i323.AuthRepository>()));
-    gh.factory<_i520.AuthViewModel>(
-        () => _i520.AuthViewModel(signInUseCase: gh<_i306.SignInUseCase>()));
+    gh.factory<_i625.ForgetPasswordUseCase>(
+        () => _i625.ForgetPasswordUseCase(gh<_i323.AuthRepository>()));
+    gh.factory<_i562.VerifyResetCodeUseCase>(
+        () => _i562.VerifyResetCodeUseCase(gh<_i323.AuthRepository>()));
+    gh.factory<_i10.AuthViewModel>(
+        () => _i10.AuthViewModel(signInUseCase: gh<_i306.SignInUseCase>()));
+    gh.factory<_i730.VerificationCodeViewModel>(() =>
+        _i730.VerificationCodeViewModel(
+            verifyResetCodeUseCase: gh<_i562.VerifyResetCodeUseCase>()));
+    gh.factory<_i712.ForgetPasswordViewModel>(() =>
+        _i712.ForgetPasswordViewModel(
+            forgetPasswordUseCase: gh<_i625.ForgetPasswordUseCase>()));
     return this;
   }
 }

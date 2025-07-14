@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,8 +5,8 @@ import 'package:online_exam_app/core/di/di.dart';
 import 'package:online_exam_app/core/theme/app_theme.dart';
 import 'package:online_exam_app/core/utils/dialog_utils.dart';
 import 'package:online_exam_app/core/utils/validators.dart';
-import 'package:online_exam_app/presentation/features/auth/presentation/auth/cubit/auth_state.dart';
-import 'package:online_exam_app/presentation/features/auth/presentation/auth/cubit/auth_view_model.dart';
+import 'package:online_exam_app/presentation/features/auth/presentation/auth/cubit/states/auth_state.dart';
+import 'package:online_exam_app/presentation/features/auth/presentation/auth/cubit/view_models/auth_view_model.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
@@ -69,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: viewModel.emailController,
                       maxLines: 1,
                       keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         label: Text('Email'),
                         hint: Text('Enter Your Email'),
                       ),
@@ -91,8 +90,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     !viewModel.opscurePassword;
                               });
                             }),
-                        label: Text('password'),
-                        hint: Text('Enter Your Password'),
+                        label: const Text('password'),
+                        hint: const Text('Enter Your Password'),
                       ),
                       validator: AppValidators.validatePassword,
                     ),
@@ -141,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: () {
                           viewModel.signIn();
                         },
-                        child: Text('Login'),
+                        child: const Text('Login'),
                       ),
                     ),
                     SizedBox(height: 16.h),

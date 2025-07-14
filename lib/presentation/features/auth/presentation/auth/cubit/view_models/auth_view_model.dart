@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:online_exam_app/presentation/features/auth/domain/usecases/sign_in_use_case.dart';
-import 'package:online_exam_app/presentation/features/auth/presentation/auth/cubit/auth_state.dart';
+import 'package:online_exam_app/presentation/features/auth/presentation/auth/cubit/states/auth_state.dart';
 
 @injectable
 class AuthViewModel extends Cubit<SignInStates> {
