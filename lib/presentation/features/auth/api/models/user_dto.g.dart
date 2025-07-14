@@ -16,9 +16,9 @@ UserDto _$UserDtoFromJson(Map<String, dynamic> json) => UserDto(
       role: json['role'] as String,
       isVerified: json['isVerified'] as bool,
       createdAt: json['createdAt'] as String,
-      passwordResetCode: json['passwordResetCode'] as String,
-      passwordResetExpires: json['passwordResetExpires'] as String,
-      resetCodeVerified: json['resetCodeVerified'] as bool,
+      passwordResetCode: json['passwordResetCode'] as String?,
+      passwordResetExpires: json['passwordResetExpires'] as String?,
+      resetCodeVerified: json['resetCodeVerified'] as bool?,
     );
 
 Map<String, dynamic> _$UserDtoToJson(UserDto instance) => <String, dynamic>{

@@ -14,9 +14,12 @@ class UserDto {
   final String role;
   final bool isVerified;
   final String createdAt;
-  final String passwordResetCode;
-  final String passwordResetExpires;
-  final bool resetCodeVerified;
+
+  //i make the three variable nullable because ,,
+  // they are not existing on signup response and i want to reuse it .
+  final String? passwordResetCode;
+  final String? passwordResetExpires;
+  final bool? resetCodeVerified;
 
   UserDto({
     required this.id,
@@ -28,9 +31,9 @@ class UserDto {
     required this.role,
     required this.isVerified,
     required this.createdAt,
-    required this.passwordResetCode,
-    required this.passwordResetExpires,
-    required this.resetCodeVerified,
+    this.passwordResetCode,
+    this.passwordResetExpires,
+    this.resetCodeVerified,
   });
 
   factory UserDto.fromJson(Map<String, dynamic> json) =>
