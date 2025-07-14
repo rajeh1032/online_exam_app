@@ -19,4 +19,7 @@ class SignInResponseDto {
       _$SignInResponseDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$SignInResponseDtoToJson(this);
+  
+
+  
 }

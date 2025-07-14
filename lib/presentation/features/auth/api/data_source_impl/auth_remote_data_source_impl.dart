@@ -15,11 +15,17 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<Either<Failures, SignInResponseEntity>> signIn(
       String? email, String? password) async {
+
+
+
     return await safeApiCall(() async {
       final response =
           await authApiClient.signIn({"email": email, "password": password});
 
       return response.toEntity();
     });
+
+
+    
   }
 }

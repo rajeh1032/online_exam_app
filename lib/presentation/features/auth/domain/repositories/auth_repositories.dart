@@ -7,4 +7,5 @@ abstract class AuthRepository {
     String? email,
     String? password,
   );
+  
 }

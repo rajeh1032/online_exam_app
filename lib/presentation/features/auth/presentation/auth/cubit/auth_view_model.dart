@@ -11,9 +11,11 @@ class AuthViewModel extends Cubit<SignInStates> {
   SignInUseCase signInUseCase;
   final formKey = GlobalKey<FormState>();
 
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController emailController =
+      TextEditingController(text: "ahmmedra209@gmail.com");
 
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController passwordController =
+      TextEditingController(text: "ahmed123@@R");
 
   bool rememberMe = false;
 

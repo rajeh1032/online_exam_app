@@ -3,4 +3,6 @@ abstract class ApiEndpoint {
 
   //Auth
   static const String signIn = '/auth/signin';
+
+
 }
