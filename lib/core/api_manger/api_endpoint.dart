@@ -5,5 +5,6 @@ abstract class ApiEndpoint {
   static const String signIn = '/auth/signin';
   static const String forgotPassword = '/auth/forgotPassword';
   static const String verifyResetCode = '/auth/verifyResetCode';
+  static const String resetPassword = '/auth/resetPassword';
 
 }

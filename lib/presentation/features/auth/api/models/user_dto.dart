@@ -14,9 +14,10 @@ class UserDto {
   final String role;
   final bool isVerified;
   final String createdAt;
-  final String passwordResetCode;
-  final String passwordResetExpires;
-  final bool resetCodeVerified;
+
+  final String? passwordResetCode;
+  final String? passwordResetExpires;
+  final bool? resetCodeVerified;
 
   UserDto({
     required this.id,
@@ -28,9 +29,9 @@ class UserDto {
     required this.role,
     required this.isVerified,
     required this.createdAt,
-    required this.passwordResetCode,
-    required this.passwordResetExpires,
-    required this.resetCodeVerified,
+    this.passwordResetCode,
+    this.passwordResetExpires,
+    this.resetCodeVerified,
   });
 
   factory UserDto.fromJson(Map<String, dynamic> json) =>

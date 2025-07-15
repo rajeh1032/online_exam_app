@@ -97,7 +97,7 @@ class ForgetPassword extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         if (viewModel.formKey.currentState!.validate()) {
-                          viewModel.forgetPassword();
+                          viewModel.forgetPassword(context: context);
                         }
                       },
                       child: const Text('Continue '),

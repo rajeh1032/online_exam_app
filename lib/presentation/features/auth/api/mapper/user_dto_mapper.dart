@@ -13,9 +13,9 @@ extension UserDtoMapper on UserDto {
       role: role,
       isVerified: isVerified,
       createdAt: createdAt,
-      passwordResetCode: passwordResetCode,
-      passwordResetExpires: passwordResetExpires,
-      resetCodeVerified: resetCodeVerified,
+      passwordResetCode: passwordResetCode ?? '',
+      passwordResetExpires: passwordResetExpires ?? '',
+      resetCodeVerified: resetCodeVerified ?? false,
     );
   }
 }

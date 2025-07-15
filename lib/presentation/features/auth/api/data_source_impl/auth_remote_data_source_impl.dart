@@ -6,10 +6,12 @@ import 'package:online_exam_app/presentation/features/auth/api/client/auth_api_c
 import 'package:online_exam_app/presentation/features/auth/api/mapper/sign_in_response_dto_mapper.dart';
 import 'package:online_exam_app/presentation/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:online_exam_app/presentation/features/auth/domain/entities/forget_password_response_entity.dart';
+import 'package:online_exam_app/presentation/features/auth/domain/entities/reset_password_response_entity.dart';
 import 'package:online_exam_app/presentation/features/auth/domain/entities/sign_in_response_entity.dart';
 import 'package:online_exam_app/presentation/features/auth/api/mapper/forget_password_dto_mapper.dart';
 import 'package:online_exam_app/presentation/features/auth/domain/entities/verify_reset_code_response_entity.dart';
 import 'package:online_exam_app/presentation/features/auth/api/mapper/verify_reset_code_dto_mapper.dart';
+import 'package:online_exam_app/presentation/features/auth/api/mapper/reset_password_dto_mapper.dart';
 
 @Injectable(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -43,6 +45,17 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     return await safeApiCall(() async {
       final response =
           await authApiClient.verifyResetCode({"resetCode": resetCode});
+
+      return response.toEntity();
+    });
+  }
+
+  @override
+  Future<Either<Failures, ResetPasswordResponseEntity>> resetPassword(
+      String? email, String? newPassword) async {
+    return await safeApiCall(() async {
+      final response = await authApiClient
+          .resetPassword({"email": email, "newPassword": newPassword});
 
       return response.toEntity();
     });
