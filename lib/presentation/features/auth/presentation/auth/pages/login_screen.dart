@@ -51,126 +51,136 @@ class _LoginScreenState extends State<LoginScreen> {
                 });
           }
         },
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text(
-              'Login',
-              style: Theme.of(context).textTheme.titleLarge,
+        // ignore: deprecated_member_use
+        child: WillPopScope(
+          onWillPop: () async {
+            return false;
+          },
+          child: Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              title: Text(
+                'Login',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
             ),
-          ),
-          body: SafeArea(
-            child: Form(
-              key: viewModel.formKey,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      controller: viewModel.emailController,
-                      maxLines: 1,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(
-                        label: Text('Email'),
-                        hint: Text('Enter Your Email'),
+            body: SafeArea(
+              child: Form(
+                key: viewModel.formKey,
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: viewModel.emailController,
+                        maxLines: 1,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: const InputDecoration(
+                          label: Text('Email'),
+                          hint: Text('Enter Your Email'),
+                        ),
+                        validator: AppValidators.validateEmail,
                       ),
-                      validator: AppValidators.validateEmail,
-                    ),
-                    SizedBox(height: 24.h),
-                    TextFormField(
-                      controller: viewModel.passwordController,
-                      obscureText: viewModel.opscurePassword,
-                      maxLines: 1,
-                      decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                            icon: Icon(viewModel.opscurePassword
-                                ? Icons.visibility_off
-                                : Icons.visibility),
-                            onPressed: () {
-                              setState(() {
-                                viewModel.opscurePassword =
-                                    !viewModel.opscurePassword;
-                              });
-                            }),
-                        label: const Text('password'),
-                        hint: const Text('Enter Your Password'),
-                      ),
-                      validator: AppValidators.validatePassword,
-                    ),
-                    SizedBox(height: 16.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: viewModel.rememberMe,
-                              onChanged: (value) {
-                                //todo : Remember Me
+                      SizedBox(height: 24.h),
+                      TextFormField(
+                        controller: viewModel.passwordController,
+                        obscureText: viewModel.opscurePassword,
+                        maxLines: 1,
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                              icon: Icon(viewModel.opscurePassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility),
+                              onPressed: () {
                                 setState(() {
-                                  viewModel.rememberMe = value!;
+                                  viewModel.opscurePassword =
+                                      !viewModel.opscurePassword;
                                 });
-                              },
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4.r),
+                              }),
+                          label: const Text('password'),
+                          hint: const Text('Enter Your Password'),
+                        ),
+                        validator: AppValidators.validatePassword,
+                      ),
+                      SizedBox(height: 16.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Checkbox(
+                                value: viewModel.rememberMe,
+                                onChanged: (value) {
+                                  //todo : Remember Me
+                                  setState(() {
+                                    viewModel.rememberMe = value!;
+                                  });
+                                },
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4.r),
+                                ),
+                              ),
+                              Text('Remember me',
+                                  style: AppTheme
+                                      .lightTheme.textTheme.headlineLarge),
+                            ],
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              //todo : navigate to forget password
+
+                              Navigator.pushNamed(
+                                  context, AppRoutes.forgetPassword);
+                            },
+                            child: Text(
+                              'Forget Password?',
+                              style: AppTheme
+                                  .lightTheme.textTheme.headlineLarge!
+                                  .copyWith(
+                                decoration: TextDecoration.underline,
                               ),
                             ),
-                            Text('Remember me',
-                                style: AppTheme
-                                    .lightTheme.textTheme.headlineLarge),
-                          ],
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            //todo : navigate to forget password
-
-                            Navigator.pushNamed(
-                                context, AppRoutes.forgetPassword);
-                          },
-                          child: Text(
-                            'Forget Password?',
-                            style: AppTheme.lightTheme.textTheme.headlineLarge!
-                                .copyWith(
-                              decoration: TextDecoration.underline,
-                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 16.h),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 48.h,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          viewModel.signIn();
-                        },
-                        child: const Text('Login'),
+                        ],
                       ),
-                    ),
-                    SizedBox(height: 16.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Don\'t have an account?',
-                          style: AppTheme.lightTheme.textTheme.headlineLarge,
-                        ),
-                        TextButton(
+                      SizedBox(height: 16.h),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 48.h,
+                        child: ElevatedButton(
                           onPressed: () {
-                            //todo : navigate to register
+                            viewModel.signIn();
                           },
-                          child: Text(
-                            'Sign Up',
-                            style: AppTheme.lightTheme.textTheme.headlineLarge!
-                                .copyWith(
-                              decoration: TextDecoration.underline,
-                              color: AppTheme.lightTheme.colorScheme.primary,
+                          child: const Text('Login'),
+                        ),
+                      ),
+                      SizedBox(height: 16.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Don\'t have an account?',
+                            style: AppTheme.lightTheme.textTheme.headlineLarge,
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              //todo : navigate to register
+                            },
+                            child: Text(
+                              'Sign Up',
+                              style: AppTheme
+                                  .lightTheme.textTheme.headlineLarge!
+                                  .copyWith(
+                                decoration: TextDecoration.underline,
+                                color: AppTheme.lightTheme.colorScheme.primary,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    )
-                  ],
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
