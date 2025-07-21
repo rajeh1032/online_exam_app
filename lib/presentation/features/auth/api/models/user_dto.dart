@@ -15,6 +15,8 @@ class UserDto {
   final bool isVerified;
   final String createdAt;
 
+  //i make the three variable nullable because ,,
+  // they are not existing on signup response and i want to reuse it .
   final String? passwordResetCode;
   final String? passwordResetExpires;
   final bool? resetCodeVerified;

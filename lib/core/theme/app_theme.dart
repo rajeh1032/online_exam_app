@@ -70,6 +70,9 @@ abstract class AppTheme {
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
+        hintStyle: TextStyle(color: textFieldBorderColor,fontSize: 14,fontWeight: FontWeight.w400),
+        labelStyle: TextStyle(color: textFieldBorderColor),
+
 
 
 

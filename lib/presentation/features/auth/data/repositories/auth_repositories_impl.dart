@@ -9,6 +9,8 @@ import 'package:online_exam_app/presentation/features/auth/domain/entities/sign_
 import 'package:online_exam_app/presentation/features/auth/domain/entities/verify_reset_code_response_entity.dart';
 import 'package:online_exam_app/presentation/features/auth/domain/repositories/auth_repositories.dart';
 
+import '../../domain/entities/sign_up_response_entity.dart';
+
 @Injectable(as: AuthRepository)
 class AuthRepositoriesImpl implements AuthRepository {
   AuthRemoteDataSource authRemoteDataSource;
@@ -20,6 +22,16 @@ class AuthRepositoriesImpl implements AuthRepository {
     var either = authRemoteDataSource.signIn(email, password);
     return either.fold((error) => Left(error), (response) => Right(response));
   }
+  @override
+  Future<Either<Failures, SignUpResponseEntity>> signUp(String? username, String? firstName, String? lastName, String? email, String? password, String? rePassword, String? phone) {
+    var either = authRemoteDataSource.signUp(username,
+      firstName,
+      lastName,
+      email,
+      password,
+      rePassword,
+      phone,);
+
 
   @override
   Future<Either<Failures, ForgetPasswordResponseEntity>> forgetPassword(

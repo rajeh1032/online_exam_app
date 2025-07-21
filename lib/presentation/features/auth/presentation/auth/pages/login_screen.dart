@@ -9,6 +9,8 @@ import 'package:online_exam_app/core/utils/validators.dart';
 import 'package:online_exam_app/presentation/features/auth/presentation/auth/cubit/states/auth_state.dart';
 import 'package:online_exam_app/presentation/features/auth/presentation/auth/cubit/view_models/auth_view_model.dart';
 
+import '../../../../../../core/route/app_routes.dart';
+
 class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
 
@@ -64,23 +66,43 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
-            body: SafeArea(
-              child: Form(
-                key: viewModel.formKey,
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        controller: viewModel.emailController,
-                        maxLines: 1,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: const InputDecoration(
-                          label: Text('Email'),
-                          hint: Text('Enter Your Email'),
-                        ),
-                        validator: AppValidators.validateEmail,
+          ),
+          body: SafeArea(
+            child: Form(
+              key: viewModel.formKey,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: viewModel.emailController,
+                      maxLines: 1,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        label: Text('Email'),
+                        hintText: 'Enter Your Email',
+                      ),
+                      validator: AppValidators.validateEmail,
+                    ),
+                    SizedBox(height: 24.h),
+                    TextFormField(
+                      controller: viewModel.passwordController,
+                      obscureText: viewModel.opscurePassword,
+                      maxLines: 1,
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                            icon: Icon(viewModel.opscurePassword
+                                ? Icons.visibility_off
+                                : Icons.visibility),
+                            onPressed: () {
+                              setState(() {
+                                viewModel.opscurePassword =
+                                    !viewModel.opscurePassword;
+                              });
+                            }),
+                        label: Text('password'),
+                        hintText: 'Enter Your Password',
+
                       ),
                       SizedBox(height: 24.h),
                       TextFormField(
@@ -150,7 +172,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 48.h,
                         child: ElevatedButton(
                           onPressed: () {
-                            viewModel.signIn();
+                            //todo : navigate to register
+                            Navigator.pushReplacementNamed(context, AppRoutes.signup);
+
                           },
                           child: const Text('Login'),
                         ),

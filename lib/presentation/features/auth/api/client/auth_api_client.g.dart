@@ -56,6 +56,7 @@ class _AuthApiClient implements AuthApiClient {
   }
 
   @override
+  Future<SignUpResponseDto> signUp(Map<String, dynamic> body) async {
   Future<ForgetPasswordResponseDto> forgetPassword(
       Map<String, dynamic> body) async {
     final _extra = <String, dynamic>{};
@@ -63,6 +64,7 @@ class _AuthApiClient implements AuthApiClient {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body);
+    final _options = _setStreamType<SignUpResponseDto>(Options(
     final _options = _setStreamType<ForgetPasswordResponseDto>(Options(
       method: 'POST',
       headers: _headers,
@@ -70,6 +72,7 @@ class _AuthApiClient implements AuthApiClient {
     )
         .compose(
           _dio.options,
+          '/auth/signup',
           '/auth/forgotPassword',
           queryParameters: queryParameters,
           data: _data,
@@ -80,6 +83,9 @@ class _AuthApiClient implements AuthApiClient {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late SignUpResponseDto _value;
+    try {
+      _value = SignUpResponseDto.fromJson(_result.data!);
     late ForgetPasswordResponseDto _value;
     try {
       _value = ForgetPasswordResponseDto.fromJson(_result.data!);

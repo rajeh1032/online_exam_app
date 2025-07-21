@@ -16,13 +16,17 @@ class AppValidators {
   }
 
   static String? validatePassword(String? val) {
-    RegExp passwordRegex = RegExp(r'^(?=.*[a-zA-Z])(?=.*[0-9])');
+    // Strong regex: uppercase, lowercase, number, and special character
+    RegExp passwordRegex = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])');
+
     if (val == null) {
       return 'this field is required';
     } else if (val.isEmpty) {
       return 'this field is required';
-    } else if (val.length < 8 || !passwordRegex.hasMatch(val)) {
-      return 'strong password please';
+    } else if (val.length < 8) {
+      return 'Password must be\n at least 8 characters long';
+    } else if (!passwordRegex.hasMatch(val)) {
+      return 'Password must\n contain uppercase,\n lowercase, number, \nand special character';
     } else {
       return null;
     }
@@ -32,6 +36,8 @@ class AppValidators {
     if (val == null || val.isEmpty) {
       return 'this field is required';
     } else if (val != password) {
+      return 'please write\n the same password';
+
       return 'Not Same Password';
     } else {
       return null;
@@ -39,7 +45,7 @@ class AppValidators {
   }
 
   static String? validateUsername(String? val) {
-    RegExp usernameRegex = RegExp(r'^[a-zA-Z0-9,.-]+$');
+    RegExp usernameRegex = RegExp(r"^[a-zA-Z]{3,30}$");
     if (val == null) {
       return 'this field is required';
     } else if (val.isEmpty) {
