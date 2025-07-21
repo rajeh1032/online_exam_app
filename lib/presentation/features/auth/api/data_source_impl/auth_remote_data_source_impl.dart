@@ -42,6 +42,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       });
 
+      return response.toEntity();
+    });
+  }
+
 
   @override
   Future<Either<Failures, ForgetPasswordResponseEntity>> forgetPassword(
@@ -74,4 +78,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       return response.toEntity();
     });
   }
+
+  
 }

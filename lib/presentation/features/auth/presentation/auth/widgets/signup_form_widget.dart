@@ -7,8 +7,8 @@ import '../../../../../../core/route/app_routes.dart';
 import '../../../../../../core/theme/app_colors.dart';
 import '../../../../../../core/theme/app_theme.dart';
 import '../../../../../../core/utils/validators.dart';
-import '../cubit/signup_states.dart';
-import '../cubit/signup_view_model.dart';
+import '../cubit/states/signup_states.dart';
+import '../cubit/view_models/signup_view_model.dart';
 
 class SignupFormWidget extends StatefulWidget {
 final SignUpViewModel signUpViewModel;

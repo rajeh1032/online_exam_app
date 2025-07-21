@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:online_exam_app/presentation/features/auth/presentation/auth/cubit/signup_states.dart';
-import '../../../../../../core/utils/validators.dart';
-import '../../../domain/usecases/sign_up_use_case.dart';
+import 'package:online_exam_app/presentation/features/auth/presentation/auth/cubit/states/signup_states.dart';
+import '../../../../../../../core/utils/validators.dart';
+import '../../../../domain/usecases/sign_up_use_case.dart';
 
 @injectable
 class SignUpViewModel extends Cubit<SignUpStates> {

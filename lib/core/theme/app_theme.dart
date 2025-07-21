@@ -70,22 +70,11 @@ abstract class AppTheme {
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
-        hintStyle: TextStyle(color: textFieldBorderColor,fontSize: 14,fontWeight: FontWeight.w400),
-        labelStyle: TextStyle(color: textFieldBorderColor),
-
-
-
-
         hintStyle: TextStyle(
-          color: textFieldBorderColor,
-          fontSize: 12.sp,
-          fontWeight: FontWeight.w400,
-        ),
-        labelStyle: TextStyle(
-          color: textFieldBorderColor,
-          fontSize: 14.sp,
-          fontWeight: FontWeight.w500,
-        ),
+            color: textFieldBorderColor,
+            fontSize: 14,
+            fontWeight: FontWeight.w400),
+        labelStyle: TextStyle(color: textFieldBorderColor),
         floatingLabelStyle: TextStyle(color: textFieldBorderColor),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),

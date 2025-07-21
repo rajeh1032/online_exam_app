@@ -5,8 +5,8 @@ import 'package:online_exam_app/core/constant/constants.dart';
 import '../../../../../../core/di/di.dart';
 import '../../../../../../core/route/app_routes.dart';
 import '../../../../../../core/utils/dialog_utils.dart';
-import '../cubit/signup_states.dart';
-import '../cubit/signup_view_model.dart';
+import '../cubit/states/signup_states.dart';
+import '../cubit/view_models/signup_view_model.dart';
 import '../widgets/signup_form_widget.dart';
 
 

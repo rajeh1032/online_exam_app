@@ -22,16 +22,27 @@ class AuthRepositoriesImpl implements AuthRepository {
     var either = authRemoteDataSource.signIn(email, password);
     return either.fold((error) => Left(error), (response) => Right(response));
   }
+
   @override
-  Future<Either<Failures, SignUpResponseEntity>> signUp(String? username, String? firstName, String? lastName, String? email, String? password, String? rePassword, String? phone) {
-    var either = authRemoteDataSource.signUp(username,
+  Future<Either<Failures, SignUpResponseEntity>> signUp(
+      String? username,
+      String? firstName,
+      String? lastName,
+      String? email,
+      String? password,
+      String? rePassword,
+      String? phone) {
+    var either = authRemoteDataSource.signUp(
+      username,
       firstName,
       lastName,
       email,
       password,
       rePassword,
-      phone,);
-
+      phone,
+    );
+    return either.fold((error) => Left(error), (response) => Right(response));
+  }
 
   @override
   Future<Either<Failures, ForgetPasswordResponseEntity>> forgetPassword(
