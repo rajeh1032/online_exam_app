@@ -37,6 +37,8 @@ class AppValidators {
       return 'this field is required';
     } else if (val != password) {
       return 'please write\n the same password';
+
+      return 'Not Same Password';
     } else {
       return null;
     }
@@ -70,6 +72,14 @@ class AppValidators {
       return 'enter numbers only';
     } else if (val.trim().length != 11) {
       return 'enter value must equal 11 digit';
+    } else {
+      return null;
+    }
+  }
+
+  static String? pinCodeValidator(String? val) {
+    if (val!.length < 5) {
+      return "Please enter all digits";
     } else {
       return null;
     }

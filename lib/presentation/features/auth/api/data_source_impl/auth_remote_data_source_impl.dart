@@ -6,7 +6,13 @@ import 'package:online_exam_app/presentation/features/auth/api/client/auth_api_c
 import 'package:online_exam_app/presentation/features/auth/api/mapper/sign_in_response_dto_mapper.dart';
 import 'package:online_exam_app/presentation/features/auth/api/mapper/sign_up_response_dto_mapper.dart';
 import 'package:online_exam_app/presentation/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:online_exam_app/presentation/features/auth/domain/entities/forget_password_response_entity.dart';
+import 'package:online_exam_app/presentation/features/auth/domain/entities/reset_password_response_entity.dart';
 import 'package:online_exam_app/presentation/features/auth/domain/entities/sign_in_response_entity.dart';
+import 'package:online_exam_app/presentation/features/auth/api/mapper/forget_password_dto_mapper.dart';
+import 'package:online_exam_app/presentation/features/auth/domain/entities/verify_reset_code_response_entity.dart';
+import 'package:online_exam_app/presentation/features/auth/api/mapper/verify_reset_code_dto_mapper.dart';
+import 'package:online_exam_app/presentation/features/auth/api/mapper/reset_password_dto_mapper.dart';
 
 import '../../domain/entities/sign_up_response_entity.dart';
 
@@ -39,4 +45,39 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       return response.toEntity();
     });
   }
+
+
+  @override
+  Future<Either<Failures, ForgetPasswordResponseEntity>> forgetPassword(
+      String? email) async {
+    return await safeApiCall(() async {
+      final response = await authApiClient.forgetPassword({"email": email});
+
+      return response.toEntity();
+    });
+  }
+
+  @override
+  Future<Either<Failures, VerifyResetCodeResponseEntity>> verifyResetCode(
+      String? resetCode) async {
+    return await safeApiCall(() async {
+      final response =
+          await authApiClient.verifyResetCode({"resetCode": resetCode});
+
+      return response.toEntity();
+    });
+  }
+
+  @override
+  Future<Either<Failures, ResetPasswordResponseEntity>> resetPassword(
+      String? email, String? newPassword) async {
+    return await safeApiCall(() async {
+      final response = await authApiClient
+          .resetPassword({"email": email, "newPassword": newPassword});
+
+      return response.toEntity();
+    });
+  }
+
+  
 }

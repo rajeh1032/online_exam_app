@@ -1,5 +1,5 @@
-import '../../../../../../core/errors/failures.dart';
-import '../../../domain/entities/sign_up_response_entity.dart';
+import '../../../../../../../core/errors/failures.dart';
+import '../../../../domain/entities/sign_up_response_entity.dart';
 
 abstract class SignUpStates {}
 
