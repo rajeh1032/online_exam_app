@@ -22,6 +22,11 @@ abstract class AppTheme {
         style: ElevatedButton.styleFrom(
           backgroundColor: colorScheme.primary,
           foregroundColor: colorScheme.onPrimary,
+          textStyle: TextStyle(
+            color: colorScheme.secondary,
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w600,
+          ),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
         ),
@@ -35,18 +40,18 @@ abstract class AppTheme {
       textTheme: TextTheme(
         bodyLarge: TextStyle(
           color: colorScheme.secondary,
-          fontSize: 16.sp,
-          fontWeight: FontWeight.w500,
+          fontSize: 22.sp,
+          fontWeight: FontWeight.w700,
         ),
         bodyMedium: TextStyle(
           color: colorScheme.secondary,
-          fontSize: 14.sp,
-          fontWeight: FontWeight.w400,
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w700,
         ),
         bodySmall: TextStyle(
           color: colorScheme.secondary,
           fontSize: 12.sp,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w700,
         ),
         headlineLarge: TextStyle(
           color: colorScheme.secondary,
@@ -67,6 +72,20 @@ abstract class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: TextStyle(color: textFieldBorderColor,fontSize: 14,fontWeight: FontWeight.w400),
         labelStyle: TextStyle(color: textFieldBorderColor),
+
+
+
+
+        hintStyle: TextStyle(
+          color: textFieldBorderColor,
+          fontSize: 12.sp,
+          fontWeight: FontWeight.w400,
+        ),
+        labelStyle: TextStyle(
+          color: textFieldBorderColor,
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w500,
+        ),
         floatingLabelStyle: TextStyle(color: textFieldBorderColor),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),

@@ -57,12 +57,15 @@ class _AuthApiClient implements AuthApiClient {
 
   @override
   Future<SignUpResponseDto> signUp(Map<String, dynamic> body) async {
+  Future<ForgetPasswordResponseDto> forgetPassword(
+      Map<String, dynamic> body) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body);
     final _options = _setStreamType<SignUpResponseDto>(Options(
+    final _options = _setStreamType<ForgetPasswordResponseDto>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -70,6 +73,7 @@ class _AuthApiClient implements AuthApiClient {
         .compose(
           _dio.options,
           '/auth/signup',
+          '/auth/forgotPassword',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -82,6 +86,79 @@ class _AuthApiClient implements AuthApiClient {
     late SignUpResponseDto _value;
     try {
       _value = SignUpResponseDto.fromJson(_result.data!);
+    late ForgetPasswordResponseDto _value;
+    try {
+      _value = ForgetPasswordResponseDto.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<VerifyResetCodeResponseDto> verifyResetCode(
+      Map<String, dynamic> body) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body);
+    final _options = _setStreamType<VerifyResetCodeResponseDto>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/auth/verifyResetCode',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late VerifyResetCodeResponseDto _value;
+    try {
+      _value = VerifyResetCodeResponseDto.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<ResetPasswordResponseDto> resetPassword(
+      Map<String, dynamic> body) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body);
+    final _options = _setStreamType<ResetPasswordResponseDto>(Options(
+      method: 'PUT',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/auth/resetPassword',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ResetPasswordResponseDto _value;
+    try {
+      _value = ResetPasswordResponseDto.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
