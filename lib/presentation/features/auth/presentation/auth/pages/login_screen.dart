@@ -9,8 +9,6 @@ import 'package:online_exam_app/core/utils/validators.dart';
 import 'package:online_exam_app/presentation/features/auth/presentation/auth/cubit/auth_state.dart';
 import 'package:online_exam_app/presentation/features/auth/presentation/auth/cubit/auth_view_model.dart';
 
-import '../../../../../../core/route/app_routes.dart';
-
 class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
 
@@ -73,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         label: Text('Email'),
-                        hintText: 'Enter Your Email',
+                        hint: Text('Enter Your Email'),
                       ),
                       validator: AppValidators.validateEmail,
                     ),
@@ -94,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               });
                             }),
                         label: Text('password'),
-                        hintText: 'Enter Your Password',
+                        hint: Text('Enter Your Password'),
                       ),
                       validator: AppValidators.validatePassword,
                     ),
@@ -157,7 +155,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         TextButton(
                           onPressed: () {
                             //todo : navigate to register
-                            Navigator.pushReplacementNamed(context, AppRoutes.signup);
                           },
                           child: Text(
                             'Sign Up',

@@ -22,9 +22,9 @@ class UserEntity {
   final String role;
   final bool isVerified;
   final String createdAt;
-  final String? passwordResetCode;
-  final String? passwordResetExpires;
-  final bool? resetCodeVerified;
+  final String passwordResetCode;
+  final String passwordResetExpires;
+  final bool resetCodeVerified;
 
   UserEntity({
     required this.id,
@@ -36,8 +36,8 @@ class UserEntity {
     required this.role,
     required this.isVerified,
     required this.createdAt,
-     this.passwordResetCode,
-     this.passwordResetExpires,
-     this.resetCodeVerified,
+    required this.passwordResetCode,
+    required this.passwordResetExpires,
+    required this.resetCodeVerified,
   });
 }

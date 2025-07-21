@@ -6,14 +6,12 @@ import 'package:online_exam_app/core/provider/app_config_provider.dart';
 import 'package:online_exam_app/core/route/app_routes.dart';
 import 'package:online_exam_app/presentation/features/auth/presentation/auth/pages/login_screen.dart';
 
-import '../../presentation/features/auth/presentation/auth/pages/signup_screen.dart';
-
 abstract class Routes {
   static Route generateRoute(RouteSettings settings) {
     final url = Uri.parse(settings.name ?? "/");
     switch (url.path) {
-      case AppRoutes.signup:
-        return MaterialPageRoute(builder: (_) => const SignupScreen());
+      case AppRoutes.home:
+      // return MaterialPageRoute(builder: (_) => HomeScreen());
       case AppRoutes.login:
         return MaterialPageRoute(builder: (_) => LoginScreen());
       default:
