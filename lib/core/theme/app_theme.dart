@@ -65,7 +65,7 @@ abstract class AppTheme {
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
-        hintStyle: TextStyle(color: textFieldBorderColor),
+        hintStyle: TextStyle(color: textFieldBorderColor,fontSize: 14,fontWeight: FontWeight.w400),
         labelStyle: TextStyle(color: textFieldBorderColor),
         floatingLabelStyle: TextStyle(color: textFieldBorderColor),
         border: OutlineInputBorder(
