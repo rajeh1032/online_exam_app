@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam_app/core/di/di.dart';
 import 'package:online_exam_app/core/l10n/translation/app_localizations.dart';
 import 'package:online_exam_app/core/provider/app_config_provider.dart';
+import 'package:online_exam_app/core/provider/user_provider.dart';
 import 'package:online_exam_app/core/route/app_routes.dart';
 import 'package:online_exam_app/core/route/routes.dart';
 import 'package:online_exam_app/core/theme/app_theme.dart';
@@ -15,9 +16,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies();
   final appConfigProvider = getIt<AppConfigProvider>();
+  final userProvider = getIt<UserProvider>();
   await appConfigProvider.loadConfig();
-  runApp(
-      ChangeNotifierProvider.value(value: appConfigProvider, child: MyApp()));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider.value(value: appConfigProvider),
+    ChangeNotifierProvider.value(value: userProvider),
+  ], child: MyApp()));
 }
 
 // ignore: must_be_immutable
