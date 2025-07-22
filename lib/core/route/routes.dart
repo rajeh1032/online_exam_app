@@ -4,12 +4,13 @@ import 'package:online_exam_app/core/di/di.dart';
 import 'package:online_exam_app/core/l10n/translation/app_localizations.dart';
 import 'package:online_exam_app/core/provider/app_config_provider.dart';
 import 'package:online_exam_app/core/route/app_routes.dart';
-import 'package:online_exam_app/presentation/features/auth/presentation/auth/pages/forget_password.dart';
-import 'package:online_exam_app/presentation/features/auth/presentation/auth/pages/login_screen.dart';
-import 'package:online_exam_app/presentation/features/auth/presentation/auth/pages/reset_password.dart';
-import 'package:online_exam_app/presentation/features/auth/presentation/auth/pages/verification_code.dart';
+import 'package:online_exam_app/features/auth/presentation/auth/pages/forget_password.dart';
+import 'package:online_exam_app/features/auth/presentation/auth/pages/login_screen.dart';
+import 'package:online_exam_app/features/auth/presentation/auth/pages/reset_password.dart';
+import 'package:online_exam_app/features/auth/presentation/auth/pages/verification_code.dart';
+import 'package:online_exam_app/features/home_screen/pages/home_screen.dart';
 
-import '../../presentation/features/auth/presentation/auth/pages/signup_screen.dart';
+import '../../features/auth/presentation/auth/pages/signup_screen.dart';
 
 abstract class Routes {
   static Route generateRoute(RouteSettings settings) {
@@ -27,6 +28,8 @@ abstract class Routes {
 
       case AppRoutes.verificationCode:
         return MaterialPageRoute(builder: (_) => VerificationCode());
+      case AppRoutes.homeScreen:
+        return MaterialPageRoute(builder: (_) => HomeScreen());
 
       default:
         return MaterialPageRoute(builder: (context) => Text("No Route Found"));

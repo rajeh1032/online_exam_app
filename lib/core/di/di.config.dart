@@ -14,38 +14,40 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
-import '../../presentation/features/auth/api/client/auth_api_client.dart'
-    as _i351;
-import '../../presentation/features/auth/api/data_source_impl/auth_remote_data_source_impl.dart'
-    as _i776;
-import '../../presentation/features/auth/data/datasources/auth_remote_data_source.dart'
-    as _i866;
-import '../../presentation/features/auth/data/repositories/auth_repositories_impl.dart'
-    as _i344;
-import '../../presentation/features/auth/domain/repositories/auth_repositories.dart'
-    as _i323;
-import '../../presentation/features/auth/domain/usecases/forget_password_use_case.dart'
-    as _i625;
-import '../../presentation/features/auth/domain/usecases/reset_password_use_case.dart'
-    as _i6;
-import '../../presentation/features/auth/domain/usecases/sign_in_use_case.dart'
-    as _i306;
-import '../../presentation/features/auth/domain/usecases/sign_up_use_case.dart'
-    as _i979;
-import '../../presentation/features/auth/domain/usecases/verify_reset_code_use_case.dart'
-    as _i562;
-import '../../presentation/features/auth/presentation/auth/cubit/view_models/auth_view_model.dart'
-    as _i10;
-import '../../presentation/features/auth/presentation/auth/cubit/view_models/forget_password_view_model.dart'
-    as _i712;
-import '../../presentation/features/auth/presentation/auth/cubit/view_models/reset_password_view_model.dart'
-    as _i654;
-import '../../presentation/features/auth/presentation/auth/cubit/view_models/signup_view_model.dart'
-    as _i384;
-import '../../presentation/features/auth/presentation/auth/cubit/view_models/verification_code_view_model.dart'
-    as _i730;
+import '../../features/auth/api/client/auth_api_client.dart' as _i213;
+import '../../features/auth/api/data_source_impl/auth_remote_data_source_impl.dart'
+    as _i758;
+import '../../features/auth/data/datasources/auth_remote_data_source.dart'
+    as _i107;
+import '../../features/auth/data/local/auth_local_data_source.dart' as _i284;
+import '../../features/auth/data/local/local_impl/auth_local_data_source_impl.dart'
+    as _i560;
+import '../../features/auth/data/repositories/auth_repositories_impl.dart'
+    as _i394;
+import '../../features/auth/domain/repositories/auth_repositories.dart'
+    as _i962;
+import '../../features/auth/domain/usecases/forget_password_use_case.dart'
+    as _i591;
+import '../../features/auth/domain/usecases/reset_password_use_case.dart'
+    as _i825;
+import '../../features/auth/domain/usecases/sign_in_use_case.dart' as _i362;
+import '../../features/auth/domain/usecases/sign_up_use_case.dart' as _i1037;
+import '../../features/auth/domain/usecases/verify_reset_code_use_case.dart'
+    as _i948;
+import '../../features/auth/presentation/auth/cubit/view_models/auth_view_model.dart'
+    as _i155;
+import '../../features/auth/presentation/auth/cubit/view_models/forget_password_view_model.dart'
+    as _i894;
+import '../../features/auth/presentation/auth/cubit/view_models/reset_password_view_model.dart'
+    as _i479;
+import '../../features/auth/presentation/auth/cubit/view_models/signup_view_model.dart'
+    as _i546;
+import '../../features/auth/presentation/auth/cubit/view_models/verification_code_view_model.dart'
+    as _i1064;
+import '../../features/home_screen/cubit/home_screen_view_model.dart' as _i147;
 import '../provider/app_config_provider.dart' as _i291;
 import '../provider/user_provider.dart' as _i505;
+import '../utils/shared_pref_services.dart' as _i0;
 import 'modules/dio_modules.dart' as _i288;
 import 'modules/shared_preferences_module.dart' as _i813;
 
@@ -66,40 +68,47 @@ extension GetItInjectableX on _i174.GetIt {
       () => sharedPreferencesModule.provideSharedPreferences(),
       preResolve: true,
     );
+    gh.factory<_i147.HomeScreenViewModel>(() => _i147.HomeScreenViewModel());
     gh.singleton<_i505.UserProvider>(() => _i505.UserProvider());
     gh.lazySingleton<_i528.PrettyDioLogger>(
         () => dioModules.providePrettyDioLogger());
     gh.lazySingleton<_i361.Dio>(
         () => dioModules.provideDio(gh<_i528.PrettyDioLogger>()));
-    gh.factory<_i351.AuthApiClient>(() => _i351.AuthApiClient(gh<_i361.Dio>()));
-    gh.factory<_i866.AuthRemoteDataSource>(
-        () => _i776.AuthRemoteDataSourceImpl(gh<_i351.AuthApiClient>()));
+    gh.factory<_i0.SharedPrefService>(
+        () => _i0.SharedPrefService(gh<_i460.SharedPreferences>()));
+    gh.lazySingleton<_i284.AuthLocalDataSource>(
+        () => _i560.AuthLocalDataSourceImpl(gh<_i0.SharedPrefService>()));
+    gh.factory<_i213.AuthApiClient>(() => _i213.AuthApiClient(gh<_i361.Dio>()));
+    gh.factory<_i107.AuthRemoteDataSource>(() => _i758.AuthRemoteDataSourceImpl(
+          gh<_i213.AuthApiClient>(),
+          authLocalDataSource: gh<_i284.AuthLocalDataSource>(),
+        ));
     gh.singleton<_i291.AppConfigProvider>(
         () => _i291.AppConfigProvider(gh<_i460.SharedPreferences>()));
-    gh.factory<_i323.AuthRepository>(
-        () => _i344.AuthRepositoriesImpl(gh<_i866.AuthRemoteDataSource>()));
-    gh.factory<_i306.SignInUseCase>(
-        () => _i306.SignInUseCase(gh<_i323.AuthRepository>()));
-    gh.factory<_i625.ForgetPasswordUseCase>(
-        () => _i625.ForgetPasswordUseCase(gh<_i323.AuthRepository>()));
-    gh.factory<_i562.VerifyResetCodeUseCase>(
-        () => _i562.VerifyResetCodeUseCase(gh<_i323.AuthRepository>()));
-    gh.factory<_i6.ResetPasswordUseCase>(
-        () => _i6.ResetPasswordUseCase(gh<_i323.AuthRepository>()));
-    gh.factory<_i979.SignUpUseCase>(
-        () => _i979.SignUpUseCase(gh<_i323.AuthRepository>()));
-    gh.factory<_i654.ResetPasswordViewModel>(() => _i654.ResetPasswordViewModel(
-        resetPasswordUseCase: gh<_i6.ResetPasswordUseCase>()));
-    gh.factory<_i10.AuthViewModel>(
-        () => _i10.AuthViewModel(signInUseCase: gh<_i306.SignInUseCase>()));
-    gh.factory<_i384.SignUpViewModel>(
-        () => _i384.SignUpViewModel(signUpUseCase: gh<_i979.SignUpUseCase>()));
-    gh.factory<_i730.VerificationCodeViewModel>(() =>
-        _i730.VerificationCodeViewModel(
-            verifyResetCodeUseCase: gh<_i562.VerifyResetCodeUseCase>()));
-    gh.factory<_i712.ForgetPasswordViewModel>(() =>
-        _i712.ForgetPasswordViewModel(
-            forgetPasswordUseCase: gh<_i625.ForgetPasswordUseCase>()));
+    gh.factory<_i962.AuthRepository>(
+        () => _i394.AuthRepositoriesImpl(gh<_i107.AuthRemoteDataSource>()));
+    gh.factory<_i591.ForgetPasswordUseCase>(
+        () => _i591.ForgetPasswordUseCase(gh<_i962.AuthRepository>()));
+    gh.factory<_i825.ResetPasswordUseCase>(
+        () => _i825.ResetPasswordUseCase(gh<_i962.AuthRepository>()));
+    gh.factory<_i362.SignInUseCase>(
+        () => _i362.SignInUseCase(gh<_i962.AuthRepository>()));
+    gh.factory<_i1037.SignUpUseCase>(
+        () => _i1037.SignUpUseCase(gh<_i962.AuthRepository>()));
+    gh.factory<_i948.VerifyResetCodeUseCase>(
+        () => _i948.VerifyResetCodeUseCase(gh<_i962.AuthRepository>()));
+    gh.factory<_i479.ResetPasswordViewModel>(() => _i479.ResetPasswordViewModel(
+        resetPasswordUseCase: gh<_i825.ResetPasswordUseCase>()));
+    gh.factory<_i894.ForgetPasswordViewModel>(() =>
+        _i894.ForgetPasswordViewModel(
+            forgetPasswordUseCase: gh<_i591.ForgetPasswordUseCase>()));
+    gh.factory<_i155.AuthViewModel>(
+        () => _i155.AuthViewModel(signInUseCase: gh<_i362.SignInUseCase>()));
+    gh.factory<_i546.SignUpViewModel>(
+        () => _i546.SignUpViewModel(signUpUseCase: gh<_i1037.SignUpUseCase>()));
+    gh.factory<_i1064.VerificationCodeViewModel>(() =>
+        _i1064.VerificationCodeViewModel(
+            verifyResetCodeUseCase: gh<_i948.VerifyResetCodeUseCase>()));
     return this;
   }
 }
