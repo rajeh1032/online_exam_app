@@ -1,32 +1,98 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:online_exam_app/core/provider/user_provider.dart';
+import 'package:online_exam_app/core/provider/app_config_provider.dart';
+
+import 'package:online_exam_app/features/auth/domain/entities/request_entities/reset_password_request_entity.dart';
+import 'package:online_exam_app/features/auth/domain/entities/response_entities/reset_password_response_entity.dart';
 import 'package:online_exam_app/features/auth/domain/usecases/reset_password_use_case.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/cubit/states/reset_password_states.dart';
 
+import '../../../../../../core/api_result/api_result.dart';
+
 @injectable
 class ResetPasswordViewModel extends Cubit<ResetPasswordStates> {
-  ResetPasswordViewModel({required this.resetPasswordUseCase})
-      : super(ResetPasswordInitialState());
+  final ResetPasswordUseCase _resetPasswordUseCase;
+  final AppConfigProvider _appConfigProvider ;
 
-  ResetPasswordUseCase resetPasswordUseCase;
+  ResetPasswordViewModel({
+    required ResetPasswordUseCase resetPasswordUseCase,
+    required AppConfigProvider appConfigProvider,
+  })  : _resetPasswordUseCase = resetPasswordUseCase,
+        _appConfigProvider = appConfigProvider,
+        super(const ResetPasswordStates()) {
+    _initializeControllers();
+    _addListenersToControllers();
+  }
 
   final formKey = GlobalKey<FormState>();
-  String? userEmail;
 
-  final TextEditingController passwordController = TextEditingController();
-  Future<void> resetPassword({required BuildContext context}) async {
-    userEmail = context.read<UserProvider>().email;
+  late final TextEditingController newPasswordController;
+  late final TextEditingController confirmPasswordController;
+
+  void _initializeControllers() {
+    newPasswordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
+  }
+
+  void _addListenersToControllers() {
+    newPasswordController.addListener(_validateForm);
+    confirmPasswordController.addListener(_validateForm);
+  }
+
+  void _validateForm() {
+    final isValid = formKey.currentState?.validate() == true;
+    emit(state.copyWith(isFormValid: isValid));
+  }
+
+
+  Future<void> resetPassword({required String email}) async {
     if (formKey.currentState?.validate() == true) {
-      emit(ResetPasswordLoadingState());
-      var either = await resetPasswordUseCase.invoke(
-          email: userEmail, newPassword: passwordController.text);
-      either.fold(
-        (error) => emit(ResetPasswordErrorState(failures: error)),
-        (response) => emit(
-            ResetPasswordSuccessState(resetPasswordResponseEntity: response)),
+      emit(state.copyWith(
+        errorMsg: null,
+        status: ResetPasswordStatus.loading,
+      ));
+
+      final request = ResetPasswordRequestEntity(
+        email: email,
+        newPassword: newPasswordController.text,
       );
+
+      final result = await _resetPasswordUseCase.invoke(request);
+
+      _handleResult(result);
     }
   }
+
+  void _handleResult(ApiResult<ResetPasswordResponseEntity> result) {
+    switch (result) {
+      case ApiSuccessResult<ResetPasswordResponseEntity>():
+        emit(state.copyWith(
+          response: result.data,
+          errorMsg: null,
+          status: ResetPasswordStatus.success,
+        ));
+        break;
+
+      case ApiErrorResult<ResetPasswordResponseEntity>():
+        emit(state.copyWith(
+          errorMsg: result.errorMsg,
+          status: ResetPasswordStatus.error,
+        ));
+        break;
+    }
+  }
+
+  void _disposeControllers() {
+    newPasswordController.dispose();
+    confirmPasswordController.dispose();
+  }
+
+  @override
+  Future<void> close() {
+    _disposeControllers();
+    return super.close();
+  }
+
+  String get email=>_appConfigProvider.getUserEmail()??'';
 }

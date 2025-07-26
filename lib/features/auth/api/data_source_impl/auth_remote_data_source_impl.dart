@@ -1,94 +1,101 @@
-import 'package:either_dart/src/either.dart';
 import 'package:injectable/injectable.dart';
-import 'package:online_exam_app/core/errors/failures.dart';
-import 'package:online_exam_app/core/errors/safe_api_call.dart';
+
 import 'package:online_exam_app/features/auth/api/client/auth_api_client.dart';
 import 'package:online_exam_app/features/auth/api/mapper/sign_in_response_dto_mapper.dart';
 import 'package:online_exam_app/features/auth/api/mapper/sign_up_response_dto_mapper.dart';
+import 'package:online_exam_app/features/auth/api/models/forget_password_request_dto.dart';
 import 'package:online_exam_app/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:online_exam_app/features/auth/data/local/auth_local_data_source.dart';
-import 'package:online_exam_app/features/auth/domain/entities/forget_password_response_entity.dart';
-import 'package:online_exam_app/features/auth/domain/entities/reset_password_response_entity.dart';
-import 'package:online_exam_app/features/auth/domain/entities/sign_in_response_entity.dart';
+
+import 'package:online_exam_app/features/auth/domain/entities/request_entities/forget_password_request_entity.dart';
+import 'package:online_exam_app/features/auth/domain/entities/response_entities/forget_password_response_entity.dart';
+import 'package:online_exam_app/features/auth/domain/entities/response_entities/reset_password_response_entity.dart';
+import 'package:online_exam_app/features/auth/domain/entities/response_entities/sign_in_response_entity.dart';
 import 'package:online_exam_app/features/auth/api/mapper/forget_password_dto_mapper.dart';
-import 'package:online_exam_app/features/auth/domain/entities/verify_reset_code_response_entity.dart';
+import 'package:online_exam_app/features/auth/domain/entities/response_entities/verify_reset_code_response_entity.dart';
 import 'package:online_exam_app/features/auth/api/mapper/verify_reset_code_dto_mapper.dart';
 import 'package:online_exam_app/features/auth/api/mapper/reset_password_dto_mapper.dart';
 
-import '../../domain/entities/sign_up_response_entity.dart';
+import '../../../../core/api_result/api_result.dart';
+import '../../../../core/errors/error_handler.dart';
+import '../../domain/entities/request_entities/reset_password_request_entity.dart';
+import '../../domain/entities/request_entities/sign_in_request_entity.dart';
+import '../../domain/entities/request_entities/sign_up_request_entity.dart';
+import '../../domain/entities/request_entities/verify_reset_code_request_entity.dart';
+import '../../domain/entities/response_entities/sign_up_response_entity.dart';
+import '../models/reset_password_request_dto.dart';
+import '../models/sign_in_request_dto.dart';
+import '../models/sign_up_request_dto.dart';
+import '../models/verify_reset_code_request_dto.dart';
 
 @Injectable(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
-  final AuthApiClient authApiClient;
-  final AuthLocalDataSource authLocalDataSource;
-  AuthRemoteDataSourceImpl(this.authApiClient,
-      {required this.authLocalDataSource});
+  final AuthApiClient _authApiClient;
+
+  AuthRemoteDataSourceImpl({required AuthApiClient authApiClient})
+      : _authApiClient = authApiClient;
 
   @override
-  Future<Either<Failures, SignInResponseEntity>> signIn(
-      String? email, String? password) async {
-    return await safeApiCall(() async {
-      final response =
-          await authApiClient.signIn({"email": email, "password": password});
-      print("my token : ${response.token}");
-      await authLocalDataSource.saveToken(response.token);
-      return response.toEntity();
-    });
+  Future<ApiResult<SignInResponseEntity>> signIn(
+      SignInRequestEntity signInRequest) async {
+    try {
+      var response = await _authApiClient
+          .signIn(SignInRequestDto.fromDomain(signInRequest));
+      return ApiSuccessResult(data: response.toEntity());
+    } catch (e) {
+      return ApiErrorResult<SignInResponseEntity>(
+          errorMsg: ErrorHandler.getFriendlyMessage(e.toString()));
+    }
   }
 
   @override
-  Future<Either<Failures, SignUpResponseEntity>> signUp(
-      String? username,
-      String? firstName,
-      String? lastName,
-      String? email,
-      String? password,
-      String? rePassword,
-      String? phone) async {
-    return await safeApiCall(() async {
-      final response = await authApiClient.signUp({
-        "username": username,
-        "firstName": firstName,
-        "lastName": lastName,
-        "email": email,
-        "password": password,
-        "rePassword": rePassword,
-        "phone": phone
-      });
-
-      return response.toEntity();
-    });
+  Future<ApiResult<SignUpResponseEntity>> signUp(
+      SignUpRequestEntity signUpRequest) async {
+    try {
+      var response = await _authApiClient
+          .signUp(SignUpRequestDto.fromDomain(signUpRequest));
+      return ApiSuccessResult(data: response.toEntity());
+    } catch (e) {
+      return ApiErrorResult<SignUpResponseEntity>(
+          errorMsg: ErrorHandler.getFriendlyMessage(e.toString()));
+    }
   }
 
   @override
-  Future<Either<Failures, ForgetPasswordResponseEntity>> forgetPassword(
-      String? email) async {
-    return await safeApiCall(() async {
-      final response = await authApiClient.forgetPassword({"email": email});
-
-      return response.toEntity();
-    });
+  Future<ApiResult<ForgetPasswordResponseEntity>> forgetPassword(
+      ForgetPasswordRequestEntity request) async {
+    try {
+      var response = await _authApiClient
+          .forgetPassword(ForgetPasswordRequestDto.fromDomain(request));
+      return ApiSuccessResult(data: response.toEntity());
+    } catch (e) {
+      return ApiErrorResult<ForgetPasswordResponseEntity>(
+          errorMsg: ErrorHandler.getFriendlyMessage(e.toString()));
+    }
   }
 
   @override
-  Future<Either<Failures, VerifyResetCodeResponseEntity>> verifyResetCode(
-      String? resetCode) async {
-    return await safeApiCall(() async {
-      final response =
-          await authApiClient.verifyResetCode({"resetCode": resetCode});
-
-      return response.toEntity();
-    });
+  Future<ApiResult<VerifyResetCodeResponseEntity>> verifyResetCode(
+      VerifyResetCodeRequestEntity request) async {
+    try {
+      final dto = VerifyResetCodeRequestDto.fromDomain(request);
+      final response = await _authApiClient.verifyResetCode(dto);
+      return ApiSuccessResult(data: response.toEntity());
+    } catch (e) {
+      return ApiErrorResult(
+          errorMsg: ErrorHandler.getFriendlyMessage(e.toString()));
+    }
   }
 
   @override
-  Future<Either<Failures, ResetPasswordResponseEntity>> resetPassword(
-      String? email, String? newPassword) async {
-    return await safeApiCall(() async {
-      final response = await authApiClient
-          .resetPassword({"email": email, "newPassword": newPassword});
-
-      return response.toEntity();
-    });
+  Future<ApiResult<ResetPasswordResponseEntity>> resetPassword(
+      ResetPasswordRequestEntity request) async {
+    try {
+      final dto = ResetPasswordRequestDto.fromDomain(request);
+      final response = await _authApiClient.resetPassword(dto);
+      return ApiSuccessResult(data: response.toEntity());
+    } catch (e) {
+      return ApiErrorResult(
+          errorMsg: ErrorHandler.getFriendlyMessage(e.toString()));
+    }
   }
 }

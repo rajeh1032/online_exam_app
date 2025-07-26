@@ -22,12 +22,12 @@ class _AuthApiClient implements AuthApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<SignInResponseDto> signIn(Map<String, dynamic> body) async {
+  Future<SignInResponseDto> signIn(SignInRequestDto signInRequest) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(body);
+    _data.addAll(signInRequest.toJson());
     final _options = _setStreamType<SignInResponseDto>(Options(
       method: 'POST',
       headers: _headers,
@@ -56,12 +56,12 @@ class _AuthApiClient implements AuthApiClient {
   }
 
   @override
-  Future<SignUpResponseDto> signUp(Map<String, dynamic> body) async {
+  Future<SignUpResponseDto> signUp(SignUpRequestDto signUpRequest) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(body);
+    _data.addAll(signUpRequest.toJson());
     final _options = _setStreamType<SignUpResponseDto>(Options(
       method: 'POST',
       headers: _headers,
@@ -91,12 +91,12 @@ class _AuthApiClient implements AuthApiClient {
 
   @override
   Future<ForgetPasswordResponseDto> forgetPassword(
-      Map<String, dynamic> body) async {
+      ForgetPasswordRequestDto forgetPasswordRequest) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(body);
+    _data.addAll(forgetPasswordRequest.toJson());
     final _options = _setStreamType<ForgetPasswordResponseDto>(Options(
       method: 'POST',
       headers: _headers,
@@ -126,12 +126,12 @@ class _AuthApiClient implements AuthApiClient {
 
   @override
   Future<VerifyResetCodeResponseDto> verifyResetCode(
-      Map<String, dynamic> body) async {
+      VerifyResetCodeRequestDto verifyResetCodeRequest) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(body);
+    _data.addAll(verifyResetCodeRequest.toJson());
     final _options = _setStreamType<VerifyResetCodeResponseDto>(Options(
       method: 'POST',
       headers: _headers,
@@ -161,12 +161,12 @@ class _AuthApiClient implements AuthApiClient {
 
   @override
   Future<ResetPasswordResponseDto> resetPassword(
-      Map<String, dynamic> body) async {
+      ResetPasswordRequestDto resetPasswordRequest) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(body);
+    _data.addAll(resetPasswordRequest.toJson());
     final _options = _setStreamType<ResetPasswordResponseDto>(Options(
       method: 'PUT',
       headers: _headers,

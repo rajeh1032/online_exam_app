@@ -1,6 +1,6 @@
 
 
-import 'package:online_exam_app/features/auth/domain/entities/sign_in_response_entity.dart';
+import 'package:online_exam_app/features/auth/domain/entities/response_entities/sign_in_response_entity.dart';
 
 class SignUpResponseEntity {
   SignUpResponseEntity({
