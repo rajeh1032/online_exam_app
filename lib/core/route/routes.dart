@@ -1,38 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:online_exam_app/core/constant/constants.dart';
-import 'package:online_exam_app/core/di/di.dart';
-import 'package:online_exam_app/core/l10n/translation/app_localizations.dart';
-import 'package:online_exam_app/core/provider/app_config_provider.dart';
+
 import 'package:online_exam_app/core/route/app_routes.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/pages/forget_password.dart';
-import 'package:online_exam_app/features/auth/presentation/auth/pages/login_screen.dart';
+
 import 'package:online_exam_app/features/auth/presentation/auth/pages/reset_password.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/pages/verification_code.dart';
 import 'package:online_exam_app/features/home_screen/pages/home_screen.dart';
 
-import '../../features/auth/presentation/auth/pages/signup_screen.dart';
+import '../../features/auth/presentation/auth/pages/sign_in_screen.dart';
+import '../../features/auth/presentation/auth/pages/sign_up_screen.dart';
+
+
 
 abstract class Routes {
   static Route generateRoute(RouteSettings settings) {
     final url = Uri.parse(settings.name ?? "/");
     switch (url.path) {
       case AppRoutes.signup:
-        return MaterialPageRoute(builder: (_) => const SignupScreen());
+        return MaterialPageRoute(builder: (_) => const SignUpScreen());
       case AppRoutes.login:
-        return MaterialPageRoute(builder: (_) => LoginScreen());
+        return MaterialPageRoute(builder: (_) => const SignInScreen());
       case AppRoutes.forgetPassword:
-        return MaterialPageRoute(builder: (_) => ForgetPassword());
+        return MaterialPageRoute(builder: (_) => const ForgetPassword());
 
       case AppRoutes.resetPassword:
-        return MaterialPageRoute(builder: (_) => ResetPassword());
+        return MaterialPageRoute(builder: (_) => const ResetPassword());
 
       case AppRoutes.verificationCode:
-        return MaterialPageRoute(builder: (_) => VerificationCode());
+        return MaterialPageRoute(builder: (_) => const VerificationCode());
       case AppRoutes.homeScreen:
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+        return MaterialPageRoute(builder: (_) => const HomeScreen());
 
       default:
-        return MaterialPageRoute(builder: (context) => Text("No Route Found"));
+        return MaterialPageRoute(builder: (context) => const Text("No Route Found"));
     }
   }
 }
