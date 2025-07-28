@@ -36,25 +36,36 @@ class Constants {
   static const String continueString = 'Continue';
   static const String forgetPasswordTitle = 'Forget Password';
 
-  static const String forgetPasswordMessage = 'Please enter your email associated to your account';
+  static const String forgetPasswordMessage =
+      'Please enter your email associated to your account';
 
   static const String emailVerificationTitle = 'Email Verification';
-  static const String emailVerificationMessage = 'Please enter the verification code sent to your email';
+  static const String emailVerificationMessage =
+      'Please enter the verification code sent to your email';
 
   static const String resendCode = 'Resend ';
 
   static const String didntReceiveCode = 'Didn\'t receive the code? ';
 
-static const String invalidCode = 'Invalid code, please try again.';
+  static const String invalidCode = 'Invalid code, please try again.';
 //Reset password
   static const String resetPasswordTitle = 'Reset Password';
 
- static const String resetPasswordMessage = 'Password must not be empty and must contain 6 characters with upper case letter and one number at least ';
+  static const String resetPasswordMessage =
+      'Password must not be empty and must contain 6 characters with upper case letter and one number at least ';
 
   static const String loading = 'loading';
   static const String error = 'error';
 
   static const String success = 'success';
-  static const String resendCodeSuccessMessage = 'Verification code resent successfully. Please check your email.';
+  static const String resendCodeSuccessMessage =
+      'Verification code resent successfully. Please check your email.';
 
+  static const String examTitle = 'Exam';
+  static const String loadingQuestion = 'Loading question...';
+  static const String loadingAnswer = 'Loading answer...';
+  static const String noQuestionsAvailable = 'No questions available';
+  static const String backButtonText = 'Back';
+  static const String nextButtonText = 'Next';
+  static const String timeUp = 'Time up!';
 }

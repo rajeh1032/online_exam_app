@@ -17,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   HomeScreenViewModel viewModel = getIt<HomeScreenViewModel>();
 
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeScreenViewModel, HomeScreenState>(
       bloc: viewModel,

@@ -9,4 +9,7 @@ abstract class ApiEndpoint {
   static const String verifyResetCode = '/auth/verifyResetCode';
   static const String resetPassword = '/auth/resetPassword';
 
+  //Home 
+  static const String getExamQuestions = '/questions';
+
 }
