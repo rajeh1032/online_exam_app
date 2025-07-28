@@ -10,7 +10,7 @@ import 'package:online_exam_app/features/auth/presentation/auth/cubit/states/res
 import 'package:online_exam_app/features/auth/presentation/auth/cubit/view_models/reset_password_view_model.dart';
 
 class ResetPassword extends StatefulWidget {
-  ResetPassword({super.key});
+  const ResetPassword({super.key});
 
   @override
   State<ResetPassword> createState() => _ResetPasswordState();

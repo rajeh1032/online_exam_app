@@ -1,5 +1,4 @@
 import 'package:either_dart/either.dart';
-import 'package:either_dart/src/either.dart';
 import 'package:injectable/injectable.dart';
 import 'package:online_exam_app/core/errors/failures.dart';
 import 'package:online_exam_app/features/auth/data/datasources/auth_remote_data_source.dart';

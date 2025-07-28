@@ -26,7 +26,13 @@ abstract class Constants {
   static const String passwordHint = "Enter password";
   static const String confirmPasswordHint = "Confirm password";
   static const String phoneNumberHint = "Enter phone number";
-  static const String login='Login';
+  static const String login = 'Login';
 
-
+  static const String examTitle = 'Exam';
+  static const String loadingQuestion = 'Loading question...';
+  static const String loadingAnswer = 'Loading answer...';
+  static const String noQuestionsAvailable = 'No questions available';
+  static const String backButtonText = 'Back';
+  static const String nextButtonText = 'Next';
+  static const String timeUp = 'Time up!';
 }

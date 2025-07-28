@@ -58,7 +58,7 @@ class _VerificationCode extends State<VerificationCode> {
                 setState(() {
                   hasError = true;
                 });
-                Future.delayed(Duration(milliseconds: 100), () {
+                Future.delayed(const Duration(milliseconds: 100), () {
                   viewModel.errorController.add(ErrorAnimationType.shake);
                 });
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -125,7 +125,7 @@ class _VerificationCode extends State<VerificationCode> {
                             inactiveColor: Colors.transparent,
                           ),
                           cursorColor: Colors.black,
-                          animationDuration: Duration(milliseconds: 300),
+                          animationDuration: const Duration(milliseconds: 300),
                           enableActiveFill: true,
                           errorAnimationController: viewModel.errorController,
                           keyboardType: TextInputType.number,
@@ -146,7 +146,7 @@ class _VerificationCode extends State<VerificationCode> {
                         hasError
                             ? "*Please fill up all the cells properly"
                             : "",
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.red,
                           fontSize: 12,
                           fontWeight: FontWeight.w400,

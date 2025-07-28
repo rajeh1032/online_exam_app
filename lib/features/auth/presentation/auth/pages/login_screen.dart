@@ -10,7 +10,7 @@ import 'package:online_exam_app/features/auth/presentation/auth/cubit/states/aut
 import 'package:online_exam_app/features/auth/presentation/auth/cubit/view_models/auth_view_model.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         !viewModel.opscurePassword;
                                   });
                                 }),
-                            label: Text('password'),
+                            label: const Text('password'),
                             hintText: 'Enter Your Password',
                           ),
                         ),

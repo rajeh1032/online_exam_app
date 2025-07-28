@@ -45,6 +45,20 @@ import '../../features/auth/presentation/auth/cubit/view_models/signup_view_mode
 import '../../features/auth/presentation/auth/cubit/view_models/verification_code_view_model.dart'
     as _i1064;
 import '../../features/home_screen/cubit/home_screen_view_model.dart' as _i147;
+import '../../features/home_screen/tabs/home_tab/api/client/home_api_client.dart'
+    as _i952;
+import '../../features/home_screen/tabs/home_tab/api/data_source_impl/home_remote_data_source_impl.dart'
+    as _i334;
+import '../../features/home_screen/tabs/home_tab/data/datasources/home_remote_data_source.dart'
+    as _i523;
+import '../../features/home_screen/tabs/home_tab/data/repositories/home_repositories_impl.dart'
+    as _i938;
+import '../../features/home_screen/tabs/home_tab/domain/repositories/home_repositories.dart'
+    as _i1022;
+import '../../features/home_screen/tabs/home_tab/domain/usecases/get_exam_questions_use_case.dart'
+    as _i272;
+import '../../features/home_screen/tabs/home_tab/presentation/cubit/home_view_model.dart'
+    as _i391;
 import '../provider/app_config_provider.dart' as _i291;
 import '../provider/user_provider.dart' as _i505;
 import '../utils/shared_pref_services.dart' as _i0;
@@ -79,6 +93,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i284.AuthLocalDataSource>(
         () => _i560.AuthLocalDataSourceImpl(gh<_i0.SharedPrefService>()));
     gh.factory<_i213.AuthApiClient>(() => _i213.AuthApiClient(gh<_i361.Dio>()));
+    gh.factory<_i952.HomeApiClient>(() => _i952.HomeApiClient(gh<_i361.Dio>()));
+    gh.factory<_i523.HomeRemoteDataSource>(() => _i334.HomeRemoteDataSourceImpl(
+        homeApiClient: gh<_i952.HomeApiClient>()));
     gh.factory<_i107.AuthRemoteDataSource>(() => _i758.AuthRemoteDataSourceImpl(
           gh<_i213.AuthApiClient>(),
           authLocalDataSource: gh<_i284.AuthLocalDataSource>(),
@@ -87,6 +104,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i291.AppConfigProvider(gh<_i460.SharedPreferences>()));
     gh.factory<_i962.AuthRepository>(
         () => _i394.AuthRepositoriesImpl(gh<_i107.AuthRemoteDataSource>()));
+    gh.factory<_i1022.HomeRepositories>(() => _i938.HomeRepositoriesImpl(
+        homeRemoteDataSource: gh<_i523.HomeRemoteDataSource>()));
+    gh.factory<_i272.GetExamQuestionsUseCase>(
+        () => _i272.GetExamQuestionsUseCase(gh<_i1022.HomeRepositories>()));
     gh.factory<_i591.ForgetPasswordUseCase>(
         () => _i591.ForgetPasswordUseCase(gh<_i962.AuthRepository>()));
     gh.factory<_i825.ResetPasswordUseCase>(
@@ -99,6 +120,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i948.VerifyResetCodeUseCase(gh<_i962.AuthRepository>()));
     gh.factory<_i479.ResetPasswordViewModel>(() => _i479.ResetPasswordViewModel(
         resetPasswordUseCase: gh<_i825.ResetPasswordUseCase>()));
+    gh.factory<_i391.HomeViewModel>(
+        () => _i391.HomeViewModel(gh<_i272.GetExamQuestionsUseCase>()));
     gh.factory<_i894.ForgetPasswordViewModel>(() =>
         _i894.ForgetPasswordViewModel(
             forgetPasswordUseCase: gh<_i591.ForgetPasswordUseCase>()));

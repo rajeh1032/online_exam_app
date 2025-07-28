@@ -16,3 +16,9 @@ class ForgetPasswordErrorState extends ForgetPasswordStates {
   Failures failures;
   ForgetPasswordErrorState({required this.failures});
 }
+
+/*
+1- state : verify reset code
+2- state : reset password
+3- state: reset Password Success State
+*/

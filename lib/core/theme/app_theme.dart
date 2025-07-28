@@ -99,7 +99,7 @@ abstract class AppTheme {
   }
 
   static ThemeData lightTheme = getTheme(
-      colorScheme: ColorScheme(
+      colorScheme: const ColorScheme(
           brightness: Brightness.light,
           primary: AppColors.blue,
           onPrimary: AppColors.white,

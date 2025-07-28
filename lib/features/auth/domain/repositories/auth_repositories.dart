@@ -1,6 +1,5 @@
 import 'package:either_dart/either.dart';
 import 'package:online_exam_app/core/errors/failures.dart';
-import 'package:online_exam_app/features/auth/api/models/response/verify_reset_code_response_dto.dart';
 import 'package:online_exam_app/features/auth/domain/entities/forget_password_response_entity.dart';
 import 'package:online_exam_app/features/auth/domain/entities/reset_password_response_entity.dart';
 import 'package:online_exam_app/features/auth/domain/entities/sign_in_response_entity.dart';

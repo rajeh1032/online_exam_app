@@ -5,7 +5,6 @@ import 'package:online_exam_app/features/auth/api/models/response/forget_passwor
 import 'package:online_exam_app/features/auth/api/models/response/reset_password_response_dto.dart';
 import 'package:online_exam_app/features/auth/api/models/response/sign_in_response_dto.dart';
 import 'package:online_exam_app/features/auth/api/models/response/verify_reset_code_response_dto.dart';
-import 'package:online_exam_app/features/auth/presentation/auth/pages/reset_password.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../models/response/sign_up_response_dto.dart';

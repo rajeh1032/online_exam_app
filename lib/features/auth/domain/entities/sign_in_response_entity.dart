@@ -1,4 +1,3 @@
-import 'package:online_exam_app/features/auth/api/models/user_dto.dart';
 
 class SignInResponseEntity {
   SignInResponseEntity({
