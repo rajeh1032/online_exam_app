@@ -21,28 +21,24 @@ abstract class Routes {
         return MaterialPageRoute(builder: (_) => const SignUpScreen());
       case AppRoutes.login:
         return MaterialPageRoute(builder: (_) => const SignInScreen());
-        return MaterialPageRoute(builder: (_) =>  LoginScreen());
       case AppRoutes.forgetPassword:
         return MaterialPageRoute(builder: (_) => const ForgetPassword());
 
       case AppRoutes.resetPassword:
         return MaterialPageRoute(builder: (_) => const ResetPassword());
-        return MaterialPageRoute(builder: (_) => const ResetPassword());
 
       case AppRoutes.verificationCode:
         return MaterialPageRoute(builder: (_) => const VerificationCode());
-        return MaterialPageRoute(builder: (_) => const VerificationCode());
       case AppRoutes.homeScreen:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
-        return MaterialPageRoute(builder: (_) => const HomeScreen());
+      
 
       case AppRoutes.examQuestions:
         return MaterialPageRoute(builder: (_) => const ExamQuestionScreen());
 
       default:
         return MaterialPageRoute(builder: (context) => const Text("No Route Found"));
-        return MaterialPageRoute(
-            builder: (context) => const Text("No Route Found"));
+   
     }
   }
 }
