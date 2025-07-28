@@ -21,7 +21,7 @@ abstract class Routes {
         return MaterialPageRoute(builder: (_) => const SignUpScreen());
       case AppRoutes.login:
         return MaterialPageRoute(builder: (_) => const SignInScreen());
-        return MaterialPageRoute(builder: (_) => const LoginScreen());
+        return MaterialPageRoute(builder: (_) =>  LoginScreen());
       case AppRoutes.forgetPassword:
         return MaterialPageRoute(builder: (_) => const ForgetPassword());
 
