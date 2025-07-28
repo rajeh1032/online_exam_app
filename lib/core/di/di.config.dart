@@ -34,12 +34,12 @@ import '../../features/auth/domain/usecases/sign_in_use_case.dart' as _i362;
 import '../../features/auth/domain/usecases/sign_up_use_case.dart' as _i1037;
 import '../../features/auth/domain/usecases/verify_reset_code_use_case.dart'
     as _i948;
-import '../../features/auth/presentation/auth/cubit/view_models/auth_view_model.dart'
-    as _i155;
 import '../../features/auth/presentation/auth/cubit/view_models/forget_password_view_model.dart'
     as _i894;
 import '../../features/auth/presentation/auth/cubit/view_models/reset_password_view_model.dart'
     as _i479;
+import '../../features/auth/presentation/auth/cubit/view_models/sign_in_view_model.dart'
+    as _i947;
 import '../../features/auth/presentation/auth/cubit/view_models/signup_view_model.dart'
     as _i546;
 import '../../features/auth/presentation/auth/cubit/view_models/verification_code_view_model.dart'
@@ -97,13 +97,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i523.HomeRemoteDataSource>(() => _i334.HomeRemoteDataSourceImpl(
         homeApiClient: gh<_i952.HomeApiClient>()));
     gh.factory<_i107.AuthRemoteDataSource>(() => _i758.AuthRemoteDataSourceImpl(
-          gh<_i213.AuthApiClient>(),
-          authLocalDataSource: gh<_i284.AuthLocalDataSource>(),
-        ));
+        authApiClient: gh<_i213.AuthApiClient>()));
     gh.singleton<_i291.AppConfigProvider>(
         () => _i291.AppConfigProvider(gh<_i460.SharedPreferences>()));
-    gh.factory<_i962.AuthRepository>(
-        () => _i394.AuthRepositoriesImpl(gh<_i107.AuthRemoteDataSource>()));
+    gh.factory<_i962.AuthRepository>(() => _i394.AuthRepositoriesImpl(
+        authRemoteDataSource: gh<_i107.AuthRemoteDataSource>()));
     gh.factory<_i1022.HomeRepositories>(() => _i938.HomeRepositoriesImpl(
         homeRemoteDataSource: gh<_i523.HomeRemoteDataSource>()));
     gh.factory<_i272.GetExamQuestionsUseCase>(
@@ -118,10 +116,17 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1037.SignUpUseCase(gh<_i962.AuthRepository>()));
     gh.factory<_i948.VerifyResetCodeUseCase>(
         () => _i948.VerifyResetCodeUseCase(gh<_i962.AuthRepository>()));
+    gh.factory<_i1064.VerificationCodeViewModel>(
+        () => _i1064.VerificationCodeViewModel(
+              verifyResetCodeUseCase: gh<_i948.VerifyResetCodeUseCase>(),
+              appConfigProvider: gh<_i291.AppConfigProvider>(),
+            ));
+    gh.factory<_i947.SignInViewModel>(() => _i947.SignInViewModel(
+          signInUseCase: gh<_i362.SignInUseCase>(),
+          appConfigProvider: gh<_i291.AppConfigProvider>(),
+        ));
     gh.factory<_i479.ResetPasswordViewModel>(() => _i479.ResetPasswordViewModel(
         resetPasswordUseCase: gh<_i825.ResetPasswordUseCase>()));
-    gh.factory<_i391.HomeViewModel>(
-        () => _i391.HomeViewModel(gh<_i272.GetExamQuestionsUseCase>()));
     gh.factory<_i894.ForgetPasswordViewModel>(() =>
         _i894.ForgetPasswordViewModel(
             forgetPasswordUseCase: gh<_i591.ForgetPasswordUseCase>()));
@@ -129,9 +134,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i155.AuthViewModel(signInUseCase: gh<_i362.SignInUseCase>()));
     gh.factory<_i546.SignUpViewModel>(
         () => _i546.SignUpViewModel(signUpUseCase: gh<_i1037.SignUpUseCase>()));
-    gh.factory<_i1064.VerificationCodeViewModel>(() =>
-        _i1064.VerificationCodeViewModel(
-            verifyResetCodeUseCase: gh<_i948.VerifyResetCodeUseCase>()));
     return this;
   }
 }

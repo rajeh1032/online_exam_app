@@ -1,66 +1,58 @@
-import 'package:either_dart/either.dart';
+
 import 'package:injectable/injectable.dart';
-import 'package:online_exam_app/core/errors/failures.dart';
+
 import 'package:online_exam_app/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:online_exam_app/features/auth/domain/entities/forget_password_response_entity.dart';
-import 'package:online_exam_app/features/auth/domain/entities/reset_password_response_entity.dart';
-import 'package:online_exam_app/features/auth/domain/entities/sign_in_response_entity.dart';
-import 'package:online_exam_app/features/auth/domain/entities/verify_reset_code_response_entity.dart';
+import 'package:online_exam_app/features/auth/domain/entities/response_entities/forget_password_response_entity.dart';
+import 'package:online_exam_app/features/auth/domain/entities/response_entities/reset_password_response_entity.dart';
+import 'package:online_exam_app/features/auth/domain/entities/response_entities/sign_in_response_entity.dart';
+import 'package:online_exam_app/features/auth/domain/entities/response_entities/verify_reset_code_response_entity.dart';
 import 'package:online_exam_app/features/auth/domain/repositories/auth_repositories.dart';
 
-import '../../domain/entities/sign_up_response_entity.dart';
+import '../../../../core/api_result/api_result.dart';
+import '../../domain/entities/request_entities/forget_password_request_entity.dart';
+import '../../domain/entities/request_entities/reset_password_request_entity.dart';
+import '../../domain/entities/request_entities/sign_in_request_entity.dart';
+import '../../domain/entities/request_entities/sign_up_request_entity.dart';
+import '../../domain/entities/request_entities/verify_reset_code_request_entity.dart';
+import '../../domain/entities/response_entities/sign_up_response_entity.dart';
 
 @Injectable(as: AuthRepository)
 class AuthRepositoriesImpl implements AuthRepository {
-  AuthRemoteDataSource authRemoteDataSource;
+  final AuthRemoteDataSource _authRemoteDataSource;
 
-  AuthRepositoriesImpl(this.authRemoteDataSource);
+  AuthRepositoriesImpl({required AuthRemoteDataSource authRemoteDataSource})
+      : _authRemoteDataSource = authRemoteDataSource;
+
   @override
-  Future<Either<Failures, SignInResponseEntity>> signIn(
-      String? email, String? password) {
-    var either = authRemoteDataSource.signIn(email, password);
-    return either.fold((error) => Left(error), (response) => Right(response));
+  Future<ApiResult<SignInResponseEntity>> signIn(
+      SignInRequestEntity signInRequest) {
+    return _authRemoteDataSource.signIn(signInRequest);
   }
 
   @override
-  Future<Either<Failures, SignUpResponseEntity>> signUp(
-      String? username,
-      String? firstName,
-      String? lastName,
-      String? email,
-      String? password,
-      String? rePassword,
-      String? phone) {
-    var either = authRemoteDataSource.signUp(
-      username,
-      firstName,
-      lastName,
-      email,
-      password,
-      rePassword,
-      phone,
-    );
-    return either.fold((error) => Left(error), (response) => Right(response));
+  Future<ApiResult<SignUpResponseEntity>> signUp(
+      SignUpRequestEntity signUpRequest) {
+    return _authRemoteDataSource.signUp(signUpRequest);
   }
 
   @override
-  Future<Either<Failures, ForgetPasswordResponseEntity>> forgetPassword(
-      String? email) async {
-    var either = authRemoteDataSource.forgetPassword(email);
-    return either.fold((error) => Left(error), (response) => Right(response));
+  Future<ApiResult<ForgetPasswordResponseEntity>> forgetPassword(
+    ForgetPasswordRequestEntity request,
+  ) {
+    return _authRemoteDataSource.forgetPassword(request);
   }
 
   @override
-  Future<Either<Failures, VerifyResetCodeResponseEntity>> verifyResetCode(
-      String? resetCode) async {
-    var either = authRemoteDataSource.verifyResetCode(resetCode);
-    return either.fold((error) => Left(error), (response) => Right(response));
+  Future<ApiResult<VerifyResetCodeResponseEntity>> verifyResetCode(
+    VerifyResetCodeRequestEntity request,
+  ) {
+    return _authRemoteDataSource.verifyResetCode(request);
   }
 
   @override
-  Future<Either<Failures, ResetPasswordResponseEntity>> resetPassword(
-      String? email, String? newPassword) async {
-    var either = authRemoteDataSource.resetPassword(email, newPassword);
-    return either.fold((error) => Left(error), (response) => Right(response));
+  Future<ApiResult<ResetPasswordResponseEntity>> resetPassword(
+    ResetPasswordRequestEntity request,
+  ) {
+    return _authRemoteDataSource.resetPassword(request);
   }
 }

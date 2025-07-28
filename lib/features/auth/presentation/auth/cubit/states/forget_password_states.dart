@@ -1,24 +1,35 @@
-import 'package:online_exam_app/core/errors/failures.dart';
-import 'package:online_exam_app/features/auth/domain/entities/forget_password_response_entity.dart';
 
-sealed class ForgetPasswordStates {}
+import 'package:equatable/equatable.dart';
+import 'package:online_exam_app/features/auth/domain/entities/response_entities/forget_password_response_entity.dart';
+enum ForgetPasswordStatus { initial, loading, success, error }
+class ForgetPasswordStates extends Equatable {
 
-class ForgetPasswordInitialState extends ForgetPasswordStates {}
+  final String? errorMsg;
+  final bool isFormValid;
+  final ForgetPasswordStatus status;
+  final ForgetPasswordResponseEntity ? response;
 
-class ForgetPasswordLoadingState extends ForgetPasswordStates {}
+  const ForgetPasswordStates({
+    this.errorMsg,
+    this.status = ForgetPasswordStatus.initial,
+    this.isFormValid = false,
+    this.response,
+  });
 
-class ForgetPasswordSuccessState extends ForgetPasswordStates {
-  ForgetPasswordResponseEntity forgetPasswordResponseEntity;
-  ForgetPasswordSuccessState({required this.forgetPasswordResponseEntity});
+  ForgetPasswordStates copyWith({
+    String? errorMsg,
+    ForgetPasswordStatus? status,
+    bool? isFormValid,
+    ForgetPasswordResponseEntity? response,
+  }) {
+    return ForgetPasswordStates(
+      status: status ?? this.status,
+      errorMsg: errorMsg ?? this.errorMsg,
+      isFormValid: isFormValid ?? this.isFormValid,
+      response: response ?? this.response,
+    );
+  }
+
+  @override
+  List<Object?> get props => [errorMsg, status, isFormValid, response];
 }
-
-class ForgetPasswordErrorState extends ForgetPasswordStates {
-  Failures failures;
-  ForgetPasswordErrorState({required this.failures});
-}
-
-/*
-1- state : verify reset code
-2- state : reset password
-3- state: reset Password Success State
-*/

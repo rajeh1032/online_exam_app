@@ -1,5 +1,5 @@
-abstract class Constants {
-  static const String baseUrl = 'https://exam.elevateegy.com';
+class Constants {
+  static const String noRoute = 'No Route';
   static const String localKey = 'local_key';
   static const String arLocalKey = 'ar';
   static const String enLocalKey = 'en';
@@ -26,6 +26,38 @@ abstract class Constants {
   static const String passwordHint = "Enter password";
   static const String confirmPasswordHint = "Confirm password";
   static const String phoneNumberHint = "Enter phone number";
+  static const String login = 'Login';
+  static const String rememberMe = 'Remember me';
+  static const String forgetPassword = 'Forget Password?';
+  static const String doNotHaveAccount = 'Don\'t have an account?';
+  static const String rememberMeKey = 'remember_me';
+  static const String savedEmailKey = 'saved_email';
+  static const String savedPasswordKey = 'saved_password';
+  static const String continueString = 'Continue';
+  static const String forgetPasswordTitle = 'Forget Password';
+
+  static const String forgetPasswordMessage = 'Please enter your email associated to your account';
+
+  static const String emailVerificationTitle = 'Email Verification';
+  static const String emailVerificationMessage = 'Please enter the verification code sent to your email';
+
+  static const String resendCode = 'Resend ';
+
+  static const String didntReceiveCode = 'Didn\'t receive the code? ';
+
+static const String invalidCode = 'Invalid code, please try again.';
+//Reset password
+  static const String resetPasswordTitle = 'Reset Password';
+
+ static const String resetPasswordMessage = 'Password must not be empty and must contain 6 characters with upper case letter and one number at least ';
+
+  static const String loading = 'loading';
+  static const String error = 'error';
+
+  static const String success = 'success';
+  static const String resendCodeSuccessMessage = 'Verification code resent successfully. Please check your email.';
+
+}
   static const String login = 'Login';
 
   static const String examTitle = 'Exam';
