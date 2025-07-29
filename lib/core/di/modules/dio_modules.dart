@@ -34,7 +34,6 @@ abstract class DioModules {
 
       if (token != null && token.isNotEmpty) {
         options.headers['token'] = '$token';
-        print("MY Token $token");
       }
 
       return handler.next(options);

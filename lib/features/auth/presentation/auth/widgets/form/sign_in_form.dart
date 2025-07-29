@@ -75,9 +75,13 @@ class SignInForm extends StatelessWidget {
                       builder: (context, state) {
                         return BuildElevatedButton(
                           text: Constants.login,
-                          onPressed: state.isFormValid
-                              ? () => viewModel.signIn()
-                              : null,
+                          onPressed: () {
+                            if (state.isFormValid) {
+                              viewModel.signIn();
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, AppRoutes.home, (route) => false);
+                            }
+                          },
                         );
                       },
                     ),
