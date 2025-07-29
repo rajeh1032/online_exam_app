@@ -25,6 +25,7 @@ class _ExamQuestionScreenState extends State<ExamQuestionScreen> {
   List<int> selectedAnswers = [];
   int currentIndex = 0;
   bool singleChoice = true;
+
   HomeViewModel homeViewModel = getIt.get<HomeViewModel>();
   void selectAnswer(int index) {
     setState(() {
@@ -93,6 +94,9 @@ class _ExamQuestionScreenState extends State<ExamQuestionScreen> {
                       }
 
                       final currentQuestion = questions[currentIndex];
+                      singleChoice =
+                          (currentQuestion.type?.toLowerCase() ?? "") ==
+                              "single_choice";
 
                       return QuestionsWidget(
                         questionEntity: currentQuestion,
