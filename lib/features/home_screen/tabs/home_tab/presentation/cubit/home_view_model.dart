@@ -11,6 +11,7 @@ import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/
 class HomeViewModel extends Cubit<HomeState> {
   final GetExamQuestionsUseCase getExamQuestionsUseCase;
 
+  int examDuration = 0;
   HomeViewModel(this.getExamQuestionsUseCase) : super(HomeState());
 
   void doIntent(HomeEvent event) async {
@@ -20,7 +21,6 @@ class HomeViewModel extends Cubit<HomeState> {
     }
   }
 
-  int  examDuration = 0;
   Future<void> _getExamQuestions(String examId) async {
     emit(state.copyWith(examQuestionsIsLoadingArg: true));
 
