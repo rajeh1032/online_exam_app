@@ -94,18 +94,22 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i560.AuthLocalDataSourceImpl(gh<_i0.SharedPrefService>()));
     gh.factory<_i213.AuthApiClient>(() => _i213.AuthApiClient(gh<_i361.Dio>()));
     gh.factory<_i952.HomeApiClient>(() => _i952.HomeApiClient(gh<_i361.Dio>()));
-    gh.factory<_i107.AuthRemoteDataSource>(() => _i758.AuthRemoteDataSourceImpl(
-        authApiClient: gh<_i213.AuthApiClient>()));
     gh.factory<_i523.HomeRemoteDataSource>(() => _i334.HomeRemoteDataSourceImpl(
         homeApiClient: gh<_i952.HomeApiClient>()));
     gh.singleton<_i291.AppConfigProvider>(
         () => _i291.AppConfigProvider(gh<_i460.SharedPreferences>()));
-    gh.factory<_i962.AuthRepository>(() => _i394.AuthRepositoriesImpl(
-        authRemoteDataSource: gh<_i107.AuthRemoteDataSource>()));
+    gh.factory<_i107.AuthRemoteDataSource>(() => _i758.AuthRemoteDataSourceImpl(
+          authApiClient: gh<_i213.AuthApiClient>(),
+          authLocalDataSource: gh<_i284.AuthLocalDataSource>(),
+        ));
     gh.factory<_i1022.HomeRepositories>(() => _i938.HomeRepositoriesImpl(
         homeRemoteDataSource: gh<_i523.HomeRemoteDataSource>()));
     gh.factory<_i272.GetExamQuestionsUseCase>(
         () => _i272.GetExamQuestionsUseCase(gh<_i1022.HomeRepositories>()));
+    gh.factory<_i391.HomeViewModel>(
+        () => _i391.HomeViewModel(gh<_i272.GetExamQuestionsUseCase>()));
+    gh.factory<_i962.AuthRepository>(() => _i394.AuthRepositoriesImpl(
+        authRemoteDataSource: gh<_i107.AuthRemoteDataSource>()));
     gh.factory<_i591.ForgetPasswordUseCase>(
         () => _i591.ForgetPasswordUseCase(gh<_i962.AuthRepository>()));
     gh.factory<_i825.ResetPasswordUseCase>(
@@ -125,8 +129,6 @@ extension GetItInjectableX on _i174.GetIt {
           signInUseCase: gh<_i362.SignInUseCase>(),
           appConfigProvider: gh<_i291.AppConfigProvider>(),
         ));
-    gh.factory<_i391.HomeViewModel>(
-        () => _i391.HomeViewModel(gh<_i272.GetExamQuestionsUseCase>()));
     gh.factory<_i479.ResetPasswordViewModel>(() => _i479.ResetPasswordViewModel(
           resetPasswordUseCase: gh<_i825.ResetPasswordUseCase>(),
           appConfigProvider: gh<_i291.AppConfigProvider>(),

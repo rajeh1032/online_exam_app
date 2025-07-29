@@ -5,6 +5,7 @@ import 'package:online_exam_app/features/auth/api/mapper/sign_in_response_dto_ma
 import 'package:online_exam_app/features/auth/api/mapper/sign_up_response_dto_mapper.dart';
 import 'package:online_exam_app/features/auth/api/models/forget_password_request_dto.dart';
 import 'package:online_exam_app/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:online_exam_app/features/auth/data/local/auth_local_data_source.dart';
 
 import 'package:online_exam_app/features/auth/domain/entities/request_entities/forget_password_request_entity.dart';
 import 'package:online_exam_app/features/auth/domain/entities/response_entities/forget_password_response_entity.dart';
@@ -30,9 +31,13 @@ import '../models/verify_reset_code_request_dto.dart';
 @Injectable(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final AuthApiClient _authApiClient;
+  final AuthLocalDataSource _authLocalDataSource;
 
-  AuthRemoteDataSourceImpl({required AuthApiClient authApiClient})
-      : _authApiClient = authApiClient;
+  AuthRemoteDataSourceImpl({
+    required AuthApiClient authApiClient,
+    required AuthLocalDataSource authLocalDataSource,
+  })  : _authApiClient = authApiClient,
+        _authLocalDataSource = authLocalDataSource;
 
   @override
   Future<ApiResult<SignInResponseEntity>> signIn(
@@ -40,6 +45,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     try {
       var response = await _authApiClient
           .signIn(SignInRequestDto.fromDomain(signInRequest));
+      if (response.token.isNotEmpty) {
+        await _authLocalDataSource.saveToken(response.token);
+      }
       return ApiSuccessResult(data: response.toEntity());
     } catch (e) {
       return ApiErrorResult<SignInResponseEntity>(
