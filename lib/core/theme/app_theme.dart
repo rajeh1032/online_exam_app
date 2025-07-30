@@ -73,6 +73,11 @@ abstract class AppTheme {
           fontSize: 16.sp,
           fontWeight: FontWeight.w400,
         ),
+        titleSmall: TextStyle(
+          color: AppColors.blue,
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w600,
+        ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: TextStyle(color: textFieldBorderColor,fontSize: 14,fontWeight: FontWeight.w400),
@@ -95,6 +100,31 @@ abstract class AppTheme {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
           borderSide: BorderSide(color: textFieldBorderColor),
+        ),
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: AppColors.darkWhite,
+        showUnselectedLabels: true,
+        elevation: 0,
+        selectedIconTheme: IconThemeData(
+          size: 24.sp,
+          color: colorScheme.primary,
+        ),
+        unselectedIconTheme: IconThemeData(
+          size: 24.sp,
+          color: colorScheme.primary,
+        ),
+        selectedLabelStyle: TextStyle(
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w500,
+          color: colorScheme.primary,
+
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontSize:  18.sp,
+          fontWeight: FontWeight.w500,
+          color: colorScheme.primary,
         ),
       ),
     );

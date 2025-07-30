@@ -8,6 +8,8 @@ class ErrorHandler {
       return ErrorMessages.timeout;
     } else if (error.contains('401')) {
       return ErrorMessages.unauthorized;
+    } else if (error.contains('409')) {
+      return ErrorMessages.usernameAlreadyExists;
     } else if (error.contains('500')) {
       return ErrorMessages.serverError;
     } else if (error.contains('DioError')) {

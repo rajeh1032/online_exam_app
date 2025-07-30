@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:online_exam_app/core/local_storage/remember_me_local_data_source.dart';
 
 import '../../../../../../core/api_result/api_result.dart';
-import '../../../../../../core/provider/app_config_provider.dart';
 import '../../../../domain/entities/request_entities/sign_in_request_entity.dart';
 import '../../../../domain/entities/response_entities/sign_in_response_entity.dart';
 import '../../../../domain/usecases/sign_in_use_case.dart';
@@ -14,13 +14,13 @@ import '../states/sign_in_state.dart';
 @injectable
 class SignInViewModel extends Cubit<SignInState> {
   final SignInUseCase _signInUseCase;
-  final AppConfigProvider _appConfig;
+  final RememberMeLocalDataSource _rememberMeLocalDataSource;
 
   SignInViewModel(
       {required SignInUseCase signInUseCase,
-      required AppConfigProvider appConfigProvider})
+      required RememberMeLocalDataSource rememberMeLocalDataSource,})
       : _signInUseCase = signInUseCase,
-        _appConfig = appConfigProvider,
+        _rememberMeLocalDataSource = rememberMeLocalDataSource,
         super(const SignInState()) {
     _controllerInitiate();
     _loadSavedCredentials();
@@ -55,13 +55,13 @@ class SignInViewModel extends Cubit<SignInState> {
     emit(state.copyWith(rememberMe: value, response: null, errorMsg: null));
   }
 
-  void _loadSavedCredentials() {
-    if (_appConfig.isRemembered) {
-      signInEmailController.text = _appConfig.savedEmail ?? '';
-      signInPasswordController.text = _appConfig.savedPassword ?? '';
+  void _loadSavedCredentials()async {
+    if (await _rememberMeLocalDataSource.isRemembered) {
+      signInEmailController.text =await _rememberMeLocalDataSource.getSavedEmail()??'';
+      signInPasswordController.text =await _rememberMeLocalDataSource.getSavedPassword() ?? '';
       emit(state.copyWith(rememberMe: true));
     } else {
-      _appConfig.clearRememberMe();
+      _rememberMeLocalDataSource.clearRememberMe();
     }
   }
 
@@ -88,7 +88,7 @@ class SignInViewModel extends Cubit<SignInState> {
     switch (result) {
       case ApiSuccessResult<SignInResponseEntity>():
         if (state.rememberMe) {
-          await _appConfig.saveRememberMe(
+          await _rememberMeLocalDataSource.saveRememberMe(
             email: signInEmailController.text.trim(),
             password: signInPasswordController.text,
           );

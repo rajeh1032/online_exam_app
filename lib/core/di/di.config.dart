@@ -9,6 +9,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
@@ -59,10 +60,13 @@ import '../../features/home_screen/tabs/home_tab/domain/usecases/get_exam_questi
     as _i272;
 import '../../features/home_screen/tabs/home_tab/presentation/cubit/home_view_model.dart'
     as _i391;
+import '../local_storage/remember_me_local_data_source.dart' as _i950;
+import '../local_storage/secure_storage_service.dart' as _i969;
 import '../provider/app_config_provider.dart' as _i291;
 import '../provider/user_provider.dart' as _i505;
 import '../utils/shared_pref_services.dart' as _i0;
 import 'modules/dio_modules.dart' as _i288;
+import 'modules/secure_storage_module.dart' as _i590;
 import 'modules/shared_preferences_module.dart' as _i813;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -78,6 +82,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     final sharedPreferencesModule = _$SharedPreferencesModule();
     final dioModules = _$DioModules();
+    final secureStorageModule = _$SecureStorageModule();
     await gh.factoryAsync<_i460.SharedPreferences>(
       () => sharedPreferencesModule.provideSharedPreferences(),
       preResolve: true,
@@ -86,6 +91,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i505.UserProvider>(() => _i505.UserProvider());
     gh.lazySingleton<_i528.PrettyDioLogger>(
         () => dioModules.providePrettyDioLogger());
+    gh.lazySingleton<_i558.FlutterSecureStorage>(
+        () => secureStorageModule.provideSecureStorage());
     gh.lazySingleton<_i361.Dio>(
         () => dioModules.provideDio(gh<_i528.PrettyDioLogger>()));
     gh.factory<_i0.SharedPrefService>(
@@ -94,6 +101,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i560.AuthLocalDataSourceImpl(gh<_i0.SharedPrefService>()));
     gh.factory<_i213.AuthApiClient>(() => _i213.AuthApiClient(gh<_i361.Dio>()));
     gh.factory<_i952.HomeApiClient>(() => _i952.HomeApiClient(gh<_i361.Dio>()));
+    gh.lazySingleton<_i969.SecureStorageService>(
+        () => _i969.SecureStorageService(gh<_i558.FlutterSecureStorage>()));
+    gh.lazySingleton<_i950.RememberMeLocalDataSource>(() =>
+        _i950.RememberMeLocalDataSource(gh<_i558.FlutterSecureStorage>()));
     gh.factory<_i523.HomeRemoteDataSource>(() => _i334.HomeRemoteDataSourceImpl(
         homeApiClient: gh<_i952.HomeApiClient>()));
     gh.singleton<_i291.AppConfigProvider>(
@@ -120,24 +131,24 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1037.SignUpUseCase(gh<_i962.AuthRepository>()));
     gh.factory<_i948.VerifyResetCodeUseCase>(
         () => _i948.VerifyResetCodeUseCase(gh<_i962.AuthRepository>()));
+    gh.factory<_i947.SignInViewModel>(() => _i947.SignInViewModel(
+          signInUseCase: gh<_i362.SignInUseCase>(),
+          rememberMeLocalDataSource: gh<_i950.RememberMeLocalDataSource>(),
+        ));
     gh.factory<_i1064.VerificationCodeViewModel>(
         () => _i1064.VerificationCodeViewModel(
               verifyResetCodeUseCase: gh<_i948.VerifyResetCodeUseCase>(),
-              appConfigProvider: gh<_i291.AppConfigProvider>(),
+              rememberMeLocalDataSource: gh<_i950.RememberMeLocalDataSource>(),
             ));
-    gh.factory<_i947.SignInViewModel>(() => _i947.SignInViewModel(
-          signInUseCase: gh<_i362.SignInUseCase>(),
-          appConfigProvider: gh<_i291.AppConfigProvider>(),
-        ));
-    gh.factory<_i479.ResetPasswordViewModel>(() => _i479.ResetPasswordViewModel(
-          resetPasswordUseCase: gh<_i825.ResetPasswordUseCase>(),
-          appConfigProvider: gh<_i291.AppConfigProvider>(),
-        ));
     gh.factory<_i894.ForgetPasswordViewModel>(
         () => _i894.ForgetPasswordViewModel(
               forgetPasswordUseCase: gh<_i591.ForgetPasswordUseCase>(),
-              appConfigProvider: gh<_i291.AppConfigProvider>(),
+              rememberMeLocalDataSource: gh<_i950.RememberMeLocalDataSource>(),
             ));
+    gh.factory<_i479.ResetPasswordViewModel>(() => _i479.ResetPasswordViewModel(
+          resetPasswordUseCase: gh<_i825.ResetPasswordUseCase>(),
+          rememberMeLocalDataSource: gh<_i950.RememberMeLocalDataSource>(),
+        ));
     gh.factory<_i546.SignUpViewModel>(
         () => _i546.SignUpViewModel(signUpUseCase: gh<_i1037.SignUpUseCase>()));
     return this;
@@ -147,3 +158,5 @@ extension GetItInjectableX on _i174.GetIt {
 class _$SharedPreferencesModule extends _i813.SharedPreferencesModule {}
 
 class _$DioModules extends _i288.DioModules {}
+
+class _$SecureStorageModule extends _i590.SecureStorageModule {}

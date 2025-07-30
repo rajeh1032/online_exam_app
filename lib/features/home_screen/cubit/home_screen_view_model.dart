@@ -8,14 +8,22 @@ import 'package:online_exam_app/features/home_screen/tabs/result_tab/presentatio
 
 @injectable
 class HomeScreenViewModel extends Cubit<HomeScreenState> {
-  HomeScreenViewModel() : super(HomeInitialState());
-  //todo : hold data handle logic
-  int selectedIndex = 0;
+  HomeScreenViewModel() : super(const HomeScreenState());
 
-  List<Widget> bodyList = [HomeTab(), const ResultTab(), const ProfileTab()];
+
+
+  final List<Widget> bodyList =[
+    HomeTab(),
+    const ResultTab(),
+     const ProfileTab(),
+  ];
 
   void bottomNavOnTap(int index) {
-    selectedIndex = index;
-    emit(HomeInitialState());
+    if (index == state.selectedIndex) return;
+    emit(state.copyWith(
+      status: HomeStatus.indexChanged,
+      selectedIndex: index,
+    ));
+
   }
 }

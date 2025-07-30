@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:online_exam_app/core/utils/dialog_utils.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/cubit/states/reset_password_states.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/cubit/view_models/reset_password_view_model.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/widgets/build_app_bar.dart';
@@ -11,12 +12,18 @@ import '../../../../../../core/constant/constants.dart';
 import '../build_confirm_password_field.dart';
 import '../build_title_and_sub.dart';
 
-class ResetPasswordForm extends StatelessWidget {
+class ResetPasswordForm extends StatefulWidget {
   const ResetPasswordForm({super.key});
 
   @override
+  State<ResetPasswordForm> createState() => _ResetPasswordFormState();
+}
+
+class _ResetPasswordFormState extends State<ResetPasswordForm> {
+  late final ResetPasswordViewModel viewModel;
+  @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<ResetPasswordViewModel>();
+     viewModel = context.read<ResetPasswordViewModel>();
     return Scaffold(
       appBar:const BuildAppBar(title: Constants.passwordLabel),
       body: SafeArea(
@@ -41,11 +48,26 @@ class ResetPasswordForm extends StatelessWidget {
                     SizedBox(height: 48.h),
                     BlocBuilder<ResetPasswordViewModel, ResetPasswordStates>(
                       builder: (context, state) {
-                        return BuildElevatedButton(
+                        return
+
+                          BuildElevatedButton(
                           text: Constants.continueString,
-                          onPressed: state.isFormValid
-                              ? () =>viewModel.resetPassword( email:  viewModel.email)
-                              : null,
+                            onPressed: state.isFormValid
+                                ? () async {
+                              final email = await viewModel.email;
+
+                              if (!context.mounted) return;
+
+                              if (email != null && email.isNotEmpty) {
+                                await viewModel.resetPassword(email: email);
+                              } else {
+                                DialogUtils.showMessage(
+                                  context: context,
+                                  message: Constants.emailNotFoundError,
+                                );
+                              }
+                            }
+                                : null,
                         );
                       },
                     ),
