@@ -11,8 +11,6 @@ import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/
 import '../../features/auth/presentation/auth/pages/sign_in_screen.dart';
 import '../../features/auth/presentation/auth/pages/sign_up_screen.dart';
 
-
-
 abstract class Routes {
   static Route generateRoute(RouteSettings settings) {
     final url = Uri.parse(settings.name ?? "/");
@@ -31,14 +29,16 @@ abstract class Routes {
         return MaterialPageRoute(builder: (_) => const VerificationCode());
       case AppRoutes.homeScreen:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
-      
 
       case AppRoutes.examQuestions:
-        return MaterialPageRoute(builder: (_) => const ExamQuestionScreen());
+        return MaterialPageRoute(
+            builder: (_) => ExamQuestionsScreen(
+                  examId: '6700708d30a3c3c1944a9c60',
+                ));
 
       default:
-        return MaterialPageRoute(builder: (context) => const Text("No Route Found"));
-   
+        return MaterialPageRoute(
+            builder: (context) => const Text("No Route Found"));
     }
   }
 }

@@ -4,49 +4,36 @@ class HomeState {
   bool examQuestionsIsLoading;
   List<QuestionsEntity>? questionsList;
   String? examQuestionsError;
-  /*###############################*/
+  final int currentQuestionIndex;
+  final Map<String, List<String>> userAnswers;
+  final int? examScore;
 
   HomeState({
     this.examQuestionsIsLoading = true,
     this.questionsList = const [],
     this.examQuestionsError,
+    this.currentQuestionIndex = 0,
+    this.userAnswers = const {},
+    this.examScore,
   });
 
   HomeState copyWith({
     bool? examQuestionsIsLoadingArg,
     List<QuestionsEntity>? questionsListArg,
     String? examQuestionsErrorArg,
+    int? currentQuestionIndexArg,
+    Map<String, List<String>>? userAnswersArg,
+    int? examScoreArg,
   }) {
     return HomeState(
       examQuestionsIsLoading:
           examQuestionsIsLoadingArg ?? this.examQuestionsIsLoading,
       questionsList: questionsListArg ?? this.questionsList,
       examQuestionsError: examQuestionsErrorArg,
+      currentQuestionIndex:
+          currentQuestionIndexArg ?? this.currentQuestionIndex,
+      userAnswers: userAnswersArg ?? this.userAnswers,
+      examScore: examScoreArg ?? this.examScore,
     );
   }
 }
-
-
-
-
-// //sealed=> make you must should handle every state
-// import 'package:elevate_c3_sunday/features/home/domain/models/category_model.dart';
-
-// sealed class HomeState {}
-
-// class HomeInitialState extends HomeState {}
-
-// class HomeLoadingState extends HomeState {}
-
-// class HomeSuccessState extends HomeState {
-//   List<CategoryModel> catList;
-//   HomeSuccessState({required this.catList});
-// }
-
-// class HomeErrorState extends HomeState {
-//   String errorMessage;
-//   HomeErrorState({required this.errorMessage});
-// }
- 
-
-

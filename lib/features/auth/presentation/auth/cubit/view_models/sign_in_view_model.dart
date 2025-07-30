@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -9,7 +8,6 @@ import '../../../../domain/entities/request_entities/sign_in_request_entity.dart
 import '../../../../domain/entities/response_entities/sign_in_response_entity.dart';
 import '../../../../domain/usecases/sign_in_use_case.dart';
 import '../states/sign_in_state.dart';
-
 
 @injectable
 class SignInViewModel extends Cubit<SignInState> {
@@ -32,20 +30,18 @@ class SignInViewModel extends Cubit<SignInState> {
   late final TextEditingController signInPasswordController;
 
   void _controllerInitiate() {
-    signInEmailController = TextEditingController();
+    signInEmailController =
+        TextEditingController( );
     signInPasswordController = TextEditingController();
   }
 
   void _addListenersToControllers() {
-    final controllers = [
-      signInEmailController,
-      signInPasswordController
-    ];
+    final controllers = [signInEmailController, signInPasswordController];
     for (final controller in controllers) {
       controller.addListener(_validateForm);
     }
-
   }
+
   void _validateForm() {
     final isValid = formKey.currentState?.validate() == true;
     emit(state.copyWith(isFormValid: isValid));
