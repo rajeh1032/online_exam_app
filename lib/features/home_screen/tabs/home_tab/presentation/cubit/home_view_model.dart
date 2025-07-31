@@ -68,9 +68,9 @@ class HomeViewModel extends Cubit<HomeState> {
     if (selectedAnswerKey == null) return;
 
     final questionId = currentQuestion.id ?? '';
-    final _isSingleChoice = isSingleChoice(currentQuestion);
+    final singleChoice = isSingleChoice(currentQuestion);
     final updatedAnswers = Map<String, List<String>>.from(state.userAnswers);
-    if (_isSingleChoice) {
+    if (singleChoice) {
       updatedAnswers[questionId] = [selectedAnswerKey];
     } else {
       final currentAnswers = updatedAnswers[questionId] ?? [];
@@ -122,9 +122,13 @@ class HomeViewModel extends Cubit<HomeState> {
 
   void _submitExam() {
     final questions = state.questionsList;
-    if (questions == null) return;
+    if (questions == null || questions.isEmpty) return;
     final score = _calculateScore(questions, state.userAnswers);
-    emit(state.copyWith(examScoreArg: score));
+    emit(state.copyWith(
+      
+      examScoreArg: score,
+      isExamSubmittedArg: true,
+    ));
   }
 
   int _calculateScore(

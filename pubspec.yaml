@@ -37,6 +37,7 @@ dependencies:
   pinput: ^5.0.1
   shimmer: ^3.0.0
   flutter_countdown_timer: ^4.1.0
+  percent_indicator: ^4.2.5
 
 dev_dependencies:
   flutter_test:

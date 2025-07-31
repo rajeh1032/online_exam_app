@@ -68,4 +68,8 @@ class Constants {
   static const String backButtonText = 'Back';
   static const String nextButtonText = 'Next';
   static const String timeUp = 'Time up!';
+  static const String examScore = "Exam Score";
+  static const String yourScore = "Your Score";
+  static const String correct = "Correct";
+  static const String incorrect = "Incorrect";
 }

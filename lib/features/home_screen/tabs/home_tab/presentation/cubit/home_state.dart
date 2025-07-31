@@ -7,6 +7,7 @@ class HomeState {
   final int currentQuestionIndex;
   final Map<String, List<String>> userAnswers;
   final int? examScore;
+  final bool isExamSubmitted;
 
   HomeState({
     this.examQuestionsIsLoading = true,
@@ -15,6 +16,7 @@ class HomeState {
     this.currentQuestionIndex = 0,
     this.userAnswers = const {},
     this.examScore,
+    this.isExamSubmitted = false,
   });
 
   HomeState copyWith({
@@ -24,6 +26,7 @@ class HomeState {
     int? currentQuestionIndexArg,
     Map<String, List<String>>? userAnswersArg,
     int? examScoreArg,
+    bool? isExamSubmittedArg,
   }) {
     return HomeState(
       examQuestionsIsLoading:
@@ -34,6 +37,7 @@ class HomeState {
           currentQuestionIndexArg ?? this.currentQuestionIndex,
       userAnswers: userAnswersArg ?? this.userAnswers,
       examScore: examScoreArg ?? this.examScore,
+      isExamSubmitted: isExamSubmittedArg ?? this.isExamSubmitted,
     );
   }
 }

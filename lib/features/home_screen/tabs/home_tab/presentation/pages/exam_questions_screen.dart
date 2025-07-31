@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam_app/core/constant/constants.dart';
 import 'package:online_exam_app/core/di/di.dart';
+import 'package:online_exam_app/core/route/app_routes.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/home_event.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/home_state.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/home_view_model.dart';
@@ -10,6 +11,7 @@ import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/widgets/exam_question/exam_questions_app_bar.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/widgets/exam_question/exam_questions_loading_widget.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/widgets/exam_question/exam_questions_navigation_buttons.dart';
+import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/widgets/exam_question/show_exam_score.dart';
 
 class ExamQuestionsScreen extends StatefulWidget {
   final String examId;
@@ -79,6 +81,19 @@ class _ExamQuestionScreenState extends State<ExamQuestionsScreen> {
                         return const Center(
                           child: Text(Constants.noQuestionsAvailable),
                         );
+                      }
+                      if (state.isExamSubmitted) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => ShowExamScore(
+                                score: state.examScore ?? 0,
+                                totalQuestions: questions.length ?? 0,
+                              ),
+                            ),
+                          );
+                        });
                       }
 
                       return ExamQuestionContent(
