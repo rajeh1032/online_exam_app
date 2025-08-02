@@ -97,14 +97,14 @@ extension GetItInjectableX on _i174.GetIt {
         () => dioModules.provideDio(gh<_i528.PrettyDioLogger>()));
     gh.factory<_i0.SharedPrefService>(
         () => _i0.SharedPrefService(gh<_i460.SharedPreferences>()));
-    gh.lazySingleton<_i284.AuthLocalDataSource>(
-        () => _i560.AuthLocalDataSourceImpl(gh<_i0.SharedPrefService>()));
     gh.factory<_i213.AuthApiClient>(() => _i213.AuthApiClient(gh<_i361.Dio>()));
     gh.factory<_i952.HomeApiClient>(() => _i952.HomeApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i969.SecureStorageService>(
         () => _i969.SecureStorageService(gh<_i558.FlutterSecureStorage>()));
     gh.lazySingleton<_i950.RememberMeLocalDataSource>(() =>
         _i950.RememberMeLocalDataSource(gh<_i558.FlutterSecureStorage>()));
+    gh.lazySingleton<_i284.AuthLocalDataSource>(
+        () => _i560.AuthLocalDataSourceImpl(gh<_i969.SecureStorageService>()));
     gh.factory<_i523.HomeRemoteDataSource>(() => _i334.HomeRemoteDataSourceImpl(
         homeApiClient: gh<_i952.HomeApiClient>()));
     gh.singleton<_i291.AppConfigProvider>(

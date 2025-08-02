@@ -80,4 +80,5 @@ class Constants {
   static const String profileTitle = 'Profile';
 
 
+static const String authToken= 'auth_token';
 }

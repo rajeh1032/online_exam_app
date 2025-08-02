@@ -1,5 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
+import 'package:online_exam_app/core/constant/constants.dart';
 
 @lazySingleton
 class SecureStorageService {
@@ -7,7 +8,7 @@ class SecureStorageService {
 
   SecureStorageService(this._secureStorage);
 
-  static const _tokenKey = 'auth_token';
+  static const _tokenKey = Constants.authToken;
 
   Future<void> saveToken(String token) async {
     await _secureStorage.write(key: _tokenKey, value: token);
