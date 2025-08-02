@@ -68,4 +68,17 @@ class Constants {
   static const String backButtonText = 'Back';
   static const String nextButtonText = 'Next';
   static const String timeUp = 'Time up!';
+  static const String trueString = 'True';
+  //emailNotFoundError
+  static const String emailNotFoundError = 'Email not found. Please try again.';
+
+  static const String exploreTitle = 'Explore';
+
+//Result
+  static const String resultTitle = 'Result';
+
+  static const String profileTitle = 'Profile';
+
+
+static const String authToken= 'auth_token';
 }

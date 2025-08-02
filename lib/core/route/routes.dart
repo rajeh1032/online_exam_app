@@ -30,7 +30,7 @@ abstract class Routes {
       case AppRoutes.verificationCode:
         return MaterialPageRoute(builder: (_) => const VerificationCode());
       case AppRoutes.homeScreen:
-        return MaterialPageRoute(builder: (_) => const HomeScreen());
+        return MaterialPageRoute(builder: (_) =>  HomeScreen());
       
 
       case AppRoutes.examQuestions:

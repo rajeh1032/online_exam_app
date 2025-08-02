@@ -6,16 +6,24 @@ import 'package:online_exam_app/features/auth/presentation/auth/cubit/view_model
 import 'package:online_exam_app/features/auth/presentation/auth/widgets/build_pin_code.dart';
 
 import '../../../../../../core/constant/constants.dart';
+import '../../../../../../core/utils/dialog_utils.dart';
 import '../../cubit/view_models/forget_password_view_model.dart';
 import '../build_title_and_sub.dart';
 
-class VerificationCodeForm extends StatelessWidget {
+class VerificationCodeForm extends StatefulWidget {
   const VerificationCodeForm({super.key});
 
   @override
+  State<VerificationCodeForm> createState() => _VerificationCodeFormState();
+}
+
+class _VerificationCodeFormState extends State<VerificationCodeForm> {
+  late final VerificationCodeViewModel viewModel;
+  late final ForgetPasswordViewModel forgetPasswordVM;
+  @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<VerificationCodeViewModel>();
-    final forgetPasswordVM = context.read<ForgetPasswordViewModel>();
+     viewModel = context.read<VerificationCodeViewModel>();
+     forgetPasswordVM = context.read<ForgetPasswordViewModel>();
     return Scaffold(
       appBar: AppBar(
         title: const Text(Constants.passwordLabel),
@@ -55,9 +63,17 @@ class VerificationCodeForm extends StatelessWidget {
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                             minimumSize: const Size(0, 0),
                           ),
-                          onPressed: () {
-                            forgetPasswordVM
-                                .resendCode(viewModel.email);
+                          onPressed: () async {
+                            final email = await viewModel.email;
+                            if (!context.mounted) return;
+                            if (email != null && email.isNotEmpty) {
+                              await forgetPasswordVM.resendCode( email);
+                            } else {
+                              DialogUtils.showMessage(
+                                context: context,
+                                message: Constants.emailNotFoundError,
+                              );
+                            }
                           },
                           child: Text(
                             Constants.resendCode,
