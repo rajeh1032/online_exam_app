@@ -7,14 +7,9 @@ import '../cubit/view_models/sign_in_view_model.dart';
 import '../widgets/form/sign_in_form.dart';
 import '../widgets/handle_state.dart';
 
-class SignInScreen extends StatefulWidget {
+class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
 
-  @override
-  State<SignInScreen> createState() => _SignInScreenState();
-}
-
-class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SignInViewModel>(

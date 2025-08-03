@@ -1,3 +1,5 @@
+import '../subject_entity.dart';
+
 class GetExamQuestionsResponseEntity {
   GetExamQuestionsResponseEntity({
     this.message,
@@ -50,19 +52,7 @@ class ExamEntity {
   String? createdAt;
 }
 
-class SubjectEntity {
-  SubjectEntity({
-    this.id,
-    this.name,
-    this.icon,
-    this.createdAt,
-  });
 
-  String? id;
-  String? name;
-  String? icon;
-  String? createdAt;
-}
 
 class AnswersEntity {
   AnswersEntity({

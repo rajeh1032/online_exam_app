@@ -8,9 +8,9 @@ import 'package:online_exam_app/core/di/di.dart';
 import 'package:online_exam_app/core/theme/app_colors.dart';
 import 'package:online_exam_app/core/theme/app_styles.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/domain/entities/response/get_exam_questions_response_entity.dart';
-import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/home_event.dart';
-import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/home_state.dart';
-import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/home_view_model.dart';
+import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_cubit/exam_states.dart';
+import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_cubit/exam_event.dart';
+import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_cubit/exam_view_model.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/widgets/questions_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -26,7 +26,7 @@ class _ExamQuestionScreenState extends State<ExamQuestionScreen> {
   int currentIndex = 0;
   bool singleChoice = true;
 
-  HomeViewModel homeViewModel = getIt.get<HomeViewModel>();
+  ExamViewModel homeViewModel = getIt.get<ExamViewModel>();
   void selectAnswer(int index) {
     setState(() {
       if (singleChoice) {
@@ -61,7 +61,7 @@ class _ExamQuestionScreenState extends State<ExamQuestionScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  BlocBuilder<HomeViewModel, HomeState>(
+                  BlocBuilder<ExamViewModel, ExamStates>(
                     builder: (context, state) {
                       final questions = state.questionsList;
                       if (state.examQuestionsIsLoading) {
@@ -187,7 +187,7 @@ PreferredSizeWidget getAppBar({
         SizedBox(width: 10.w),
         //todo : add timer
 
-        BlocBuilder<HomeViewModel, HomeState>(
+        BlocBuilder<ExamViewModel, ExamStates>(
           buildWhen: (previous, current) {
             if (!hasBuilt && current.questionsList != null) {
               hasBuilt = true;
@@ -204,7 +204,7 @@ PreferredSizeWidget getAppBar({
             return CountdownTimer(
               endTime: endTime,
               widgetBuilder: (_, time) {
-                if (time == null) return Text(Constants.timeUp);
+                if (time == null) return const Text(Constants.timeUp);
                 final minutes = time.min ?? 0;
                 final seconds = time.sec ?? 0;
                 return Text('$minutes:${seconds.toString().padLeft(2, '0')}',

@@ -1,6 +1,8 @@
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/api/models/response/get_exam_questions_response_dto.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/domain/entities/response/get_exam_questions_response_entity.dart';
 
+import '../../domain/entities/subject_entity.dart';
+
 extension GetExamQuestionsResponseDtoMapper on ExamResponseDto {
   GetExamQuestionsResponseEntity toEntity() {
     return GetExamQuestionsResponseEntity(
@@ -37,10 +39,10 @@ extension AnswersDtoMapper on Answers {
 extension SubjectDtoMapper on Subject {
   SubjectEntity toEntity() {
     return SubjectEntity(
-      id: id,
-      name: name,
-      icon: icon,
-      createdAt: createdAt,
+      id: id?? '',
+      name: name ?? '',
+      icon: icon ?? '',
+
     );
   }
 }

@@ -1,5 +1,5 @@
 abstract class AppRoutes {
-  static const String home = "/home";
+  static const String homeTap = "/home";
   //Auth
   static const String login = "/login";
   static const String signup = "/signup";
@@ -8,4 +8,5 @@ abstract class AppRoutes {
   static const String verificationCode = "/verification_code";
   static const String homeScreen = "/home_screen";
   static const String examQuestions = "/exam_questions";
+  static const String subjectExamScreen = "/subject_exam_screen";
 }

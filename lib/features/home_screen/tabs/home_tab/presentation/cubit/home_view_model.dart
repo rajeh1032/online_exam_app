@@ -1,52 +1,50 @@
+import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam_app/core/api_result/api_result.dart';
-import 'package:online_exam_app/features/home_screen/tabs/home_tab/domain/entities/get_exam_questions_request_Entity.dart';
-import 'package:online_exam_app/features/home_screen/tabs/home_tab/domain/entities/response/get_exam_questions_response_entity.dart';
-import 'package:online_exam_app/features/home_screen/tabs/home_tab/domain/usecases/get_exam_questions_use_case.dart';
-import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/home_event.dart';
+import 'package:online_exam_app/features/home_screen/tabs/home_tab/domain/entities/response/get_all_subject_response_entity.dart';
+import 'package:online_exam_app/features/home_screen/tabs/home_tab/domain/usecases/get_all_subject_use_case.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/home_state.dart';
 
 @injectable
 class HomeViewModel extends Cubit<HomeState> {
-  final GetExamQuestionsUseCase getExamQuestionsUseCase;
+  final GetAllSubjectUseCase _getAllSubjectUseCase;
 
-  int examDuration = 0;
-  HomeViewModel(this.getExamQuestionsUseCase) : super(HomeState());
+  HomeViewModel({required GetAllSubjectUseCase getAllSubjectUseCase})
+      : _getAllSubjectUseCase = getAllSubjectUseCase,
+        super(const HomeState());
 
-  void doIntent(HomeEvent event) async {
-    switch (event) {
-      case GetExamQuestionsEvent(:final examId):
-        _getExamQuestions(examId);
+  Future<void> getAllSubjects() async {
+    emit(state.copyWith(status: HomeStatus.loading));
+    final ApiResult<GetAllSubjectsResponseEntity> result =
+        await _getAllSubjectUseCase.invoke();
+    switch (result) {
+      case ApiSuccessResult<GetAllSubjectsResponseEntity>():
+        emit(state.copyWith(
+          response: result.data,
+          status: HomeStatus.success,
+          allSubjects: result.data.subjects,
+          filteredSubjects: result.data.subjects,
+        ));
+        break;
+      case ApiErrorResult<GetAllSubjectsResponseEntity>():
+        emit(state.copyWith(
+          errorMsg: result.errorMsg,
+          status: HomeStatus.error,
+        ));
+        break;
     }
   }
 
-  Future<void> _getExamQuestions(String examId) async {
-    emit(state.copyWith(examQuestionsIsLoadingArg: true));
-
-    ApiResult<GetExamQuestionsResponseEntity> result =
-        await getExamQuestionsUseCase.invoke(
-      getExamQuestionsRequestEntity:
-          GetExamQuestionsRequestEntity(subjectId: examId),
-    );
-
-    switch (result) {
-      case ApiSuccessResult<GetExamQuestionsResponseEntity> success:
-        final questions = success.data.questions;
-        if (questions!.isNotEmpty && questions.first.exam?.duration != null) {
-          examDuration = questions.first.exam!.duration!.toInt();
-        }
-
-        emit(state.copyWith(
-          examQuestionsIsLoadingArg: false,
-          questionsListArg: success.data.questions,
-        ));
-
-      case ApiErrorResult<GetExamQuestionsResponseEntity> error:
-        emit(state.copyWith(
-          examQuestionsIsLoadingArg: false,
-          examQuestionsErrorArg: error.errorMsg,
-        ));
+  void filterSubjects(String query) {
+    if (query.isEmpty) {
+      emit(state.copyWith(filteredSubjects: state.allSubjects));
+      return;
     }
+    final filtered = state.allSubjects
+        .where((subject) =>
+            subject.name.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+
+    emit(state.copyWith(filteredSubjects: filtered));
   }
 }

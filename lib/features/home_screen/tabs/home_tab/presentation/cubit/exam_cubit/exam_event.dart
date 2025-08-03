@@ -1,6 +1,6 @@
-sealed class HomeEvent {}
+sealed class ExamEvent {}
 
-class GetExamQuestionsEvent extends HomeEvent {
+class GetExamQuestionsEvent extends ExamEvent {
   final String examId;
   GetExamQuestionsEvent({required this.examId});
 }

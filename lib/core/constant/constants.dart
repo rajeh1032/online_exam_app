@@ -81,4 +81,16 @@ class Constants {
 
 
 static const String authToken= 'auth_token';
+//Survey
+  static const String surveyTitle = 'Survey';
+ //Browse by subject
+  static const String browseBySubject = 'Browse by Subject';
+  static const String searchHintText = 'Search ';
+  //'An unexpected error occurred'
+  static const String unexpectedError = 'An unexpected error occurred';
+  //noSubjectsAvailable
+  static const String noSubjectsAvailable = 'No subjects available';
+  //retry
+  static const String retry = 'Retry';
+
 }

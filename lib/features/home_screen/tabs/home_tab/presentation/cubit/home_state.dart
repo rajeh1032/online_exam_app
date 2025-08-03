@@ -1,52 +1,47 @@
-import 'package:online_exam_app/features/home_screen/tabs/home_tab/domain/entities/response/get_exam_questions_response_entity.dart';
+import 'package:equatable/equatable.dart';
 
-class HomeState {
-  bool examQuestionsIsLoading;
-  List<QuestionsEntity>? questionsList;
-  String? examQuestionsError;
-  /*###############################*/
+import '../../domain/entities/response/get_all_subject_response_entity.dart';
+import '../../domain/entities/subject_entity.dart';
 
-  HomeState({
-    this.examQuestionsIsLoading = true,
-    this.questionsList = const [],
-    this.examQuestionsError,
+enum HomeStatus { initial, loading, success, error }
+
+class HomeState extends Equatable {
+  final GetAllSubjectsResponseEntity? response;
+  final String? errorMsg;
+  final HomeStatus status;
+  final List<SubjectEntity> allSubjects;
+  final List<SubjectEntity> filteredSubjects;
+
+  const HomeState({
+    this.response,
+    this.errorMsg,
+    this.status = HomeStatus.initial,
+    this.allSubjects = const [],
+    this.filteredSubjects = const [],
   });
 
   HomeState copyWith({
-    bool? examQuestionsIsLoadingArg,
-    List<QuestionsEntity>? questionsListArg,
-    String? examQuestionsErrorArg,
+    GetAllSubjectsResponseEntity? response,
+    String? errorMsg,
+    HomeStatus? status,
+    List<SubjectEntity>? allSubjects,
+    List<SubjectEntity>? filteredSubjects,
   }) {
     return HomeState(
-      examQuestionsIsLoading:
-          examQuestionsIsLoadingArg ?? this.examQuestionsIsLoading,
-      questionsList: questionsListArg ?? this.questionsList,
-      examQuestionsError: examQuestionsErrorArg,
+      response: response ?? this.response,
+      errorMsg: errorMsg ?? this.errorMsg,
+      status: status ?? this.status,
+      allSubjects: allSubjects ?? this.allSubjects,
+      filteredSubjects: filteredSubjects ?? this.filteredSubjects,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        response,
+        errorMsg,
+        status,
+        allSubjects,
+        filteredSubjects,
+      ];
 }
-
-
-
-
-// //sealed=> make you must should handle every state
-// import 'package:elevate_c3_sunday/features/home/domain/models/category_model.dart';
-
-// sealed class HomeState {}
-
-// class HomeInitialState extends HomeState {}
-
-// class HomeLoadingState extends HomeState {}
-
-// class HomeSuccessState extends HomeState {
-//   List<CategoryModel> catList;
-//   HomeSuccessState({required this.catList});
-// }
-
-// class HomeErrorState extends HomeState {
-//   String errorMessage;
-//   HomeErrorState({required this.errorMessage});
-// }
- 
-
-

@@ -78,6 +78,7 @@ abstract class AppTheme {
           fontSize: 14.sp,
           fontWeight: FontWeight.w600,
         ),
+
       ),
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: TextStyle(color: textFieldBorderColor,fontSize: 14,fontWeight: FontWeight.w400),

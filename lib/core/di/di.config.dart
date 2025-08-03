@@ -56,8 +56,12 @@ import '../../features/home_screen/tabs/home_tab/data/repositories/home_reposito
     as _i938;
 import '../../features/home_screen/tabs/home_tab/domain/repositories/home_repositories.dart'
     as _i1022;
+import '../../features/home_screen/tabs/home_tab/domain/usecases/get_all_subject_use_case.dart'
+    as _i48;
 import '../../features/home_screen/tabs/home_tab/domain/usecases/get_exam_questions_use_case.dart'
     as _i272;
+import '../../features/home_screen/tabs/home_tab/presentation/cubit/exam_cubit/exam_view_model.dart'
+    as _i770;
 import '../../features/home_screen/tabs/home_tab/presentation/cubit/home_view_model.dart'
     as _i391;
 import '../local_storage/remember_me_local_data_source.dart' as _i950;
@@ -117,10 +121,12 @@ extension GetItInjectableX on _i174.GetIt {
         homeRemoteDataSource: gh<_i523.HomeRemoteDataSource>()));
     gh.factory<_i272.GetExamQuestionsUseCase>(
         () => _i272.GetExamQuestionsUseCase(gh<_i1022.HomeRepositories>()));
-    gh.factory<_i391.HomeViewModel>(
-        () => _i391.HomeViewModel(gh<_i272.GetExamQuestionsUseCase>()));
+    gh.factory<_i770.ExamViewModel>(
+        () => _i770.ExamViewModel(gh<_i272.GetExamQuestionsUseCase>()));
     gh.factory<_i962.AuthRepository>(() => _i394.AuthRepositoriesImpl(
         authRemoteDataSource: gh<_i107.AuthRemoteDataSource>()));
+    gh.factory<_i48.GetAllSubjectUseCase>(
+        () => _i48.GetAllSubjectUseCase(gh<_i1022.HomeRepositories>()));
     gh.factory<_i591.ForgetPasswordUseCase>(
         () => _i591.ForgetPasswordUseCase(gh<_i962.AuthRepository>()));
     gh.factory<_i825.ResetPasswordUseCase>(
@@ -131,6 +137,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1037.SignUpUseCase(gh<_i962.AuthRepository>()));
     gh.factory<_i948.VerifyResetCodeUseCase>(
         () => _i948.VerifyResetCodeUseCase(gh<_i962.AuthRepository>()));
+    gh.factory<_i391.HomeViewModel>(() => _i391.HomeViewModel(
+        getAllSubjectUseCase: gh<_i48.GetAllSubjectUseCase>()));
     gh.factory<_i947.SignInViewModel>(() => _i947.SignInViewModel(
           signInUseCase: gh<_i362.SignInUseCase>(),
           rememberMeLocalDataSource: gh<_i950.RememberMeLocalDataSource>(),
