@@ -6,6 +6,7 @@ import 'package:online_exam_app/features/home_screen/reusable_widgets/empty_stat
 import 'package:online_exam_app/features/home_screen/reusable_widgets/loading_state_widget.dart';
 
 import '../../../../../../core/constant/constants.dart';
+import '../../../../../../core/models/subject_info.dart';
 import '../../../../reusable_widgets/error_state_widget.dart';
 import '../cubit/home_state.dart';
 import '../cubit/home_view_model.dart';
@@ -72,13 +73,31 @@ class BuildHomeTabBody extends StatelessWidget {
                           SizedBox(height: 16.h),
                       itemBuilder: (context, index) {
                         final subject = subjectList[index];
+
+                        // Add these debug prints
+                        print('Subject at index $index: $subject');
+                        print('Subject type: ${subject.runtimeType}');
+                        print('Subject id: ${subject.id}');
+                        print('Subject name: ${subject.name}');
+
                         return BuildSubjectItem(
-                          subjectName: subject.name ,
+                          subjectName: subject.name,
                           onSubjectTap: () {
+                            print('Tapping subject with id: ${subject.id}, name: ${subject.name}');
+
+                            final subjectInfo = SubjectInfo(
+                              id: subject.id,
+                              name: subject.name,
+                            );
+
+                            print('Created SubjectInfo: $subjectInfo');
+                            print('SubjectInfo ID: ${subjectInfo.id}');
+                            print('SubjectInfo Name: ${subjectInfo.name}');
+
                             Navigator.pushNamed(
                               context,
-                              AppRoutes.subjectExamScreen,
-                              arguments: subject.id,
+                              AppRoutes.examsBySubjectScreen,
+                              arguments: subjectInfo,
                             );
                           },
                         );
@@ -96,4 +115,3 @@ class BuildHomeTabBody extends StatelessWidget {
     );
   }
 }
-
