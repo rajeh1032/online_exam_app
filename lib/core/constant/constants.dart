@@ -92,5 +92,20 @@ static const String authToken= 'auth_token';
   static const String noSubjectsAvailable = 'No subjects available';
   //retry
   static const String retry = 'Retry';
+  //'Subject information is missing. Please select a subject to view exams.'
+  static const String subjectInfoMissing =
+      'Subject information is missing. Please select a subject to view exams.';
+//high level
+  static const String highLevel = 'High Level';
+  //'No exams available for this subject'
+  static const String noExamsAvailable = 'No exams available for this subject';
+  //'Invalid navigation data'
+  static const String invalidNavigationData = 'Invalid navigation data';
+  static const String examMinutesSuffix = "Minutes";
+  static const String examQuestionSuffix = "Question";
+  static const String examFromLabel = "From:";
+  static const String examToLabel = "To:";
+  static const String examStartTime = "1.00";
+  static const String examEndTime = "6.00";
 
 }

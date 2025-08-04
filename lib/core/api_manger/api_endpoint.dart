@@ -14,4 +14,6 @@ abstract class ApiEndpoint {
 
   static const String getAllSubjects = '/subjects';
 
+  static const String getAllExamOnSubject = '/exams';
+
 }

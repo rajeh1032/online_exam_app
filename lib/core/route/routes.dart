@@ -8,12 +8,11 @@ import 'package:online_exam_app/features/auth/presentation/auth/pages/verificati
 import 'package:online_exam_app/features/home_screen/pages/home_screen.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/pages/exam_questions_screen.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/pages/home_tab.dart';
-import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/pages/subject_exam_screen.dart';
+import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/pages/exams_by_subject_screen.dart';
 
 import '../../features/auth/presentation/auth/pages/sign_in_screen.dart';
 import '../../features/auth/presentation/auth/pages/sign_up_screen.dart';
-
-
+import '../constant/constants.dart';
 
 abstract class Routes {
   static Route generateRoute(RouteSettings settings) {
@@ -32,19 +31,21 @@ abstract class Routes {
       case AppRoutes.verificationCode:
         return MaterialPageRoute(builder: (_) => const VerificationCode());
       case AppRoutes.homeScreen:
-        return MaterialPageRoute(builder: (_) =>  HomeScreen());
-      
+        return MaterialPageRoute(builder: (_) => HomeScreen());
 
       case AppRoutes.examQuestions:
         return MaterialPageRoute(builder: (_) => const ExamQuestionScreen());
       case AppRoutes.homeTap:
-        return MaterialPageRoute(builder: (_) =>  const HomeTab());
-      case AppRoutes.subjectExamScreen:
-        return MaterialPageRoute(builder: (_) =>  const SubjectExamScreen());
+        return MaterialPageRoute(builder: (_) => const HomeTab());
+      case AppRoutes.examsBySubjectScreen:
+        return MaterialPageRoute(
+          builder: (_) => ExamsBySubjectScreen(),
+          settings: settings,
+        );
 
       default:
-        return MaterialPageRoute(builder: (context) => const Text("No Route Found"));
-   
+        return MaterialPageRoute(
+            builder: (context) => const Text(Constants.noRoute));
     }
   }
 }
