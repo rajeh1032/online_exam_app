@@ -1,0 +1,50 @@
+[33mcommit c53692013be5f8d2e72a6e69a9dbfc1733a75488[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mhome_tab[m[33m)[m
+Author: wasimGhoniem <wasimghoniem@gmail.com>
+Date:   Sun Aug 3 19:22:02 2025 +0300
+
+    feat: add home tab with subject search and unit tests
+
+lib/core/api_manger/api_endpoint.dart
+lib/core/constant/constants.dart
+lib/core/di/di.config.dart
+lib/core/route/app_routes.dart
+lib/core/route/routes.dart
+lib/core/theme/app_theme.dart
+lib/features/auth/presentation/auth/pages/sign_in_screen.dart
+lib/features/home_screen/reusable_widgets/empty_state_widget.dart
+lib/features/home_screen/reusable_widgets/error_state_widget.dart
+lib/features/home_screen/reusable_widgets/loading_state_widget.dart
+lib/features/home_screen/tabs/home_tab/api/client/home_api_client.dart
+lib/features/home_screen/tabs/home_tab/api/client/home_api_client.g.dart
+lib/features/home_screen/tabs/home_tab/api/data_source_impl/home_remote_data_source_impl.dart
+lib/features/home_screen/tabs/home_tab/api/mapper/get_all_subject_dto_mapper.dart
+lib/features/home_screen/tabs/home_tab/api/mapper/get_exam_questions_response_dto_mapper.dart
+lib/features/home_screen/tabs/home_tab/api/mapper/matadata_dto_mapper.dart
+lib/features/home_screen/tabs/home_tab/api/mapper/subject_dto_mapper.dart
+lib/features/home_screen/tabs/home_tab/api/models/get_exam_questions_request_dto.dart
+lib/features/home_screen/tabs/home_tab/api/models/metadata_dto.dart
+lib/features/home_screen/tabs/home_tab/api/models/response/get_all_subject_response_dto.dart
+lib/features/home_screen/tabs/home_tab/api/models/subject_dto.dart
+lib/features/home_screen/tabs/home_tab/data/datasources/home_remote_data_source.dart
+lib/features/home_screen/tabs/home_tab/data/repositories/home_repositories_impl.dart
+lib/features/home_screen/tabs/home_tab/domain/entities/metadata_entity.dart
+lib/features/home_screen/tabs/home_tab/domain/entities/request/get_all_subject_request_entity.dart
+lib/features/home_screen/tabs/home_tab/domain/entities/request/get_exam_questions_request_Entity.dart
+lib/features/home_screen/tabs/home_tab/domain/entities/response/get_all_subject_response_entity.dart
+lib/features/home_screen/tabs/home_tab/domain/entities/response/get_exam_questions_response_entity.dart
+lib/features/home_screen/tabs/home_tab/domain/entities/subject_entity.dart
+lib/features/home_screen/tabs/home_tab/domain/repositories/home_repositories.dart
+lib/features/home_screen/tabs/home_tab/domain/usecases/get_all_subject_use_case.dart
+lib/features/home_screen/tabs/home_tab/domain/usecases/get_exam_questions_use_case.dart
+lib/features/home_screen/tabs/home_tab/presentation/cubit/exam_cubit/exam_event.dart
+lib/features/home_screen/tabs/home_tab/presentation/cubit/exam_cubit/exam_states.dart
+lib/features/home_screen/tabs/home_tab/presentation/cubit/exam_cubit/exam_view_model.dart
+lib/features/home_screen/tabs/home_tab/presentation/cubit/home_state.dart
+lib/features/home_screen/tabs/home_tab/presentation/cubit/home_view_model.dart
+lib/features/home_screen/tabs/home_tab/presentation/pages/exam_questions_screen.dart
+lib/features/home_screen/tabs/home_tab/presentation/pages/home_tab.dart
+lib/features/home_screen/tabs/home_tab/presentation/pages/subject_exam_screen.dart
+lib/features/home_screen/tabs/home_tab/presentation/widgets/build_custom_text_field.dart
+lib/features/home_screen/tabs/home_tab/presentation/widgets/build_home_tab_body.dart
+lib/features/home_screen/tabs/home_tab/presentation/widgets/build_subject_item.dart
+lib/main.dart

@@ -13,7 +13,7 @@ class ExamsBySubjectScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)?.settings.arguments;
-
+    final ExamsBySubjectViewModel viewModel = getIt<ExamsBySubjectViewModel>();
     if (arguments is! SubjectInfo) {
       return Scaffold(
         appBar: AppBar(title: const Text(Constants.unexpectedError)),
@@ -26,7 +26,7 @@ class ExamsBySubjectScreen extends StatelessWidget {
     final subjectInfo = arguments;
 
     return BlocProvider<ExamsBySubjectViewModel>(
-      create: (context) => getIt<ExamsBySubjectViewModel>(),
+      create: (context) => viewModel,
       child: Scaffold(
         appBar: AppBar(
           title: Text(
@@ -39,7 +39,7 @@ class ExamsBySubjectScreen extends StatelessWidget {
         ),
         body: BuildExamsBySubjectBody(
           subjectId: subjectInfo.id,
-          viewModel: context.read<ExamsBySubjectViewModel>(),
+          viewModel: viewModel,
         ),
       ),
     );
