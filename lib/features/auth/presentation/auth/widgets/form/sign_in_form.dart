@@ -78,8 +78,8 @@ class SignInForm extends StatelessWidget {
                           onPressed: () {
                             if (state.isFormValid) {
                               viewModel.signIn();
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, AppRoutes.home, (route) => false);
+                              Navigator.pushNamed(
+                                  context, AppRoutes.homeScreen);
                             }
                           },
                         );
