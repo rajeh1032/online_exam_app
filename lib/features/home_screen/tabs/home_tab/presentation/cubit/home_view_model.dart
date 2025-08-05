@@ -125,7 +125,6 @@ class HomeViewModel extends Cubit<HomeState> {
     if (questions == null || questions.isEmpty) return;
     final score = _calculateScore(questions, state.userAnswers);
     emit(state.copyWith(
-      
       examScoreArg: score,
       isExamSubmittedArg: true,
     ));
@@ -147,5 +146,10 @@ class HomeViewModel extends Cubit<HomeState> {
     }
 
     return score;
+  }
+
+  double calculatePercentage(int score, int totalQuestions) {
+    if (totalQuestions == 0) return 0;
+    return score / totalQuestions * 100;
   }
 }

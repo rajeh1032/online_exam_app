@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam_app/core/constant/constants.dart';
 import 'package:online_exam_app/core/theme/app_colors.dart';
 import 'package:online_exam_app/core/theme/app_theme.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/widgets/build_app_bar.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/widgets/build_elevated_button.dart';
+import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/home_view_model.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class ShowExamScore extends StatelessWidget {
@@ -14,7 +16,8 @@ class ShowExamScore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double percentage = score / totalQuestions * 100;
+    final HomeViewModel viewModel = context.read<HomeViewModel>();
+    final percentage = viewModel.calculatePercentage(score, totalQuestions);
     return Scaffold(
       appBar: BuildAppBar(title: Constants.examTitle),
       body: Padding(
@@ -39,7 +42,7 @@ class ShowExamScore extends StatelessWidget {
                     percent: percentage / 100,
                     center: Text(
                       "${percentage.toStringAsFixed(0)}%",
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 20.0),
                     ),
                     circularStrokeCap: CircularStrokeCap.butt,

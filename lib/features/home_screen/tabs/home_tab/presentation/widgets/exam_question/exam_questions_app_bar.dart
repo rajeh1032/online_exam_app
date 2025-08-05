@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/index.dart';
@@ -8,18 +7,18 @@ import 'package:online_exam_app/core/constant/constants.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/home_state.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/home_view_model.dart';
 
-class ExamQuestionsAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final HomeViewModel homeViewModel;
+class ExamQuestionsAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   final VoidCallback onSubmitExam;
 
   ExamQuestionsAppBar({
     super.key,
-    required this.homeViewModel,
     required this.onSubmitExam,
   });
 
   @override
   Widget build(BuildContext context) {
+    final HomeViewModel viewModel = context.read<HomeViewModel>();
     return AppBar(
       title: Row(
         children: [

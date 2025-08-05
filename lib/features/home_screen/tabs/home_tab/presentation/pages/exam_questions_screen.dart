@@ -60,7 +60,6 @@ class _ExamQuestionScreenState extends State<ExamQuestionsScreen> {
       value: _homeViewModel,
       child: Scaffold(
         appBar: ExamQuestionsAppBar(
-          homeViewModel: _homeViewModel,
           onSubmitExam: _handleExamSubmission,
         ),
         body: SafeArea(
