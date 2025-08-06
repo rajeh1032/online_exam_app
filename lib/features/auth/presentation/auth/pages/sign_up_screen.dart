@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/widgets/handle_state.dart';
 
 import '../../../../../core/di/di.dart';
+import '../../../../../core/errors/localized_error_handler.dart';
 import '../cubit/states/signup_states.dart';
 
 import '../cubit/view_models/signup_view_model.dart';
@@ -23,7 +24,7 @@ class SignUpScreen extends StatelessWidget {
               context: context,
               status: state.status,
               successMessage: state.response?.message ?? '',
-              errorMessage: state.errorMsg ?? '');
+              errorMessage: LocalizedErrorHandler.getErrorMessage(context, state.errorMsg),);
         },
         child: const SignUpForm(),
       ),
