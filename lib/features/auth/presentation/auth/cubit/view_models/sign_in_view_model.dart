@@ -1,28 +1,27 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:online_exam_app/core/local_storage/remember_me_local_data_source.dart';
 
 import '../../../../../../core/api_result/api_result.dart';
+import '../../../../data/local/auth_local_data_source.dart';
 import '../../../../domain/entities/request_entities/sign_in_request_entity.dart';
 import '../../../../domain/entities/response_entities/sign_in_response_entity.dart';
 import '../../../../domain/usecases/sign_in_use_case.dart';
 import '../states/sign_in_state.dart';
 
-
 @injectable
 class SignInViewModel extends Cubit<SignInState> {
   final SignInUseCase _signInUseCase;
-  final RememberMeLocalDataSource _rememberMeLocalDataSource;
+  final AuthLocalDataSource _authLocalDataSource;
 
-  SignInViewModel(
-      {required SignInUseCase signInUseCase,
-      required RememberMeLocalDataSource rememberMeLocalDataSource,})
-      : _signInUseCase = signInUseCase,
-        _rememberMeLocalDataSource = rememberMeLocalDataSource,
+  SignInViewModel({
+    required SignInUseCase signInUseCase,
+    required AuthLocalDataSource authLocalDataSource,
+  })  : _signInUseCase = signInUseCase,
+        _authLocalDataSource = authLocalDataSource,
         super(const SignInState()) {
     _controllerInitiate();
+
     _loadSavedCredentials();
     _addListenersToControllers();
   }
@@ -37,32 +36,62 @@ class SignInViewModel extends Cubit<SignInState> {
   }
 
   void _addListenersToControllers() {
-    final controllers = [
-      signInEmailController,
-      signInPasswordController
-    ];
+    final controllers = [signInEmailController, signInPasswordController];
     for (final controller in controllers) {
       controller.addListener(_validateForm);
     }
-
   }
+
+  Future<void> logout() async {
+    await _authLocalDataSource.clearToken();
+    await _authLocalDataSource.saveRememberMe(false);
+    emit(const SignInState()); // Reset to initial state
+  }
+
   void _validateForm() {
     final isValid = formKey.currentState?.validate() == true;
     emit(state.copyWith(isFormValid: isValid));
   }
 
-  void toggleRememberMe(bool value) {
+  Future<void> toggleRememberMe(bool value) async {
+    await _authLocalDataSource.saveRememberMe(value);
     emit(state.copyWith(rememberMe: value, response: null, errorMsg: null));
   }
 
-  void _loadSavedCredentials()async {
-    if (await _rememberMeLocalDataSource.isRemembered) {
-      signInEmailController.text =await _rememberMeLocalDataSource.getSavedEmail()??'';
-      signInPasswordController.text =await _rememberMeLocalDataSource.getSavedPassword() ?? '';
-      emit(state.copyWith(rememberMe: true));
+  void _loadSavedCredentials() async {
+    final token = await _authLocalDataSource.getToken();
+    final storedRememberMe = await _authLocalDataSource.getRememberMe();
+    final userName = await _authLocalDataSource.getUserName();
+
+    if (token != null && token.isNotEmpty && storedRememberMe) {
+      emit(state.copyWith(
+        rememberMe: storedRememberMe,
+        status: SignInStatus.autoAuthenticated,
+        userName: userName,
+      ));
     } else {
-      _rememberMeLocalDataSource.clearRememberMe();
+      emit(state.copyWith(
+        rememberMe: storedRememberMe,
+        status: SignInStatus.initial,
+        userName: userName,
+      ));
     }
+  }
+
+  Future<void> clearAutoAuthentication() async {
+    await _authLocalDataSource.clearToken();
+    await _authLocalDataSource.saveRememberMe(false);
+    await _authLocalDataSource.clearUserName();
+
+    emit(state.copyWith(
+      status: SignInStatus.initial,
+      rememberMe: false,
+      response: null,
+      errorMsg: null,
+    ));
+
+    signInEmailController.clear();
+    signInPasswordController.clear();
   }
 
   Future<void> signIn() async {
@@ -87,20 +116,16 @@ class SignInViewModel extends Cubit<SignInState> {
       ApiResult<SignInResponseEntity> result) async {
     switch (result) {
       case ApiSuccessResult<SignInResponseEntity>():
-        if (state.rememberMe) {
-          await _rememberMeLocalDataSource.saveRememberMe(
-            email: signInEmailController.text.trim(),
-            password: signInPasswordController.text,
-          );
-        } else {
-          signInEmailController.clear();
-          signInPasswordController.clear();
-        }
+        final userName = result.data.user.firstName;
+        await _authLocalDataSource.saveUserName(userName);
+
+        await _authLocalDataSource.saveRememberMe(state.rememberMe);
 
         emit(state.copyWith(
           response: result.data,
           errorMsg: null,
           status: SignInStatus.success,
+          userName: userName,
         ));
         break;
 

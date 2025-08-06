@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:online_exam_app/core/local_storage/remember_me_local_data_source.dart';
 
 import 'package:online_exam_app/features/auth/domain/entities/request_entities/verify_reset_code_request_entity.dart';
 import 'package:online_exam_app/features/auth/domain/entities/response_entities/verify_reset_code_response_entity.dart';
@@ -13,13 +12,10 @@ import '../states/verification_code_states.dart';
 @injectable
 class VerificationCodeViewModel extends Cubit<VerificationCodeStates> {
   final VerifyResetCodeUseCase _verifyResetCodeUseCase;
-  final RememberMeLocalDataSource _rememberMeLocalDataSource;
 
   VerificationCodeViewModel({
     required VerifyResetCodeUseCase verifyResetCodeUseCase,
-    required RememberMeLocalDataSource rememberMeLocalDataSource,
   })  : _verifyResetCodeUseCase = verifyResetCodeUseCase,
-        _rememberMeLocalDataSource = rememberMeLocalDataSource,
         super(const VerificationCodeStates()) {
     _initializeControllers();
     _addListenersToControllers();
@@ -50,7 +46,7 @@ class VerificationCodeViewModel extends Cubit<VerificationCodeStates> {
       ));
 
       final request =
-      VerifyResetCodeRequestEntity(resetCode: codeController.text);
+          VerifyResetCodeRequestEntity(resetCode: codeController.text);
 
       final result = await _verifyResetCodeUseCase.invoke(request);
 
@@ -86,10 +82,4 @@ class VerificationCodeViewModel extends Cubit<VerificationCodeStates> {
     _disposeControllers();
     return super.close();
   }
-
-
-  Future<String?> get email=> _rememberMeLocalDataSource.getSavedEmail();
-
 }
-
-

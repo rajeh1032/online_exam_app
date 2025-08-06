@@ -21,4 +21,20 @@ class SecureStorageService {
   Future<void> deleteToken() async {
     await _secureStorage.delete(key: _tokenKey);
   }
+  Future<void> setBool(String key, bool value) async {
+    await _secureStorage.write(key: key, value: value.toString());
+  }
+  Future<bool?> getBool(String key) async {
+    final value = await _secureStorage.read(key: key);
+    return value != null ? value.toLowerCase() == 'true' : null;
+  }
+  Future<void> setString(String key, String value) async {
+    await _secureStorage.write(key: key, value: value);
+  }
+  Future<String?> getString(String key) async {
+    return await _secureStorage.read(key: key);
+  }
+  Future<void> deleteKey(String key) async {
+    await _secureStorage.delete(key: key);
+  }
 }
