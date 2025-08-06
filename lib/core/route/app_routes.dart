@@ -10,4 +10,5 @@ abstract class AppRoutes {
   static const String examQuestions = "/exam_questions";
   //exams by subject
   static const String examsBySubjectScreen = "/exams_by_subject_screen";
+  static const String startExamScreen = "/start_exam_screen";
 }

@@ -9,6 +9,7 @@ import 'package:online_exam_app/features/home_screen/pages/home_screen.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/pages/exam_questions_screen.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/pages/home_tab.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/pages/exams_by_subject_screen.dart';
+import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/pages/start_exam_screen.dart';
 
 import '../../features/auth/presentation/auth/pages/sign_in_screen.dart';
 import '../../features/auth/presentation/auth/pages/sign_up_screen.dart';
@@ -37,6 +38,12 @@ abstract class Routes {
         return MaterialPageRoute(builder: (_) => const ExamQuestionScreen());
       case AppRoutes.homeTap:
         return MaterialPageRoute(builder: (_) => const HomeTab());
+      case AppRoutes.startExamScreen:
+        return MaterialPageRoute(
+          builder: (_) => const StartExamScreen(),
+          settings: settings,
+        );
+
       case AppRoutes.examsBySubjectScreen:
         return MaterialPageRoute(
           builder: (_) => ExamsBySubjectScreen(),
