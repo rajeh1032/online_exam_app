@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../../core/constant/constants.dart';
+import '../../../../../../core/l10n/translation/app_localizations.dart';
 import '../../../../../../core/theme/app_colors.dart';
 
 class BuildCustomTextField extends StatelessWidget {
@@ -10,10 +10,12 @@ class BuildCustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final local = AppLocalizations.of(context)!;
+
     return TextField(
       onChanged:  onChanged,
       decoration: InputDecoration(
-        hintText: Constants.searchHintText,
+        hintText: local.search_hint_text,
         prefixIcon: const Icon(Icons.search),
         filled: true,
         fillColor: Theme.of(context).colorScheme.surface,

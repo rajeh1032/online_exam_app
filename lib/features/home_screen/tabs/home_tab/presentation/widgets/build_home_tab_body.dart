@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:online_exam_app/core/errors/localized_error_handler.dart';
 import 'package:online_exam_app/core/route/app_routes.dart';
 import 'package:online_exam_app/features/home_screen/reusable_widgets/empty_state_widget.dart';
 import 'package:online_exam_app/features/home_screen/reusable_widgets/loading_state_widget.dart';
 
-import '../../../../../../core/constant/constants.dart';
+import '../../../../../../core/l10n/translation/app_localizations.dart';
 import '../../../../../../core/models/subject_info.dart';
 import '../../../../reusable_widgets/error_state_widget.dart';
 import '../cubit/home_state.dart';
@@ -19,6 +20,7 @@ class BuildHomeTabBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeViewModel viewModel = context.read<HomeViewModel>();
+    final local = AppLocalizations.of(context)!;
 
     return Column(
       children: [
@@ -35,7 +37,7 @@ class BuildHomeTabBody extends StatelessWidget {
                 ),
                 SizedBox(height: 24.h),
                 Text(
-                  Constants.browseBySubject,
+                  local.browse_by_subject,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 SizedBox(height: 16.h),
@@ -52,15 +54,16 @@ class BuildHomeTabBody extends StatelessWidget {
 
                 case HomeStatus.error:
                   return ErrorStateWidget(
-                    message: state.errorMsg ?? Constants.unexpectedError,
+                    message: LocalizedErrorHandler.getErrorMessage(
+                        context, state.errorMsg),
                     onRetry: () => viewModel.getAllSubjects(),
                   );
 
                 case HomeStatus.success:
                   final subjectList = state.filteredSubjects;
                   if (subjectList.isEmpty) {
-                    return const EmptyStateWidget(
-                      message: Constants.noSubjectsAvailable,
+                    return EmptyStateWidget(
+                      message: local.no_subjects_available,
                       icon: Icons.school_outlined,
                     );
                   }
@@ -74,25 +77,13 @@ class BuildHomeTabBody extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final subject = subjectList[index];
 
-                        // Add these debug prints
-                        print('Subject at index $index: $subject');
-                        print('Subject type: ${subject.runtimeType}');
-                        print('Subject id: ${subject.id}');
-                        print('Subject name: ${subject.name}');
-
                         return BuildSubjectItem(
                           subjectName: subject.name,
                           onSubjectTap: () {
-                            print('Tapping subject with id: ${subject.id}, name: ${subject.name}');
-
                             final subjectInfo = SubjectInfo(
                               id: subject.id,
                               name: subject.name,
                             );
-
-                            print('Created SubjectInfo: $subjectInfo');
-                            print('SubjectInfo ID: ${subjectInfo.id}');
-                            print('SubjectInfo Name: ${subjectInfo.name}');
 
                             Navigator.pushNamed(
                               context,

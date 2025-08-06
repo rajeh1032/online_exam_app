@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:online_exam_app/core/constant/constants.dart';
 import 'package:online_exam_app/core/di/di.dart';
+import 'package:online_exam_app/core/l10n/translation/app_localizations.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/home_view_model.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/widgets/build_home_tab_body.dart';
 
@@ -26,11 +26,12 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return BlocProvider<HomeViewModel>(
       create: (context) => viewModel,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(Constants.surveyTitle,
+          title: Text(localizations.survey_title,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     color: Theme.of(context).colorScheme.primary,
                     fontSize: 20.sp,

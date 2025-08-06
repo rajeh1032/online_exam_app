@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:online_exam_app/core/constant/constants.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam_app/core/di/di.dart';
 
+import '../../../../../../core/l10n/translation/app_localizations.dart';
 import '../../../../../../core/models/subject_info.dart';
 import '../cubit/exams_by_subject_cubit/exams_by_subject_view_model.dart';
 import '../widgets/build_exams_by_subject_body.dart';
 
 class ExamsBySubjectScreen extends StatelessWidget {
-   ExamsBySubjectScreen({super.key});
- final ExamsBySubjectViewModel viewModel = getIt<ExamsBySubjectViewModel>();
+   const ExamsBySubjectScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)?.settings.arguments;
-
+    final locale = AppLocalizations.of(context)!;
     if (arguments is! SubjectInfo) {
       return Scaffold(
-        appBar: AppBar(title: const Text(Constants.unexpectedError)),
-        body: const Center(
-          child: Text(Constants.invalidNavigationData),
+        appBar: AppBar(title: Text(locale.unexpected_error)),
+        body: Center(
+          child: Text(locale.no_exams_available),
         ),
       );
     }
@@ -26,20 +27,20 @@ class ExamsBySubjectScreen extends StatelessWidget {
     final subjectInfo = arguments;
 
     return BlocProvider<ExamsBySubjectViewModel>(
-      create: (context) => viewModel,
+      create: (context) => getIt<ExamsBySubjectViewModel>()..getExamsBySubject(subjectInfo.id),
       child: Scaffold(
         appBar: AppBar(
           title: Text(
             subjectInfo.name,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   color: Theme.of(context).colorScheme.secondary,
-                  fontSize: 20,
+                  fontSize: 20.sp,
                 ),
           ),
         ),
         body: BuildExamsBySubjectBody(
           subjectId: subjectInfo.id,
-          viewModel: viewModel,
+
         ),
       ),
     );

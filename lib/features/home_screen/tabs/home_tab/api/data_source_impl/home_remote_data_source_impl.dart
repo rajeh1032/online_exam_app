@@ -30,7 +30,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
       return ApiSuccessResult(data: response.toEntity());
     } catch (e) {
       return ApiErrorResult<GetExamQuestionsResponseEntity>(
-          errorMsg: ErrorHandler.getFriendlyMessage(e.toString()));
+          errorMsg: ErrorHandler.getErrorKey(e.toString()));
     }
   }
 
@@ -41,7 +41,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
       return ApiSuccessResult(data: response.toEntity());
     } catch (e) {
       return ApiErrorResult<GetAllSubjectsResponseEntity>(
-          errorMsg: ErrorHandler.getFriendlyMessage(e.toString()));
+          errorMsg: ErrorHandler.getErrorKey(e.toString()));
     }
   }
 
@@ -55,7 +55,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
       return ApiSuccessResult(data: response.toEntity());
     } catch (e) {
       return ApiErrorResult<GetAllExamOnSubjectEntity>(
-          errorMsg: ErrorHandler.getFriendlyMessage(e.toString()));
+          errorMsg: ErrorHandler.getErrorKey(e.toString()));
     }
   }
 }
