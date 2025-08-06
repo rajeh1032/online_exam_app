@@ -1,75 +1,97 @@
 class Constants {
-  static const String noRoute = 'No Route';
+  static const String noRoute = 'no_route';
   static const String localKey = 'local_key';
   static const String arLocalKey = 'ar';
   static const String enLocalKey = 'en';
   static const String themeKey = 'theme_key';
-  static const String signUpTitle = 'Sign up';
-  static const String usernameLabel = 'Username';
-  static const String firstNameLabel = 'First name';
-  static const String lastNameLabel = 'Last name';
-  static const String emailLabel = 'Email';
-  static const String passwordLabel = 'Password';
-  static const String confirmPasswordLabel = 'Confirm password';
-  static const String phoneLabel = 'Phone number';
-  static const String signUpButton = 'Signup';
-  static const String alreadyHaveAccount = 'Already have an account?';
-  static const String loadingMessage = 'Please wait...';
-  static const String successTitle = 'Success';
-  static const String errorTitle = 'Error';
-  static const String signUpSuccessMessage = 'Sign up successful!';
-  static const String ok = 'OK';
-  static const String userNameHint = "Enter your user name";
-  static const String firstNameHint = "Enter first name";
-  static const String lastNameHint = "Enter last name";
-  static const String emailHint = "Enter your email";
-  static const String passwordHint = "Enter password";
-  static const String confirmPasswordHint = "Confirm password";
-  static const String phoneNumberHint = "Enter phone number";
-  static const String login = 'Login';
-  static const String rememberMe = 'Remember me';
-  static const String forgetPassword = 'Forget Password?';
-  static const String doNotHaveAccount = 'Don\'t have an account?';
-  static const String rememberMeKey = 'remember_me';
-  static const String savedEmailKey = 'saved_email';
-  static const String savedPasswordKey = 'saved_password';
-  static const String continueString = 'Continue';
-  static const String forgetPasswordTitle = 'Forget Password';
-
-  static const String forgetPasswordMessage =
-      'Please enter your email associated to your account';
-
-  static const String emailVerificationTitle = 'Email Verification';
-  static const String emailVerificationMessage =
-      'Please enter the verification code sent to your email';
-
-  static const String resendCode = 'Resend ';
-
-  static const String didntReceiveCode = 'Didn\'t receive the code? ';
-
-  static const String invalidCode = 'Invalid code, please try again.';
-//Reset password
-  static const String resetPasswordTitle = 'Reset Password';
-
-  static const String resetPasswordMessage =
-      'Password must not be empty and must contain 6 characters with upper case letter and one number at least ';
-
+  static const String signUpTitle = 'sign_up_title';
+  static const String usernameLabel = 'username_label';
+  static const String firstNameLabel = 'first_name_label';
+  static const String lastNameLabel = 'last_name_label';
+  static const String emailLabel = 'email_label';
+  static const String passwordLabel = 'password_label';
+  static const String confirmPasswordLabel = 'confirm_password_label';
+  static const String phoneLabel = 'phone_label';
+  static const String signUpButton = 'sign_up_button';
+  static const String alreadyHaveAccount = 'already_have_account';
+  static const String loadingMessage = 'loading_message';
+  static const String successTitle = 'success_title';
+  static const String errorTitle = 'error_title';
+  static const String signUpSuccessMessage = 'sign_up_success_message';
+  static const String ok = 'ok';
+  static const String userNameHint = 'user_name_hint';
+  static const String firstNameHint = 'first_name_hint';
+  static const String lastNameHint = 'last_name_hint';
+  static const String emailHint = 'email_hint';
+  static const String passwordHint = 'password_hint';
+  static const String confirmPasswordHint = 'confirm_password_hint';
+  static const String phoneNumberHint = 'phone_number_hint';
+  static const String login = 'login';
+  static const String rememberMe = 'remember_me';
+  static const String forgetPassword = 'forget_password';
+  static const String doNotHaveAccount = 'do_not_have_account';
+  static const String rememberMeKey = 'remember_me_key';
+  static const String savedEmailKey = 'saved_email_key';
+  static const String savedPasswordKey = 'saved_password_key';
+  static const String continueString = 'continue_string';
+  static const String forgetPasswordTitle = 'forget_password_title';
+  static const String forgetPasswordMessage = 'forget_password_message';
+  static const String emailVerificationTitle = 'email_verification_title';
+  static const String emailVerificationMessage = 'email_verification_message';
+  static const String resendCode = 'resend_code';
+  static const String didntReceiveCode = 'didnt_receive_code';
+  static const String invalidCode = 'invalid_code';
+  static const String resetPasswordTitle = 'reset_password_title';
+  static const String resetPasswordMessage = 'reset_password_message';
   static const String loading = 'loading';
   static const String error = 'error';
-
   static const String success = 'success';
-  static const String resendCodeSuccessMessage =
-      'Verification code resent successfully. Please check your email.';
+  static const String resendCodeSuccessMessage = 'resend_code_success_message';
+  static const String examTitle = 'exam_title';
+  static const String loadingQuestion = 'loading_question';
+  static const String loadingAnswer = 'loading_answer';
+  static const String noQuestionsAvailable = 'no_questions_available';
+  static const String backButtonText = 'back_button_text';
+  static const String nextButtonText = 'next_button_text';
+  static const String timeUp = 'time_up';
+  static const String trueString = 'true_string';
+  static const String emailNotFoundError = 'email_not_found_error';
+  static const String exploreTitle = 'explore_title';
+  static const String resultTitle = 'result_title';
+  static const String profileTitle = 'profile_title';
+  static const String authToken = 'auth_token';
+  static const String surveyTitle = 'survey_title';
+  static const String browseBySubject = 'browse_by_subject';
+  static const String searchHintText = 'search_hint_text';
+  static const String unexpectedError = 'unexpected_error';
+  static const String noSubjectsAvailable = 'no_subjects_available';
+  static const String retry = 'retry';
+  static const String subjectInfoMissing = 'subject_info_missing';
+  static const String highLevel = 'high_level';
+  static const String noExamsAvailable = 'no_exams_available';
+  static const String invalidNavigationData = 'invalid_navigation_data';
+  static const String examMinutesSuffix = 'exam_minutes_suffix';
+  static const String examQuestionSuffix = 'exam_question_suffix';
+  static const String examFromLabel = 'exam_from_label';
+  static const String examToLabel = 'exam_to_label';
+  static const String examStartTime = 'exam_start_time';
+  static const String examEndTime = 'exam_end_time';
+  static const String profile = 'profile';
+  static const String editProfile = 'edit_profile';
+  static const String update = 'update';
+  static const String resetPassword = 'reset_password';
+  static const String start = 'start';
+  static const String exam = 'exam';
+  static const String examScore = 'exam_score';
+  static const String back = 'back';
+  static const String next = 'next';
+  static const String showResults = 'show_results';
+  static const String startAgain = 'start_again';
+  static const String timeOut = 'time_out';
+  static const String viewScore = 'view_score';
+  static const String correct = 'correct';
+  static const String incorrect = 'incorrect';
+  static const String userName = 'userName';
 
-  static const String examTitle = 'Exam';
-  static const String loadingQuestion = 'Loading question...';
-  static const String loadingAnswer = 'Loading answer...';
-  static const String noQuestionsAvailable = 'No questions available';
-  static const String backButtonText = 'Back';
-  static const String nextButtonText = 'Next';
-  static const String timeUp = 'Time up!';
-  static const String examScore = "Exam Score";
   static const String yourScore = "Your Score";
-  static const String correct = "Correct";
-  static const String incorrect = "Incorrect";
 }
