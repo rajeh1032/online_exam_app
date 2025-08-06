@@ -1,20 +1,18 @@
-import 'package:online_exam_app/core/constant/error_messages.dart';
-
 class ErrorHandler {
-  static String getFriendlyMessage(String error) {
+  static String getErrorKey(String error) {
     if (error.contains('SocketException')) {
-      return ErrorMessages.noInternet;
+      return 'no_internet';
     } else if (error.contains('TimeoutException')) {
-      return ErrorMessages.timeout;
+      return 'timeout';
     } else if (error.contains('401')) {
-      return ErrorMessages.unauthorized;
+      return 'unauthorized';
     } else if (error.contains('409')) {
-      return ErrorMessages.usernameAlreadyExists;
+      return 'username_already_exists';
     } else if (error.contains('500')) {
-      return ErrorMessages.serverError;
+      return 'server_error';
     } else if (error.contains('DioError')) {
-      return ErrorMessages.networkError;
+      return 'network_error';
     }
-    return ErrorMessages.unexpected;
+    return 'unexpected_error';
   }
 }
