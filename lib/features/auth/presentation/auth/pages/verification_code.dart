@@ -5,6 +5,7 @@ import 'package:online_exam_app/features/auth/presentation/auth/cubit/view_model
 import 'package:online_exam_app/features/auth/presentation/auth/widgets/handle_state.dart';
 
 import '../../../../../core/di/di.dart';
+import '../../../../../core/errors/localized_error_handler.dart';
 import '../../../../../core/route/app_routes.dart';
 import '../widgets/form/verification_code_form.dart';
 
@@ -22,7 +23,7 @@ class VerificationCode extends StatelessWidget {
               context: context,
               status: state.status,
               successMessage: state.response?.status ?? '',
-              errorMessage: state.errorMsg ?? '',
+              errorMessage: LocalizedErrorHandler.getErrorMessage(context, state.errorMsg),
               onSuccess: () {
                 Navigator.pushReplacementNamed(context, AppRoutes.resetPassword);
               },

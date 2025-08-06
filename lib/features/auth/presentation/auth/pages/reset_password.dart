@@ -6,6 +6,7 @@ import 'package:online_exam_app/features/auth/presentation/auth/cubit/view_model
 import 'package:online_exam_app/features/auth/presentation/auth/widgets/handle_state.dart';
 
 import '../../../../../core/di/di.dart';
+import '../../../../../core/errors/localized_error_handler.dart';
 import '../widgets/form/reset_password_form.dart';
 
 class ResetPassword extends StatelessWidget {
@@ -22,7 +23,7 @@ class ResetPassword extends StatelessWidget {
               context: context,
               status: state.status,
               successMessage: state.response?.message ?? '',
-              errorMessage: state.errorMsg ?? '',
+              errorMessage: LocalizedErrorHandler.getErrorMessage(context, state.errorMsg),
               onError: () {
                 Navigator.pop(context);
               },

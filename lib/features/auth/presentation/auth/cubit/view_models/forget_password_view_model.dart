@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:online_exam_app/core/local_storage/remember_me_local_data_source.dart';
 import 'package:online_exam_app/features/auth/domain/entities/request_entities/forget_password_request_entity.dart';
 import 'package:online_exam_app/features/auth/domain/entities/response_entities/forget_password_response_entity.dart';
 import 'package:online_exam_app/features/auth/domain/usecases/forget_password_use_case.dart';
@@ -12,12 +11,10 @@ import '../../../../../../core/api_result/api_result.dart';
 @injectable
 class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
   final ForgetPasswordUseCase _forgetPasswordUseCase;
-  final RememberMeLocalDataSource _rememberMeLocalDataSource ;
 
-  ForgetPasswordViewModel(
-      {required ForgetPasswordUseCase forgetPasswordUseCase, required RememberMeLocalDataSource rememberMeLocalDataSource})
-      : _forgetPasswordUseCase = forgetPasswordUseCase,
-        _rememberMeLocalDataSource= rememberMeLocalDataSource,
+  ForgetPasswordViewModel({
+    required ForgetPasswordUseCase forgetPasswordUseCase,
+  })  : _forgetPasswordUseCase = forgetPasswordUseCase,
         super(const ForgetPasswordStates()) {
     _initializeControllers();
     _addListenersToControllers();
@@ -28,7 +25,7 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
   late final TextEditingController emailController;
 
   void _initializeControllers() {
-    emailController = TextEditingController(text: 'wasimghoniem@gmail.com');
+    emailController = TextEditingController();
   }
 
   void _addListenersToControllers() {
@@ -44,7 +41,7 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
     emailController.dispose();
   }
 
-  Future<void> forgetPassword( ) async {
+  Future<void> forgetPassword() async {
     if (formKey.currentState?.validate() == true) {
       emit(state.copyWith(
         errorMsg: null,
@@ -55,7 +52,6 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
       _handleResult(result);
     }
   }
-
 
   Future<void> resendCode(String email) async {
     final request = ForgetPasswordRequestEntity(email: email);
@@ -68,15 +64,15 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
     return super.close();
   }
 
-  void _handleResult(ApiResult<ForgetPasswordResponseEntity> result) async{
+  void _handleResult(ApiResult<ForgetPasswordResponseEntity> result) async {
     switch (result) {
       case ApiSuccessResult<ForgetPasswordResponseEntity>():
-        // Save the email for future use
-      await _rememberMeLocalDataSource.saveUserEmail(emailController.text);
+
         emit(state.copyWith(
           response: result.data,
           errorMsg: null,
           status: ForgetPasswordStatus.success,
+          email: emailController.text,
         ));
         break;
 
