@@ -22,14 +22,16 @@ abstract class AppTheme {
         style: ElevatedButton.styleFrom(
           backgroundColor: colorScheme.primary,
           foregroundColor: colorScheme.onPrimary,
-          shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.r),
+          ),
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
         ),
       ),
       textTheme: TextTheme(
@@ -70,7 +72,7 @@ abstract class AppTheme {
         ),
         titleMedium: TextStyle(
           color: AppColors.gray,
-          fontSize: 16.sp,
+          fontSize: 18.sp,
           fontWeight: FontWeight.w400,
         ),
         titleSmall: TextStyle(
@@ -78,10 +80,13 @@ abstract class AppTheme {
           fontSize: 14.sp,
           fontWeight: FontWeight.w600,
         ),
-
       ),
       inputDecorationTheme: InputDecorationTheme(
-        hintStyle: TextStyle(color: textFieldBorderColor,fontSize: 14,fontWeight: FontWeight.w400),
+        hintStyle: TextStyle(
+          color: textFieldBorderColor,
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+        ),
         labelStyle: TextStyle(color: textFieldBorderColor),
         floatingLabelStyle: TextStyle(color: textFieldBorderColor),
         border: OutlineInputBorder(
@@ -90,9 +95,7 @@ abstract class AppTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(
-            color: textFieldBorderColor,
-          ),
+          borderSide: BorderSide(color: textFieldBorderColor),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
@@ -103,55 +106,45 @@ abstract class AppTheme {
           borderSide: BorderSide(color: textFieldBorderColor),
         ),
       ),
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: AppColors.darkWhite,
-        showUnselectedLabels: true,
-        elevation: 0,
-        selectedIconTheme: IconThemeData(
-          size: 24.sp,
-          color: colorScheme.primary,
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: colorScheme.surface,
+        surfaceTintColor: Colors.transparent,
+        indicatorColor: AppColors.blue[10],
+        indicatorShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
         ),
-        unselectedIconTheme: IconThemeData(
-          size: 24.sp,
-          color: colorScheme.primary,
-        ),
-        selectedLabelStyle: TextStyle(
-          fontSize: 18.sp,
-          fontWeight: FontWeight.w500,
-          color: colorScheme.primary,
 
-        ),
-        unselectedLabelStyle: TextStyle(
-          fontSize:  18.sp,
-          fontWeight: FontWeight.w500,
-          color: colorScheme.primary,
-        ),
       ),
     );
   }
 
   static ThemeData lightTheme = getTheme(
-      colorScheme: const ColorScheme(
-          brightness: Brightness.light,
-          primary: AppColors.blue,
-          onPrimary: AppColors.white,
-          secondary: AppColors.black,
-          onSecondary: AppColors.white,
-          error: AppColors.red,
-          onError: AppColors.white,
-          surface: AppColors.white,
-          onSurface: AppColors.black),
-      textFieldBorderColor: AppColors.gray);
+    colorScheme: const ColorScheme(
+      brightness: Brightness.light,
+      primary: AppColors.blue,
+      onPrimary: AppColors.white,
+      secondary: AppColors.black,
+      onSecondary: AppColors.white,
+      error: AppColors.red,
+      onError: AppColors.white,
+      surface: AppColors.white,
+      onSurface: AppColors.black,
+    ),
+    textFieldBorderColor: AppColors.gray,
+  );
 
-// static ThemeData darkTheme = getTheme(const ColorScheme(
+// static ThemeData darkTheme = getTheme(
+//   colorScheme: const ColorScheme(
 //     brightness: Brightness.dark,
-//     primary: AppColors.black,
+//     primary: AppColors.blue,
 //     onPrimary: AppColors.white,
-//     secondary: AppColors.black,
-//     onSecondary: AppColors.white,
+//     secondary: AppColors.white,
+//     onSecondary: AppColors.black,
 //     error: AppColors.red,
 //     onError: AppColors.white,
-//     surface: AppColors.blue,
-//     onSurface: AppColors.white));
+//     surface: AppColors.black,
+//     onSurface: AppColors.white,
+//   ),
+//   textFieldBorderColor: AppColors.gray,
+// );
 }
