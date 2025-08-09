@@ -7,6 +7,7 @@ import 'package:online_exam_app/core/provider/user_provider.dart';
 import 'package:online_exam_app/core/route/app_routes.dart';
 import 'package:online_exam_app/core/route/routes.dart';
 import 'package:online_exam_app/core/theme/app_theme.dart';
+import 'package:online_exam_app/core/utils/exam_result_storage.dart';
 import 'package:online_exam_app/core/utils/my_bloc_observer.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 void main() async {
   Bloc.observer = MyBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
+  await ExamResultStorage.init();
   await configureDependencies();
   final appConfigProvider = getIt<AppConfigProvider>();
   final userProvider = getIt<UserProvider>();
