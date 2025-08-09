@@ -6,18 +6,24 @@ import 'package:online_exam_app/core/theme/app_colors.dart';
 import 'package:online_exam_app/core/theme/app_theme.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/widgets/build_app_bar.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/widgets/build_elevated_button.dart';
-import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/home_view_model.dart';
+import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_questions/exam_questions_view_model.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class ShowExamScore extends StatelessWidget {
   int score;
   int totalQuestions;
-  ShowExamScore({super.key, required this.score, required this.totalQuestions});
+  final ExamQuestionsViewModel homeViewModel;
+
+  ShowExamScore({
+    super.key,
+    required this.score,
+    required this.totalQuestions,
+    required this.homeViewModel,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final HomeViewModel viewModel = context.read<HomeViewModel>();
-    final percentage = viewModel.calculatePercentage(score, totalQuestions);
+    final percentage = homeViewModel.calculatePercentage(score, totalQuestions);
     return Scaffold(
       appBar: BuildAppBar(title: Constants.examTitle),
       body: Padding(

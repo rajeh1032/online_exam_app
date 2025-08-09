@@ -1,6 +1,6 @@
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/domain/entities/response/get_exam_questions_response_entity.dart';
 
-class HomeState {
+class ExamQuestionsState {
   bool examQuestionsIsLoading;
   List<QuestionsEntity>? questionsList;
   String? examQuestionsError;
@@ -9,7 +9,7 @@ class HomeState {
   final int? examScore;
   final bool isExamSubmitted;
 
-  HomeState({
+  ExamQuestionsState({
     this.examQuestionsIsLoading = true,
     this.questionsList = const [],
     this.examQuestionsError,
@@ -19,7 +19,7 @@ class HomeState {
     this.isExamSubmitted = false,
   });
 
-  HomeState copyWith({
+  ExamQuestionsState copyWith({
     bool? examQuestionsIsLoadingArg,
     List<QuestionsEntity>? questionsListArg,
     String? examQuestionsErrorArg,
@@ -28,7 +28,7 @@ class HomeState {
     int? examScoreArg,
     bool? isExamSubmittedArg,
   }) {
-    return HomeState(
+    return ExamQuestionsState(
       examQuestionsIsLoading:
           examQuestionsIsLoadingArg ?? this.examQuestionsIsLoading,
       questionsList: questionsListArg ?? this.questionsList,

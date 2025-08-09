@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam_app/core/constant/constants.dart';
 import 'package:online_exam_app/core/di/di.dart';
 import 'package:online_exam_app/core/route/app_routes.dart';
-import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/home_event.dart';
-import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/home_state.dart';
-import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/home_view_model.dart';
+import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_questions/exam_questions_event.dart';
+import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_questions/exam_questions_state.dart';
+import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_questions/exam_questions_view_model.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/widgets/exam_question/exam_question_content.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/widgets/exam_question/exam_questions_app_bar.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/widgets/exam_question/exam_questions_loading_widget.dart';
@@ -25,12 +25,12 @@ class ExamQuestionsScreen extends StatefulWidget {
 }
 
 class _ExamQuestionScreenState extends State<ExamQuestionsScreen> {
-  late final HomeViewModel _homeViewModel;
+  late final ExamQuestionsViewModel _homeViewModel;
 
   @override
   void initState() {
     super.initState();
-    _homeViewModel = getIt.get<HomeViewModel>();
+    _homeViewModel = getIt.get<ExamQuestionsViewModel>();
     _loadExamQuestions();
   }
 
@@ -61,6 +61,7 @@ class _ExamQuestionScreenState extends State<ExamQuestionsScreen> {
       child: Scaffold(
         appBar: ExamQuestionsAppBar(
           onSubmitExam: _handleExamSubmission,
+          homeViewModel: _homeViewModel,
         ),
         body: SafeArea(
           child: Padding(
@@ -69,7 +70,8 @@ class _ExamQuestionScreenState extends State<ExamQuestionsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: BlocBuilder<HomeViewModel, HomeState>(
+                  child:
+                      BlocBuilder<ExamQuestionsViewModel, ExamQuestionsState>(
                     builder: (context, state) {
                       if (state.examQuestionsIsLoading) {
                         return const ExamQuestionsLoadingWidget();
@@ -87,6 +89,7 @@ class _ExamQuestionScreenState extends State<ExamQuestionsScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (_) => ShowExamScore(
+                                homeViewModel: _homeViewModel,
                                 score: state.examScore ?? 0,
                                 totalQuestions: questions.length ?? 0,
                               ),
@@ -111,7 +114,7 @@ class _ExamQuestionScreenState extends State<ExamQuestionsScreen> {
                     },
                   ),
                 ),
-                BlocBuilder<HomeViewModel, HomeState>(
+                BlocBuilder<ExamQuestionsViewModel, ExamQuestionsState>(
                   builder: (context, state) {
                     return ExamQuestionsNavigationButtons(
                       currentIndex: state.currentQuestionIndex,

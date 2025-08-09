@@ -57,8 +57,8 @@ import '../../features/home_screen/tabs/home_tab/domain/repositories/home_reposi
     as _i1022;
 import '../../features/home_screen/tabs/home_tab/domain/usecases/get_exam_questions_use_case.dart'
     as _i272;
-import '../../features/home_screen/tabs/home_tab/presentation/cubit/home_view_model.dart'
-    as _i391;
+import '../../features/home_screen/tabs/home_tab/presentation/cubit/exam_questions/exam_questions_view_model.dart'
+    as _i310;
 import '../provider/app_config_provider.dart' as _i291;
 import '../provider/user_provider.dart' as _i505;
 import '../utils/shared_pref_services.dart' as _i0;
@@ -106,8 +106,8 @@ extension GetItInjectableX on _i174.GetIt {
         homeRemoteDataSource: gh<_i523.HomeRemoteDataSource>()));
     gh.factory<_i272.GetExamQuestionsUseCase>(
         () => _i272.GetExamQuestionsUseCase(gh<_i1022.HomeRepositories>()));
-    gh.factory<_i391.HomeViewModel>(
-        () => _i391.HomeViewModel(gh<_i272.GetExamQuestionsUseCase>()));
+    gh.factory<_i310.ExamQuestionsViewModel>(() =>
+        _i310.ExamQuestionsViewModel(gh<_i272.GetExamQuestionsUseCase>()));
     gh.factory<_i962.AuthRepository>(() => _i394.AuthRepositoriesImpl(
         authRemoteDataSource: gh<_i107.AuthRemoteDataSource>()));
     gh.factory<_i591.ForgetPasswordUseCase>(
