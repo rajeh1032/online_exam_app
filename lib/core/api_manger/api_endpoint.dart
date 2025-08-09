@@ -4,12 +4,13 @@ abstract class ApiEndpoint {
   //Auth
   static const String signIn = '/auth/signin';
   static const String signUp = '/auth/signup';
- 
+
   static const String forgotPassword = '/auth/forgotPassword';
   static const String verifyResetCode = '/auth/verifyResetCode';
   static const String resetPassword = '/auth/resetPassword';
 
-  //Home 
+  //Home
   static const String getExamQuestions = '/questions';
-
+  static const String getAllSubjects = '/subjects';
+  static const String getAllExamOnSubject = '/exams';
 }

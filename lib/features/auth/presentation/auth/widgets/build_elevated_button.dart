@@ -5,17 +5,18 @@ import 'package:online_exam_app/core/theme/app_colors.dart';
 class BuildElevatedButton extends StatelessWidget {
   final String text;
   final void Function()? onPressed;
-  Color? backgroundColor = AppColors.blue;
-  Color? textColor = AppColors.white;
-  BorderRadius? borderRadius = BorderRadius.circular(12.r);
+  final Color backgroundColor;
+  final Color textColor;
+  final BorderRadius borderRadius;
+
   BuildElevatedButton({
     super.key,
     required this.text,
     required this.onPressed,
-    this.backgroundColor,
-    this.textColor,
-    this.borderRadius,
-  });
+    this.backgroundColor = AppColors.blue,
+    this.textColor = AppColors.white,
+    BorderRadius? borderRadius,
+  }) : borderRadius = borderRadius ?? BorderRadius.circular(12.r);
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +25,12 @@ class BuildElevatedButton extends StatelessWidget {
       height: 48.h,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: backgroundColor,
-            shape: RoundedRectangleBorder(
-                borderRadius: borderRadius!,
-                side: const BorderSide(color: AppColors.blue, width: 2))),
+          backgroundColor: backgroundColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: borderRadius,
+            side: const BorderSide(color: AppColors.blue, width: 2),
+          ),
+        ),
         onPressed: onPressed,
         child: Text(
           text,

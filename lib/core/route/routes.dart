@@ -7,10 +7,12 @@ import 'package:online_exam_app/features/auth/presentation/auth/pages/reset_pass
 import 'package:online_exam_app/features/auth/presentation/auth/pages/verification_code.dart';
 import 'package:online_exam_app/features/home_screen/pages/home_screen.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/pages/exam_questions_screen.dart';
+import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/pages/start_exam_screen.dart';
 import 'package:online_exam_app/features/home_screen/tabs/result_tab/presentation/pages/quiz_result_screen.dart';
 
 import '../../features/auth/presentation/auth/pages/sign_in_screen.dart';
 import '../../features/auth/presentation/auth/pages/sign_up_screen.dart';
+import '../../features/home_screen/tabs/home_tab/presentation/pages/exams_by_subject_screen.dart';
 
 abstract class Routes {
   static Route generateRoute(RouteSettings settings) {
@@ -38,6 +40,14 @@ abstract class Routes {
                 ));
       case AppRoutes.examQuestionsAnswer:
         return MaterialPageRoute(builder: (_) => QuizResultScreen());
+      case AppRoutes.examsBySubjectScreen:
+        return MaterialPageRoute(
+          builder: (_) => ExamsBySubjectScreen(),
+          settings: settings,
+        );
+      case AppRoutes.startExamScreen:
+        return MaterialPageRoute(builder: (_) => const StartExamScreen(),
+            settings: settings);
 
       default:
         return MaterialPageRoute(

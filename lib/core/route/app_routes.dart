@@ -9,4 +9,6 @@ abstract class AppRoutes {
   static const String homeScreen = "/home_screen";
   static const String examQuestions = "/exam_questions";
   static const String examQuestionsAnswer = "/exam_questions_answer";
+  static const String examsBySubjectScreen = "/exams_by_subject_screen";
+  static const String startExamScreen = "/start_exam_screen";
 }
