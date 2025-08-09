@@ -4,8 +4,8 @@ import 'package:flutter_countdown_timer/index.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam_app/core/assets/app_assets.dart';
 import 'package:online_exam_app/core/constant/constants.dart';
-import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_questions_state.dart';
-import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_questions_view_model.dart';
+import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_questions/exam_questions_state.dart';
+import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_questions/exam_questions_view_model.dart';
 
 class ExamQuestionsAppBar extends StatelessWidget
     implements PreferredSizeWidget {

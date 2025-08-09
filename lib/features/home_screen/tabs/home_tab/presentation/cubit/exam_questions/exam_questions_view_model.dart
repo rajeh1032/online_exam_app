@@ -6,8 +6,8 @@ import 'package:online_exam_app/core/utils/exam_result_storage.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/domain/entities/get_exam_questions_request_Entity.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/domain/entities/response/get_exam_questions_response_entity.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/domain/usecases/get_exam_questions_use_case.dart';
-import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_questions_event.dart';
-import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_questions_state.dart';
+import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_questions/exam_questions_event.dart';
+import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_questions/exam_questions_state.dart';
 
 @injectable
 class ExamQuestionsViewModel extends Cubit<ExamQuestionsState> {

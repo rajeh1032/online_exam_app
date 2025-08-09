@@ -6,7 +6,7 @@ import 'package:online_exam_app/core/theme/app_colors.dart';
 import 'package:online_exam_app/core/theme/app_theme.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/widgets/build_app_bar.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/widgets/build_elevated_button.dart';
-import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_questions_view_model.dart';
+import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_questions/exam_questions_view_model.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class ShowExamScore extends StatelessWidget {
