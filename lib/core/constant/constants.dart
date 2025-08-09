@@ -72,4 +72,38 @@ class Constants {
   static const String yourScore = "Your Score";
   static const String correct = "Correct";
   static const String incorrect = "Incorrect";
+
+
+
+
+
+  static const String trueString = 'True';
+  static const String emailNotFoundError = 'Email not found. Please try again.';
+
+  static const String exploreTitle = 'Explore';
+
+  static const String resultTitle = 'Result';
+
+  static const String profileTitle = 'Profile';
+
+
+  static const String authToken= 'auth_token';
+  static const String surveyTitle = 'Survey';
+  static const String browseBySubject = 'Browse by Subject';
+  static const String searchHintText = 'Search ';
+  static const String unexpectedError = 'An unexpected error occurred';
+  static const String noSubjectsAvailable = 'No subjects available';
+  static const String retry = 'Retry';
+  static const String subjectInfoMissing =
+      'Subject information is missing. Please select a subject to view exams.';
+  static const String highLevel = 'High Level';
+  static const String noExamsAvailable = 'No exams available for this subject';
+  static const String invalidNavigationData = 'Invalid navigation data';
+  static const String examMinutesSuffix = "Minutes";
+  static const String examQuestionSuffix = "Question";
+  static const String examFromLabel = "From:";
+  static const String examToLabel = "To:";
+  static const String examStartTime = "1.00";
+  static const String examEndTime = "6.00";
+  static const String start = "Start";
 }

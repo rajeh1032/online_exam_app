@@ -5,6 +5,10 @@ import 'package:online_exam_app/features/home_screen/tabs/home_tab/domain/entiti
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/domain/entities/response/get_exam_questions_response_entity.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/domain/repositories/home_repositories.dart';
 
+import '../../domain/entities/get_all_exam_on_subject_request_entity.dart';
+import '../../domain/entities/response/get_all_exam_on_subject_entity.dart';
+import '../../domain/entities/response/get_all_subject_response_entity.dart';
+
 @Injectable(as: HomeRepositories)
 class HomeRepositoriesImpl implements HomeRepositories {
   final HomeRemoteDataSource _homeRemoteDataSource;
@@ -15,5 +19,16 @@ class HomeRepositoriesImpl implements HomeRepositories {
       GetExamQuestionsRequestEntity getExamQuestionsRequestEntity) {
     return _homeRemoteDataSource
         .getExamQuestions(getExamQuestionsRequestEntity);
+  }
+  @override
+  Future<ApiResult<GetAllSubjectsResponseEntity>> getAllSubjects() {
+    return _homeRemoteDataSource.getAllSubjects();
+  }
+
+  @override
+  Future<ApiResult<GetAllExamOnSubjectEntity>> getAllExamOnSubject(
+      GetAllExamOnSubjectRequestEntity getAllExamOnSubjectRequestEntity
+      ) {
+    return _homeRemoteDataSource.getAllExamOnSubject( getAllExamOnSubjectRequestEntity);
   }
 }
