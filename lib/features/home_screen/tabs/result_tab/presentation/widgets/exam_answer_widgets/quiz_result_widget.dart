@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam_app/core/models/exam_result.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/widgets/build_app_bar.dart';
-import 'package:online_exam_app/features/home_screen/tabs/result_tab/presentation/widgets/question_card.dart';
+import 'package:online_exam_app/features/home_screen/tabs/result_tab/presentation/widgets/exam_answer_widgets/question_card.dart';
 
 class QuizResultWidget extends StatelessWidget {
   final ExamResult? examResult;

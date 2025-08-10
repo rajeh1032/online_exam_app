@@ -10,4 +10,14 @@ class ErrorMessages {
       'Network error occurred. Please try again.';
   static const String unexpected =
       'An unexpected error occurred. Please try again.';
+
+  ///local storage
+  static const String localStorage =
+      'Local storage error occurred. Please restart the app.';
+  static const String storagePermission =
+      'Storage permission denied. Please check app permissions.';
+  static const String storageFull =
+      'Device storage is full. Please free up some space.';
+  static const String dataCorrupted =
+      'Local data is corrupted. The app will reset your data.';
 }
