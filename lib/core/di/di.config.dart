@@ -55,6 +55,10 @@ import '../../features/home_screen/tabs/home_tab/data/repositories/home_reposito
     as _i938;
 import '../../features/home_screen/tabs/home_tab/domain/repositories/home_repositories.dart'
     as _i1022;
+import '../../features/home_screen/tabs/home_tab/domain/usecases/get_all_exam_on_subject_use_case.dart'
+    as _i1008;
+import '../../features/home_screen/tabs/home_tab/domain/usecases/get_all_subject_use_case.dart'
+    as _i48;
 import '../../features/home_screen/tabs/home_tab/domain/usecases/get_exam_questions_use_case.dart'
     as _i272;
 import '../../features/home_screen/tabs/home_tab/presentation/cubit/exam_questions/exam_questions_view_model.dart'
@@ -122,6 +126,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i560.AuthLocalDataSourceImpl(gh<_i0.SharedPrefService>()));
     gh.factory<_i213.AuthApiClient>(() => _i213.AuthApiClient(gh<_i361.Dio>()));
     gh.factory<_i952.HomeApiClient>(() => _i952.HomeApiClient(gh<_i361.Dio>()));
+    gh.factory<_i555.ProfileApiClient>(
+        () => _i555.ProfileApiClient(gh<_i361.Dio>()));
+    gh.factory<_i830.ProfileRemoteDataSource>(() =>
+        _i1019.ProfileRemoteDataSourceImpl(
+            profileApiClient: gh<_i555.ProfileApiClient>()));
     gh.factory<_i523.HomeRemoteDataSource>(() => _i334.HomeRemoteDataSourceImpl(
         homeApiClient: gh<_i952.HomeApiClient>()));
     gh.singleton<_i291.AppConfigProvider>(
@@ -177,15 +186,27 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1037.SignUpUseCase(gh<_i962.AuthRepository>()));
     gh.factory<_i948.VerifyResetCodeUseCase>(
         () => _i948.VerifyResetCodeUseCase(gh<_i962.AuthRepository>()));
+    gh.factory<_i391.HomeViewModel>(() => _i391.HomeViewModel(
+        getAllSubjectUseCase: gh<_i48.GetAllSubjectUseCase>()));
     gh.factory<_i1064.VerificationCodeViewModel>(
         () => _i1064.VerificationCodeViewModel(
               verifyResetCodeUseCase: gh<_i948.VerifyResetCodeUseCase>(),
               appConfigProvider: gh<_i291.AppConfigProvider>(),
             ));
+    gh.factory<_i839.ChangePasswordViewModel>(
+        () => _i839.ChangePasswordViewModel(gh<_i318.ChangePasswordUseCase>()));
+    gh.factory<_i32.EditProfileViewModel>(() => _i32.EditProfileViewModel(
+          gh<_i505.GetUserDataUseCase>(),
+          gh<_i109.EditProfileUseCase>(),
+        ));
     gh.factory<_i947.SignInViewModel>(() => _i947.SignInViewModel(
           signInUseCase: gh<_i362.SignInUseCase>(),
           appConfigProvider: gh<_i291.AppConfigProvider>(),
         ));
+    gh.factory<_i833.ExamsBySubjectViewModel>(() =>
+        _i833.ExamsBySubjectViewModel(
+            getAllExamOnSubjectUseCase:
+                gh<_i1008.GetAllExamOnSubjectUseCase>()));
     gh.factory<_i479.ResetPasswordViewModel>(() => _i479.ResetPasswordViewModel(
           resetPasswordUseCase: gh<_i825.ResetPasswordUseCase>(),
           appConfigProvider: gh<_i291.AppConfigProvider>(),

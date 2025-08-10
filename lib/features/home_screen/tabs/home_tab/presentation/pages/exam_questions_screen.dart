@@ -13,10 +13,8 @@ import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/widgets/exam_question/show_exam_score.dart';
 
 class ExamQuestionsScreen extends StatefulWidget {
-  final String examId;
-  ExamQuestionsScreen({
+  const ExamQuestionsScreen({
     super.key,
-    required this.examId,
   });
 
   @override
@@ -25,6 +23,7 @@ class ExamQuestionsScreen extends StatefulWidget {
 
 class _ExamQuestionScreenState extends State<ExamQuestionsScreen> {
   late final ExamQuestionsViewModel _homeViewModel;
+  late String examId;
 
   @override
   void initState() {
@@ -34,7 +33,7 @@ class _ExamQuestionScreenState extends State<ExamQuestionsScreen> {
   }
 
   void _loadExamQuestions() {
-    _homeViewModel.doIntent(GetExamQuestionsEvent(examId: widget.examId));
+    _homeViewModel.doIntent(GetExamQuestionsEvent(examId: examId));
   }
 
   void _handleExamSubmission() {
@@ -55,6 +54,7 @@ class _ExamQuestionScreenState extends State<ExamQuestionsScreen> {
 
   @override
   Widget build(BuildContext context) {
+     examId = (ModalRoute.of(context)?.settings.arguments as String?)!;
     return BlocProvider.value(
       value: _homeViewModel,
       child: Scaffold(

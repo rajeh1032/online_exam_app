@@ -44,6 +44,9 @@ class Constants {
       'Please enter the verification code sent to your email';
 
   static const String resendCode = 'Resend ';
+  //password changed successfully
+  static const String passwordChangedSuccessfully =
+      'Password changed successfully';
 
   static const String didntReceiveCode = 'Didn\'t receive the code? ';
 
@@ -72,4 +75,58 @@ class Constants {
   static const String yourScore = "Your Score";
   static const String correct = "Correct";
   static const String incorrect = "Incorrect";
+  //Profile updated successfully
+  static const String profileUpdatedSuccessfully =
+      'Profile updated successfully';
+  //'No changes were made to update'
+  static const String noChangesMadeToUpdate =
+      'No changes were made to update';
+  //'An unexpected error occurred while updating profile'
+  static const String unexpectedErrorWhileUpdatingProfile =
+      'An unexpected error occurred while updating profile';
+// 'Change'
+  static const String change = 'Change';
+  static const String changePassword = 'Change Password';
+  //current password
+  static const String currentPassword = 'Current Password';
+  //new password
+  static const String newPassword = 'New Password';
+  //confirm password
+  static const String confirmPassword = 'Confirm Password';
+
+
+
+
+  static const String trueString = 'True';
+  static const String emailNotFoundError = 'Email not found. Please try again.';
+
+  static const String exploreTitle = 'Explore';
+
+  static const String resultTitle = 'Result';
+
+  static const String profileTitle = 'Profile';
+  static const String update = 'Update';
+
+
+  static const String authToken= 'auth_token';
+  static const String surveyTitle = 'Survey';
+  static const String browseBySubject = 'Browse by Subject';
+  static const String searchHintText = 'Search ';
+  static const String unexpectedError = 'An unexpected error occurred';
+  static const String noSubjectsAvailable = 'No subjects available';
+  static const String retry = 'Retry';
+  static const String subjectInfoMissing =
+      'Subject information is missing. Please select a subject to view exams.';
+  static const String highLevel = 'High Level';
+  static const String noExamsAvailable = 'No exams available for this subject';
+  static const String invalidNavigationData = 'Invalid navigation data';
+  static const String examMinutesSuffix = "Minutes";
+  static const String examQuestionSuffix = "Question";
+  static const String examFromLabel = "From:";
+  static const String examToLabel = "To:";
+  static const String examStartTime = "1.00";
+  static const String examEndTime = "6.00";
+  static const String start = "Start";
+  //Edit Profile
+  static const String editProfileTitle = 'Edit Profile';
 }

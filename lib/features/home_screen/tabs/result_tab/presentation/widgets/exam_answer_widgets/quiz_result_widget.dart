@@ -42,7 +42,7 @@ class QuizResultWidget extends StatelessWidget {
         title: "Answers",
       ),
       body: Padding(
-          padding: EdgeInsetsGeometry.all(16.w),
+          padding: EdgeInsets.all(16.w),
           child: Column(
             children: [
               Expanded(
