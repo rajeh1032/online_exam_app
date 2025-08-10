@@ -13,4 +13,9 @@ abstract class ApiEndpoint {
   static const String getExamQuestions = '/questions';
   static const String getAllSubjects = '/subjects';
   static const String getAllExamOnSubject = '/exams';
+
+  // edit profile
+  static const String editProfile = '/auth/editProfile';
+  static const String getUserProfile = '/auth/profileData';
+  static const String changePassword = '/auth/changePassword';
 }

@@ -8,6 +8,7 @@ import 'package:online_exam_app/features/auth/presentation/auth/pages/verificati
 import 'package:online_exam_app/features/home_screen/pages/home_screen.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/pages/exam_questions_screen.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/pages/start_exam_screen.dart';
+import 'package:online_exam_app/features/home_screen/tabs/profile_tab/presentation/pages/change_password_screen.dart';
 import 'package:online_exam_app/features/home_screen/tabs/result_tab/presentation/pages/quiz_result_screen.dart';
 
 import '../../features/auth/presentation/auth/pages/sign_in_screen.dart';
@@ -34,10 +35,7 @@ abstract class Routes {
         return MaterialPageRoute(builder: (_) => const HomeScreen());
 
       case AppRoutes.examQuestions:
-        return MaterialPageRoute(
-            builder: (_) => ExamQuestionsScreen(
-                  examId: '6700708d30a3c3c1944a9c60',
-                ));
+        return MaterialPageRoute(builder: (_) => ExamQuestionsScreen());
       case AppRoutes.examQuestionsAnswer:
         return MaterialPageRoute(builder: (_) => QuizResultScreen());
       case AppRoutes.examsBySubjectScreen:
@@ -46,8 +44,10 @@ abstract class Routes {
           settings: settings,
         );
       case AppRoutes.startExamScreen:
-        return MaterialPageRoute(builder: (_) => const StartExamScreen(),
-            settings: settings);
+        return MaterialPageRoute(
+            builder: (_) => const StartExamScreen(), settings: settings);
+      case AppRoutes.changePassword:
+        return MaterialPageRoute(builder: (_) => ChangePasswordScreen());
 
       default:
         return MaterialPageRoute(

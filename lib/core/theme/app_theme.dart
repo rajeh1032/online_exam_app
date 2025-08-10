@@ -24,6 +24,8 @@ abstract class AppTheme {
           foregroundColor: colorScheme.onPrimary,
           shape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+          disabledBackgroundColor: AppColors.gray.withOpacity(0.5),
+          disabledForegroundColor: AppColors.white,
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
