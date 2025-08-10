@@ -67,6 +67,26 @@ import '../../features/home_screen/tabs/home_tab/presentation/cubit/exams_by_sub
     as _i833;
 import '../../features/home_screen/tabs/home_tab/presentation/cubit/home_view_model.dart'
     as _i391;
+import '../../features/home_screen/tabs/profile_tab/api/client/profile_api_client.dart'
+    as _i555;
+import '../../features/home_screen/tabs/profile_tab/api/data_source_impl/profile_remote_data_source_impl.dart'
+    as _i1019;
+import '../../features/home_screen/tabs/profile_tab/data/datasources/profile_remote_data_source.dart'
+    as _i830;
+import '../../features/home_screen/tabs/profile_tab/data/repositories/profile_repository_impl.dart'
+    as _i413;
+import '../../features/home_screen/tabs/profile_tab/domain/repositories/profile_repository.dart'
+    as _i232;
+import '../../features/home_screen/tabs/profile_tab/domain/usecases/change_password_use_case.dart'
+    as _i318;
+import '../../features/home_screen/tabs/profile_tab/domain/usecases/edit_profile_use_case.dart'
+    as _i109;
+import '../../features/home_screen/tabs/profile_tab/domain/usecases/get_user_data_use_case.dart'
+    as _i505;
+import '../../features/home_screen/tabs/profile_tab/presentation/cubit/change_password_view_model.dart'
+    as _i839;
+import '../../features/home_screen/tabs/profile_tab/presentation/cubit/edit_profile_view_model.dart'
+    as _i32;
 import '../provider/app_config_provider.dart' as _i291;
 import '../provider/user_provider.dart' as _i505;
 import '../utils/shared_pref_services.dart' as _i0;
@@ -102,6 +122,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i560.AuthLocalDataSourceImpl(gh<_i0.SharedPrefService>()));
     gh.factory<_i213.AuthApiClient>(() => _i213.AuthApiClient(gh<_i361.Dio>()));
     gh.factory<_i952.HomeApiClient>(() => _i952.HomeApiClient(gh<_i361.Dio>()));
+    gh.factory<_i555.ProfileApiClient>(
+        () => _i555.ProfileApiClient(gh<_i361.Dio>()));
+    gh.factory<_i830.ProfileRemoteDataSource>(() =>
+        _i1019.ProfileRemoteDataSourceImpl(
+            profileApiClient: gh<_i555.ProfileApiClient>()));
     gh.factory<_i523.HomeRemoteDataSource>(() => _i334.HomeRemoteDataSourceImpl(
         homeApiClient: gh<_i952.HomeApiClient>()));
     gh.singleton<_i291.AppConfigProvider>(
@@ -112,12 +137,20 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i1022.HomeRepositories>(() => _i938.HomeRepositoriesImpl(
         homeRemoteDataSource: gh<_i523.HomeRemoteDataSource>()));
+    gh.factory<_i232.ProfileRepository>(() => _i413.ProfileRepositoryImpl(
+        profileRemoteDataSource: gh<_i830.ProfileRemoteDataSource>()));
     gh.factory<_i272.GetExamQuestionsUseCase>(
         () => _i272.GetExamQuestionsUseCase(gh<_i1022.HomeRepositories>()));
     gh.factory<_i310.ExamQuestionsViewModel>(() =>
         _i310.ExamQuestionsViewModel(gh<_i272.GetExamQuestionsUseCase>()));
     gh.factory<_i962.AuthRepository>(() => _i394.AuthRepositoriesImpl(
         authRemoteDataSource: gh<_i107.AuthRemoteDataSource>()));
+    gh.factory<_i318.ChangePasswordUseCase>(
+        () => _i318.ChangePasswordUseCase(gh<_i232.ProfileRepository>()));
+    gh.factory<_i109.EditProfileUseCase>(
+        () => _i109.EditProfileUseCase(gh<_i232.ProfileRepository>()));
+    gh.factory<_i505.GetUserDataUseCase>(
+        () => _i505.GetUserDataUseCase(gh<_i232.ProfileRepository>()));
     gh.factory<_i1008.GetAllExamOnSubjectUseCase>(
         () => _i1008.GetAllExamOnSubjectUseCase(gh<_i1022.HomeRepositories>()));
     gh.factory<_i48.GetAllSubjectUseCase>(
@@ -139,6 +172,12 @@ extension GetItInjectableX on _i174.GetIt {
               verifyResetCodeUseCase: gh<_i948.VerifyResetCodeUseCase>(),
               appConfigProvider: gh<_i291.AppConfigProvider>(),
             ));
+    gh.factory<_i839.ChangePasswordViewModel>(
+        () => _i839.ChangePasswordViewModel(gh<_i318.ChangePasswordUseCase>()));
+    gh.factory<_i32.EditProfileViewModel>(() => _i32.EditProfileViewModel(
+          gh<_i505.GetUserDataUseCase>(),
+          gh<_i109.EditProfileUseCase>(),
+        ));
     gh.factory<_i947.SignInViewModel>(() => _i947.SignInViewModel(
           signInUseCase: gh<_i362.SignInUseCase>(),
           appConfigProvider: gh<_i291.AppConfigProvider>(),

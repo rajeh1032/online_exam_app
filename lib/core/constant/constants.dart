@@ -44,6 +44,9 @@ class Constants {
       'Please enter the verification code sent to your email';
 
   static const String resendCode = 'Resend ';
+  //password changed successfully
+  static const String passwordChangedSuccessfully =
+      'Password changed successfully';
 
   static const String didntReceiveCode = 'Didn\'t receive the code? ';
 
@@ -72,7 +75,24 @@ class Constants {
   static const String yourScore = "Your Score";
   static const String correct = "Correct";
   static const String incorrect = "Incorrect";
-
+  //Profile updated successfully
+  static const String profileUpdatedSuccessfully =
+      'Profile updated successfully';
+  //'No changes were made to update'
+  static const String noChangesMadeToUpdate =
+      'No changes were made to update';
+  //'An unexpected error occurred while updating profile'
+  static const String unexpectedErrorWhileUpdatingProfile =
+      'An unexpected error occurred while updating profile';
+// 'Change'
+  static const String change = 'Change';
+  static const String changePassword = 'Change Password';
+  //current password
+  static const String currentPassword = 'Current Password';
+  //new password
+  static const String newPassword = 'New Password';
+  //confirm password
+  static const String confirmPassword = 'Confirm Password';
 
 
 
@@ -85,6 +105,7 @@ class Constants {
   static const String resultTitle = 'Result';
 
   static const String profileTitle = 'Profile';
+  static const String update = 'Update';
 
 
   static const String authToken= 'auth_token';
@@ -106,4 +127,6 @@ class Constants {
   static const String examStartTime = "1.00";
   static const String examEndTime = "6.00";
   static const String start = "Start";
+  //Edit Profile
+  static const String editProfileTitle = 'Edit Profile';
 }

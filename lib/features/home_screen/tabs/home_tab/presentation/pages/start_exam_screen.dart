@@ -22,6 +22,7 @@ class StartExamScreen extends StatelessWidget {
             Navigator.pushNamed(
               context,
               AppRoutes.examQuestions,
+              arguments: arguments.id
 
             );
           }
