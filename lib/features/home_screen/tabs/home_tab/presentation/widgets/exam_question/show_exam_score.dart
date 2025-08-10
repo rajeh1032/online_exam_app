@@ -44,6 +44,8 @@ class ShowExamScore extends StatelessWidget {
                     animation: true,
                     animationDuration: 1200,
                     lineWidth: 8.0,
+                    
+                    
                     percent: percentage / 100,
                     center: Text(
                       "${percentage.toStringAsFixed(0)}%",
