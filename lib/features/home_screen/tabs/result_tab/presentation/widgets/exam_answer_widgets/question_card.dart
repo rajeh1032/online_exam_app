@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam_app/core/models/exam_result.dart';
 import 'package:online_exam_app/core/theme/app_colors.dart';
-import 'package:online_exam_app/features/home_screen/tabs/result_tab/presentation/widgets/option_item.dart';
+import 'package:online_exam_app/features/home_screen/tabs/result_tab/presentation/widgets/exam_answer_widgets/option_item.dart';
 
 class QuestionCard extends StatelessWidget {
   final int questionNumber;

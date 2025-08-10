@@ -13,6 +13,19 @@ class ErrorHandler {
     } else if (error.contains('DioError')) {
       return ErrorMessages.networkError;
     }
+
+    // Local storage errors (add these to your existing class)
+    else if (error.contains('HiveError') || error.contains('Box not found')) {
+      return ErrorMessages.localStorage;
+    } else if (error.contains('Permission denied')) {
+      return ErrorMessages.storagePermission;
+    } else if (error.contains('No space left') ||
+        error.contains('disk space')) {
+      return ErrorMessages.storageFull;
+    } else if (error.contains('FormatException')) {
+      return ErrorMessages.dataCorrupted;
+    }
     return ErrorMessages.unexpected;
   }
 }
+

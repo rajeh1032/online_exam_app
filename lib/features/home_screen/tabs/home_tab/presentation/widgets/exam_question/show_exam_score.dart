@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam_app/core/constant/constants.dart';
 import 'package:online_exam_app/core/theme/app_colors.dart';
@@ -45,6 +44,8 @@ class ShowExamScore extends StatelessWidget {
                     animation: true,
                     animationDuration: 1200,
                     lineWidth: 8.0,
+                    
+                    
                     percent: percentage / 100,
                     center: Text(
                       "${percentage.toStringAsFixed(0)}%",
@@ -82,7 +83,7 @@ class ShowExamScore extends StatelessWidget {
                           textColor: AppColors.blue),
                       build_degree_circle(
                           totalQuestions: totalQuestions,
-                          score: score,
+                          score: totalQuestions - score,
                           borderColor: AppColors.red,
                           textColor: AppColors.red),
                     ],
@@ -90,12 +91,6 @@ class ShowExamScore extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 80.h),
-              BuildElevatedButton(
-                onPressed: () {},
-                text: 'show result',
-                borderRadius: BorderRadius.circular(40.r),
-              ),
-              SizedBox(height: 16.h),
               BuildElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
