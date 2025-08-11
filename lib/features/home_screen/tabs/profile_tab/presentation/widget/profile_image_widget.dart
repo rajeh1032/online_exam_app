@@ -5,7 +5,8 @@ import 'package:online_exam_app/core/assets/app_assets.dart';
 import '../../../../../../core/theme/app_colors.dart';
 
 class ProfileImageWidget extends StatelessWidget {
-  const ProfileImageWidget({super.key});
+  final String imagePath;
+  ProfileImageWidget({super.key, required this.imagePath});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +18,10 @@ class ProfileImageWidget extends StatelessWidget {
             height: 81.w,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(180.r),
-              image: const DecorationImage(
-                image: AssetImage(AppAssets.profileImage),
+              image: DecorationImage(
+                image: AssetImage(imagePath), // Use the provided imagePath
+                fit: BoxFit
+                    .cover, // Ensures the image fits well within the circle
               ),
             ),
           ),
@@ -33,7 +36,10 @@ class ProfileImageWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(6.r),
               ),
               child: Center(
-                child: Icon(Icons.camera_alt_outlined,color: Theme.of(context).colorScheme.onPrimary,)
+                child: Icon(
+                  Icons.camera_alt_outlined,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
               ),
             ),
           ),

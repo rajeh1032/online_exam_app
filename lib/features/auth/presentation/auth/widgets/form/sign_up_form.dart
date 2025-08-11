@@ -6,7 +6,7 @@ import '../../../../../../core/constant/constants.dart';
 import '../../../../../../core/route/app_routes.dart';
 import '../../cubit/states/signup_states.dart';
 import '../../cubit/view_models/signup_view_model.dart';
-import '../build_app_bar.dart';
+import '../../../../../../core/utils/build_app_bar.dart';
 import '../build_elevated_button.dart';
 import '../build_email_field.dart';
 import '../build_first_and_last_name_field.dart';

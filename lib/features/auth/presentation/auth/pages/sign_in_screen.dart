@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_exam_app/core/route/app_routes.dart';
 import '../../../../../core/di/di.dart';
 import '../cubit/states/sign_in_state.dart';
 import '../cubit/view_models/sign_in_view_model.dart';
@@ -21,7 +22,10 @@ class SignInScreen extends StatelessWidget {
                 status: state.status,
                 successMessage: state.response?.message ?? '',
                 errorMessage: state.errorMsg ?? '',
-                );
+                onSuccess: () {
+                  Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
+                },
+                onError: () {});
           },
           child: const SignInForm()),
     );

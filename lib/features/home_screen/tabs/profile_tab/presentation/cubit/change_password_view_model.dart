@@ -74,11 +74,5 @@ class ChangePasswordViewModel extends Cubit<ChangePasswordState> {
     }
   }
 
-  @override
-  Future<void> close() {
-    currentPasswordController.dispose();
-    newPasswordController.dispose();
-    confirmPasswordController.dispose();
-    return super.close();
-  }
+
 }

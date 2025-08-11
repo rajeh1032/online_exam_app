@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam_app/core/constant/constants.dart';
+import 'package:online_exam_app/core/route/app_routes.dart';
 import 'package:online_exam_app/core/theme/app_colors.dart';
 import 'package:online_exam_app/core/theme/app_theme.dart';
-import 'package:online_exam_app/features/auth/presentation/auth/widgets/build_app_bar.dart';
+import 'package:online_exam_app/core/utils/build_app_bar.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/widgets/build_elevated_button.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_questions/exam_questions_view_model.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -24,7 +25,11 @@ class ShowExamScore extends StatelessWidget {
   Widget build(BuildContext context) {
     final percentage = homeViewModel.calculatePercentage(score, totalQuestions);
     return Scaffold(
-      appBar: BuildAppBar(title: Constants.examTitle),
+      appBar: const BuildAppBar(
+        title: Constants.examTitle,
+        showBackButton: false,
+        enableBackButton: false,
+      ),
       body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 40.h),
           child: Column(
@@ -44,8 +49,6 @@ class ShowExamScore extends StatelessWidget {
                     animation: true,
                     animationDuration: 1200,
                     lineWidth: 8.0,
-                    
-                    
                     percent: percentage / 100,
                     center: Text(
                       "${percentage.toStringAsFixed(0)}%",
@@ -91,6 +94,16 @@ class ShowExamScore extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 80.h),
+              BuildElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRoutes.examQuestionsAnswer);
+                },
+                text: 'show results',
+                backgroundColor: AppColors.blue,
+                textColor: AppColors.white,
+                borderRadius: BorderRadius.circular(40.r),
+              ),
+              SizedBox(height: 22.h),
               BuildElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);

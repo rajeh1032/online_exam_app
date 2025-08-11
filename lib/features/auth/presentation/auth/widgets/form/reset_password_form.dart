@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/cubit/states/reset_password_states.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/cubit/view_models/reset_password_view_model.dart';
-import 'package:online_exam_app/features/auth/presentation/auth/widgets/build_app_bar.dart';
+import 'package:online_exam_app/core/utils/build_app_bar.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/widgets/build_elevated_button.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/widgets/build_password_field.dart';
 
@@ -18,7 +18,7 @@ class ResetPasswordForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = context.read<ResetPasswordViewModel>();
     return Scaffold(
-      appBar:const BuildAppBar(title: Constants.passwordLabel),
+      appBar: BuildAppBar(title: Constants.passwordLabel),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(

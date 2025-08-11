@@ -63,6 +63,30 @@ import '../../features/home_screen/tabs/home_tab/domain/usecases/get_exam_questi
     as _i272;
 import '../../features/home_screen/tabs/home_tab/presentation/cubit/exam_questions/exam_questions_view_model.dart'
     as _i310;
+import '../../features/home_screen/tabs/home_tab/presentation/cubit/exams_by_subject_cubit/exams_by_subject_view_model.dart'
+    as _i833;
+import '../../features/home_screen/tabs/home_tab/presentation/cubit/home_view_model.dart'
+    as _i391;
+import '../../features/home_screen/tabs/profile_tab/api/client/profile_api_client.dart'
+    as _i555;
+import '../../features/home_screen/tabs/profile_tab/api/data_source_impl/profile_remote_data_source_impl.dart'
+    as _i1019;
+import '../../features/home_screen/tabs/profile_tab/data/datasources/profile_remote_data_source.dart'
+    as _i830;
+import '../../features/home_screen/tabs/profile_tab/data/repositories/profile_repository_impl.dart'
+    as _i413;
+import '../../features/home_screen/tabs/profile_tab/domain/repositories/profile_repository.dart'
+    as _i232;
+import '../../features/home_screen/tabs/profile_tab/domain/usecases/change_password_use_case.dart'
+    as _i318;
+import '../../features/home_screen/tabs/profile_tab/domain/usecases/edit_profile_use_case.dart'
+    as _i109;
+import '../../features/home_screen/tabs/profile_tab/domain/usecases/get_user_data_use_case.dart'
+    as _i505;
+import '../../features/home_screen/tabs/profile_tab/presentation/cubit/change_password_view_model.dart'
+    as _i839;
+import '../../features/home_screen/tabs/profile_tab/presentation/cubit/edit_profile_view_model.dart'
+    as _i32;
 import '../../features/home_screen/tabs/result_tab/data/datasources/exam_result_local_data_source.dart'
     as _i765;
 import '../../features/home_screen/tabs/result_tab/data/datasources/exam_result_local_data_source_impl.dart'
@@ -90,6 +114,7 @@ import '../../features/home_screen/tabs/result_tab/domain/usecases/save_exam_res
 import '../../features/home_screen/tabs/result_tab/presentation/cubit/exam_result_cubit.dart'
     as _i511;
 import '../provider/app_config_provider.dart' as _i291;
+import '../provider/save_exam_id_provider.dart' as _i524;
 import '../provider/user_provider.dart' as _i505;
 import '../utils/shared_pref_services.dart' as _i0;
 import 'modules/dio_modules.dart' as _i288;
@@ -114,6 +139,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i147.HomeScreenViewModel>(() => _i147.HomeScreenViewModel());
     gh.singleton<_i505.UserProvider>(() => _i505.UserProvider());
+    gh.singleton<_i524.SaveExamIdProvider>(() => _i524.SaveExamIdProvider());
     gh.lazySingleton<_i528.PrettyDioLogger>(
         () => dioModules.providePrettyDioLogger());
     gh.lazySingleton<_i361.Dio>(
@@ -143,6 +169,8 @@ extension GetItInjectableX on _i174.GetIt {
         homeRemoteDataSource: gh<_i523.HomeRemoteDataSource>()));
     gh.factory<_i875.ExamResultRepository>(() => _i755.ExamResultRepositoryImpl(
         examResultLocalDataSource: gh<_i765.ExamResultLocalDataSource>()));
+    gh.factory<_i232.ProfileRepository>(() => _i413.ProfileRepositoryImpl(
+        profileRemoteDataSource: gh<_i830.ProfileRemoteDataSource>()));
     gh.factory<_i272.GetExamQuestionsUseCase>(
         () => _i272.GetExamQuestionsUseCase(gh<_i1022.HomeRepositories>()));
     gh.factory<_i474.ClearAllResultsUseCase>(
@@ -165,6 +193,12 @@ extension GetItInjectableX on _i174.GetIt {
         _i310.ExamQuestionsViewModel(gh<_i272.GetExamQuestionsUseCase>()));
     gh.factory<_i962.AuthRepository>(() => _i394.AuthRepositoriesImpl(
         authRemoteDataSource: gh<_i107.AuthRemoteDataSource>()));
+    gh.factory<_i318.ChangePasswordUseCase>(
+        () => _i318.ChangePasswordUseCase(gh<_i232.ProfileRepository>()));
+    gh.factory<_i109.EditProfileUseCase>(
+        () => _i109.EditProfileUseCase(gh<_i232.ProfileRepository>()));
+    gh.factory<_i505.GetUserDataUseCase>(
+        () => _i505.GetUserDataUseCase(gh<_i232.ProfileRepository>()));
     gh.factory<_i511.ExamResultCubit>(() => _i511.ExamResultCubit(
           saveExamResultUseCase: gh<_i341.SaveExamResultUseCase>(),
           getExamResultUseCase: gh<_i379.GetExamResultUseCase>(),
@@ -176,6 +210,10 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i1063.GetExamResultsByTitleUseCase>(),
           getRecentResultsUseCase: gh<_i401.GetRecentResultsUseCase>(),
         ));
+    gh.factory<_i1008.GetAllExamOnSubjectUseCase>(
+        () => _i1008.GetAllExamOnSubjectUseCase(gh<_i1022.HomeRepositories>()));
+    gh.factory<_i48.GetAllSubjectUseCase>(
+        () => _i48.GetAllSubjectUseCase(gh<_i1022.HomeRepositories>()));
     gh.factory<_i591.ForgetPasswordUseCase>(
         () => _i591.ForgetPasswordUseCase(gh<_i962.AuthRepository>()));
     gh.factory<_i825.ResetPasswordUseCase>(

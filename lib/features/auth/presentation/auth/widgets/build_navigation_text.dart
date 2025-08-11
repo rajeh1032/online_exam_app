@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class BuildNavigationText extends StatelessWidget {
   final String firstText;
   final String secondText;
@@ -17,8 +16,7 @@ class BuildNavigationText extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(firstText,
-            style: Theme.of(context).textTheme.headlineLarge),
+        Text(firstText, style: Theme.of(context).textTheme.headlineLarge),
         TextButton(
           style: TextButton.styleFrom(
             padding: EdgeInsets.zero,
@@ -26,7 +24,7 @@ class BuildNavigationText extends StatelessWidget {
             minimumSize: const Size(0, 0),
           ),
           onPressed: () {
-            Navigator.pushReplacementNamed(context, routeName);
+            Navigator.pushNamed(context, routeName);
           },
           child: Text(
             secondText,

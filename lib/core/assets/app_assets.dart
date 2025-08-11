@@ -14,6 +14,7 @@ abstract class AppAssets {
   static const String examIcon = '${_imgPath}Profit.png';
   static const String profileImage = '${_imgPath}Photo.png';
   static const String examImage = '${_imgPath}exam_image.png';
+  static const String userPhoto = '${_imgPath}user_photo.png';
 
   // --------------------------------------------------------------------------
 
