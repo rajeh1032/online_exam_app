@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam_app/core/constant/constants.dart';
 import 'package:online_exam_app/core/di/di.dart';
+import 'package:online_exam_app/core/provider/save_exam_id_provider.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_questions/exam_questions_event.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_questions/exam_questions_state.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/cubit/exam_questions/exam_questions_view_model.dart';
@@ -12,55 +13,25 @@ import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/widgets/exam_question/exam_questions_navigation_buttons.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/presentation/widgets/exam_question/show_exam_score.dart';
 
-class ExamQuestionsScreen extends StatefulWidget {
-  const ExamQuestionsScreen({
-    super.key,
-  });
-
-  @override
-  State<ExamQuestionsScreen> createState() => _ExamQuestionScreenState();
-}
-
-class _ExamQuestionScreenState extends State<ExamQuestionsScreen> {
-  late final ExamQuestionsViewModel _homeViewModel;
-  late String examId;
-
-  @override
-  void initState() {
-    super.initState();
-    _homeViewModel = getIt.get<ExamQuestionsViewModel>();
-    _loadExamQuestions();
-  }
-
-  void _loadExamQuestions() {
-    _homeViewModel.doIntent(GetExamQuestionsEvent(examId: examId));
-  }
-
-  void _handleExamSubmission() {
-    _homeViewModel.doIntent(SubmitExamEvent());
-  }
-
-  void _handleAnswerSelection(int answerIndex) {
-    _homeViewModel.doIntent(SelectedAnswerEvent(answerIndex: answerIndex));
-  }
-
-  void _handlePreviousQuestion() {
-    _homeViewModel.doIntent(NavigateToPreviousQuestionEvent());
-  }
-
-  void _handleNextQuestion() {
-    _homeViewModel.doIntent(NavigateToNextQuestionEvent());
-  }
+class ExamQuestionsScreen extends StatelessWidget {
+  const ExamQuestionsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-     examId = (ModalRoute.of(context)?.settings.arguments as String?)!;
+    final homeViewModel = getIt.get<ExamQuestionsViewModel>();
+
+    final examId = getIt.get<SaveExamIdProvider>().examId;
+    // Load exam questions
+    if (examId != null) {
+      homeViewModel.doIntent(GetExamQuestionsEvent(examId: examId));
+    }
+
     return BlocProvider.value(
-      value: _homeViewModel,
+      value: homeViewModel,
       child: Scaffold(
         appBar: ExamQuestionsAppBar(
-          onSubmitExam: _handleExamSubmission,
-          homeViewModel: _homeViewModel,
+          onSubmitExam: () => homeViewModel.doIntent(SubmitExamEvent()),
+          homeViewModel: homeViewModel,
         ),
         body: SafeArea(
           child: Padding(
@@ -82,15 +53,16 @@ class _ExamQuestionScreenState extends State<ExamQuestionsScreen> {
                           child: Text(Constants.noQuestionsAvailable),
                         );
                       }
+
                       if (state.isExamSubmitted) {
                         WidgetsBinding.instance.addPostFrameCallback((_) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (_) => ShowExamScore(
-                                homeViewModel: _homeViewModel,
+                                homeViewModel: homeViewModel,
                                 score: state.examScore ?? 0,
-                                totalQuestions: questions.length ?? 0,
+                                totalQuestions: questions.length,
                               ),
                             ),
                           );
@@ -101,14 +73,16 @@ class _ExamQuestionScreenState extends State<ExamQuestionsScreen> {
                         questionEntity: questions[state.currentQuestionIndex],
                         currentIndex: state.currentQuestionIndex,
                         totalQuestions: questions.length,
-                        selectedAnswers:
-                            _homeViewModel.getSelectedAnswerIndices(
+                        selectedAnswers: homeViewModel.getSelectedAnswerIndices(
                           questions[state.currentQuestionIndex],
                         ),
-                        singleChoice: _homeViewModel.isSingleChoice(
+                        singleChoice: homeViewModel.isSingleChoice(
                           questions[state.currentQuestionIndex],
                         ),
-                        onAnswerSelected: _handleAnswerSelection,
+                        onAnswerSelected: (answerIndex) =>
+                            homeViewModel.doIntent(
+                          SelectedAnswerEvent(answerIndex: answerIndex),
+                        ),
                       );
                     },
                   ),
@@ -118,9 +92,13 @@ class _ExamQuestionScreenState extends State<ExamQuestionsScreen> {
                     return ExamQuestionsNavigationButtons(
                       currentIndex: state.currentQuestionIndex,
                       totalQuestions: state.questionsList?.length ?? 0,
-                      onPrevious: _handlePreviousQuestion,
-                      onNext: _handleNextQuestion,
-                      onSubmit: _handleExamSubmission,
+                      onPrevious: () => homeViewModel.doIntent(
+                        NavigateToPreviousQuestionEvent(),
+                      ),
+                      onNext: () => homeViewModel.doIntent(
+                        NavigateToNextQuestionEvent(),
+                      ),
+                      onSubmit: () => homeViewModel.doIntent(SubmitExamEvent()),
                     );
                   },
                 ),
@@ -130,5 +108,5 @@ class _ExamQuestionScreenState extends State<ExamQuestionsScreen> {
         ),
       ),
     );
-  }
+  } 
 }

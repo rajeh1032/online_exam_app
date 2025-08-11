@@ -148,14 +148,4 @@ class EditProfileViewModel extends Cubit<EditProfileState> {
   //   phoneNumberController.text = _originalPhone;
   //   formKey.currentState?.reset();
   // }
-
-  @override
-  Future<void> close() {
-    userNameController.dispose();
-    firstNameController.dispose();
-    lastNameController.dispose();
-    emailController.dispose();
-    phoneNumberController.dispose();
-    return super.close();
-  }
 }

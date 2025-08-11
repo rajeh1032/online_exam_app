@@ -4,8 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam_app/core/di/di.dart';
 import 'package:online_exam_app/core/models/exam_result.dart';
+import 'package:online_exam_app/core/utils/dialog_utils.dart';
 import 'package:online_exam_app/core/utils/exam_result_storage.dart';
-import 'package:online_exam_app/features/auth/presentation/auth/widgets/build_app_bar.dart';
+import 'package:online_exam_app/core/utils/build_app_bar.dart';
 import 'package:online_exam_app/features/home_screen/tabs/result_tab/presentation/cubit/exam_result_cubit.dart';
 import 'package:online_exam_app/features/home_screen/tabs/result_tab/presentation/cubit/exam_result_state.dart';
 import 'package:online_exam_app/features/home_screen/tabs/result_tab/presentation/widgets/exam_answer_widgets/quiz_result_widget.dart';
@@ -30,7 +31,19 @@ class QuizResultScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BuildAppBar(title: "Results"),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        child: Icon(
+          Icons.delete_sweep_sharp,
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
+        onPressed: () => showDeleteAllConfirmationDialog(context),
+      ),
+      appBar: const BuildAppBar(
+        title: "Results",
+        showBackButton: false,
+        enableBackButton: false,
+      ),
       body: BlocBuilder<ExamResultCubit, ExamResultState>(
           builder: (context, state) {
         switch (state) {
@@ -105,6 +118,19 @@ class QuizResultScreenContent extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
         }
       }),
+    );
+  }
+
+  void showDeleteAllConfirmationDialog(BuildContext context) {
+    DialogUtils.showMessage(
+      context: context,
+      title: 'Confirm Delete All',
+      message: 'Are you sure you Delete All?',
+      posActionName: 'Yes',
+      posAction: () async {
+        context.read<ExamResultCubit>().clearAllResults();
+      },
+      negActionName: 'Cancel',
     );
   }
 }

@@ -110,6 +110,7 @@ class ExamResultCubit extends Cubit<ExamResultState> {
     switch (response) {
       case ApiSuccessResult<void>():
         emit(AllResultsCleared());
+        getAllExamResults();
         break;
       case ApiErrorResult<void>():
         emit(ExamResultError(errorMessage: response.errorMsg));

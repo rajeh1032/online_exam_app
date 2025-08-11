@@ -7,7 +7,7 @@ import '../../../../../../core/route/app_routes.dart';
 import '../../cubit/states/sign_in_state.dart';
 
 import '../../cubit/view_models/sign_in_view_model.dart';
-import '../build_app_bar.dart';
+import '../../../../../../core/utils/build_app_bar.dart';
 import '../build_elevated_button.dart';
 import '../build_email_field.dart';
 import '../build_navigation_text.dart';
@@ -21,7 +21,11 @@ class SignInForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = context.read<SignInViewModel>();
     return Scaffold(
-      appBar: const BuildAppBar(title: Constants.login),
+      appBar: const BuildAppBar(
+        title: Constants.login,
+        showBackButton: false,
+        enableBackButton: false,
+      ),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Form(
@@ -78,8 +82,6 @@ class SignInForm extends StatelessWidget {
                           onPressed: () {
                             if (state.isFormValid) {
                               viewModel.signIn();
-                              Navigator.pushNamed(
-                                  context, AppRoutes.homeScreen);
                             }
                           },
                         );

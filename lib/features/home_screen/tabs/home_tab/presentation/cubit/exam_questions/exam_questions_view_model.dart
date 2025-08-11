@@ -1,7 +1,9 @@
 import 'package:injectable/injectable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam_app/core/api_result/api_result.dart';
+import 'package:online_exam_app/core/di/di.dart';
 import 'package:online_exam_app/core/models/exam_result.dart';
+import 'package:online_exam_app/core/provider/save_exam_id_provider.dart';
 import 'package:online_exam_app/core/utils/exam_result_storage.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/domain/entities/get_exam_questions_request_Entity.dart';
 import 'package:online_exam_app/features/home_screen/tabs/home_tab/domain/entities/response/get_exam_questions_response_entity.dart';
@@ -147,18 +149,20 @@ class ExamQuestionsViewModel extends Cubit<ExamQuestionsState> {
   }
 
   void _submitExam() async {
+    final examId = getIt.get<SaveExamIdProvider>().examId;
     final questions = state.questionsList;
     if (questions == null || questions.isEmpty) return;
     final score = _calculateScore(questions, state.userAnswers);
-
+    final examTitle = _getExamTitleFromResponse();
     //todo: save to hive
 
     final examResult = _createExamResult(
-      examId:
-          '6700708d30a3c3c1944a9c60', // widget.examId, // Pass this from your screen
+      examId: examId ?? "", // widget.examId, // Pass this from your screen
       questions: questions,
       userAnswers: state.userAnswers,
+
       score: score,
+      examTitle: examTitle,
     );
     try {
       await ExamResultStorage.saveExamResult(examResult);
@@ -177,6 +181,7 @@ class ExamQuestionsViewModel extends Cubit<ExamQuestionsState> {
     required List<QuestionsEntity> questions,
     required Map<String, List<String>> userAnswers,
     required int score,
+    required String examTitle,
   }) {
     final questionResults = questions.map((question) {
       final questionId = question.id ?? '';
@@ -190,6 +195,7 @@ class ExamQuestionsViewModel extends Cubit<ExamQuestionsState> {
             );
           }).toList() ??
           [];
+
       return QuestionResult(
         questionId: questionId,
         questionText: question.question ?? '',
@@ -204,7 +210,21 @@ class ExamQuestionsViewModel extends Cubit<ExamQuestionsState> {
       questions: questionResults,
       score: score,
       completedAt: DateTime.now(),
-      examTitle: 'Exam',
+      examTitle: examTitle,
     );
+  }
+
+  String _getExamTitleFromResponse() {
+    final questions = state.questionsList;
+
+    // Get exam title from the first question's exam object
+    if (questions != null && questions.isNotEmpty) {
+      final firstQuestion = questions.first;
+      // Assuming your QuestionsEntity has exam property with title
+      return firstQuestion.exam?.title ?? 'Exam';
+    }
+
+    // Fallback
+    return 'Exam';
   }
 }

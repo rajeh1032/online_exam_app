@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam_app/core/di/di.dart';
+import 'package:online_exam_app/core/utils/build_app_bar.dart';
 import 'package:online_exam_app/features/home_screen/tabs/profile_tab/presentation/cubit/change_password_states.dart';
 
 import '../../../../../../core/constant/constants.dart';
@@ -32,8 +33,10 @@ class ChangePasswordScreen extends StatelessWidget {
           );
         },
         child: Scaffold(
-          appBar: AppBar(
-            title: const Text(Constants.changePassword),
+          appBar: BuildAppBar(
+            title: Constants.changePassword,
+            showBackButton: false,
+            enableBackButton: false,
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -43,7 +46,7 @@ class ChangePasswordScreen extends StatelessWidget {
                   SizedBox(
                     height: 16.h,
                   ),
-                 const BuildChangePasswordForm(),
+                  const BuildChangePasswordForm(),
                 ],
               ),
             ),

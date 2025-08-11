@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         isSelected: viewModel.selectedIndex == 2,
                         selectedIcon: AppAssets.selectedProfileIcon,
                         unSelectedIcon: AppAssets.unSelectedProfileIcon,
-                        label: "Result",
+                        label: "Profile",
                       ),
                     ])),
           ),
