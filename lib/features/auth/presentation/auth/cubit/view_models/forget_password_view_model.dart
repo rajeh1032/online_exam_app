@@ -1,32 +1,91 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:online_exam_app/core/provider/user_provider.dart';
+import 'package:online_exam_app/features/auth/domain/entities/request_entities/forget_password_request_entity.dart';
+import 'package:online_exam_app/features/auth/domain/entities/response_entities/forget_password_response_entity.dart';
 import 'package:online_exam_app/features/auth/domain/usecases/forget_password_use_case.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/cubit/states/forget_password_states.dart';
 
+import '../../../../../../core/api_result/api_result.dart';
+import '../../../../../../core/provider/app_config_provider.dart';
+
 @injectable
 class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
-  ForgetPasswordViewModel({required this.forgetPasswordUseCase})
-      : super(ForgetPasswordInitialState());
+  final ForgetPasswordUseCase _forgetPasswordUseCase;
+  final AppConfigProvider _appConfig;
 
-  ForgetPasswordUseCase forgetPasswordUseCase;
+  ForgetPasswordViewModel(
+      {required ForgetPasswordUseCase forgetPasswordUseCase, required AppConfigProvider appConfigProvider})
+      : _forgetPasswordUseCase = forgetPasswordUseCase,
+        _appConfig = appConfigProvider,
+        super(const ForgetPasswordStates()) {
+    _initializeControllers();
+    _addListenersToControllers();
+  }
+
   final formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
-  Future<void> forgetPassword({required BuildContext context}) async {
+
+  late final TextEditingController emailController;
+
+  void _initializeControllers() {
+    emailController = TextEditingController(text: 'wasimghoniem@gmail.com');
+  }
+
+  void _addListenersToControllers() {
+    emailController.addListener(_validateForm);
+  }
+
+  void _validateForm() {
+    final isValid = formKey.currentState?.validate() == true;
+    emit(state.copyWith(isFormValid: isValid));
+  }
+
+  void _disposeControllers() {
+    emailController.dispose();
+  }
+
+  Future<void> forgetPassword( ) async {
     if (formKey.currentState?.validate() == true) {
-      emit(ForgetPasswordLoadingState());
+      emit(state.copyWith(
+        errorMsg: null,
+        status: ForgetPasswordStatus.loading,
+      ));
+      final request = ForgetPasswordRequestEntity(email: emailController.text);
+      final result = await _forgetPasswordUseCase.invoke(request);
+      _handleResult(result);
+    }
+  }
 
-      var either = await forgetPasswordUseCase.invoke(
-        email: emailController.text,
-      );
 
-      context.read<UserProvider>().updateUser(emailController.text);
-      either.fold(
-        (error) => emit(ForgetPasswordErrorState(failures: error)),
-        (response) => emit(
-            ForgetPasswordSuccessState(forgetPasswordResponseEntity: response)),
-      );
+  Future<void> resendCode(String email) async {
+    final request = ForgetPasswordRequestEntity(email: email);
+    await _forgetPasswordUseCase.invoke(request);
+  }
+
+  @override
+  Future<void> close() {
+    _disposeControllers();
+    return super.close();
+  }
+
+  void _handleResult(ApiResult<ForgetPasswordResponseEntity> result) async{
+    switch (result) {
+      case ApiSuccessResult<ForgetPasswordResponseEntity>():
+        // Save the email for future use
+      await _appConfig.saveUserEmail(emailController.text);
+        emit(state.copyWith(
+          response: result.data,
+          errorMsg: null,
+          status: ForgetPasswordStatus.success,
+        ));
+        break;
+
+      case ApiErrorResult<ForgetPasswordResponseEntity>():
+        emit(state.copyWith(
+          errorMsg: result.errorMsg,
+          status: ForgetPasswordStatus.error,
+        ));
+        break;
     }
   }
 }

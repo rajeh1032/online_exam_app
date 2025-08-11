@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:online_exam_app/core/constant/constants.dart';
@@ -42,4 +41,42 @@ class AppConfigProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  // remember me logic
+
+  Future<void> saveRememberMe({
+    required String email,
+    required String password,
+  }) async {
+    await sharedPreferences.setBool(Constants.rememberMeKey, true);
+    await sharedPreferences.setString(Constants.savedEmailKey, email);
+    await sharedPreferences.setString(Constants.savedPasswordKey, password);
+  }
+
+
+  Future<void> clearRememberMe() async {
+    await sharedPreferences.remove(Constants.rememberMeKey);
+    await sharedPreferences.remove(Constants.savedEmailKey);
+    await sharedPreferences.remove(Constants.savedPasswordKey);
+  }
+
+
+  bool get isRemembered =>
+      sharedPreferences.getBool(Constants.rememberMeKey) ?? false;
+
+  String? get savedEmail =>
+      sharedPreferences.getString(Constants.savedEmailKey);
+
+  String? get savedPassword =>
+      sharedPreferences.getString(Constants.savedPasswordKey);
+
+  //save user email
+  Future<void> saveUserEmail(String email) async {
+    await sharedPreferences.setString(Constants.savedEmailKey, email);
+  }
+  //get user email
+  String? getUserEmail() {
+    return sharedPreferences.getString(Constants.savedEmailKey);
+  }
+
 }

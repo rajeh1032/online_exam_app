@@ -17,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   HomeScreenViewModel viewModel = getIt<HomeScreenViewModel>();
 
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeScreenViewModel, HomeScreenState>(
       bloc: viewModel,
@@ -61,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         isSelected: viewModel.selectedIndex == 2,
                         selectedIcon: AppAssets.selectedProfileIcon,
                         unSelectedIcon: AppAssets.unSelectedProfileIcon,
-                        label: "Result",
+                        label: "Profile",
                       ),
                     ])),
           ),

@@ -1,16 +1,24 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:online_exam_app/features/auth/presentation/auth/cubit/states/signup_states.dart';
-import '../../../../../../../core/utils/validators.dart';
+
+import '../../../../../../core/api_result/api_result.dart';
+import '../../../../domain/entities/request_entities/sign_up_request_entity.dart';
+import '../../../../domain/entities/response_entities/sign_up_response_entity.dart';
 import '../../../../domain/usecases/sign_up_use_case.dart';
+import '../states/signup_states.dart';
+
 
 @injectable
-class SignUpViewModel extends Cubit<SignUpStates> {
-  final SignUpUseCase signUpUseCase;
+class SignUpViewModel extends Cubit<SignUpState> {
+  final SignUpUseCase _signUpUseCase;
 
-  SignUpViewModel({required this.signUpUseCase}) : super(SignUpInitialState()){
+  SignUpViewModel({required SignUpUseCase signUpUseCase})
+      : _signUpUseCase = signUpUseCase,
+        super(const SignUpState()) {
     _initializeControllers();
+    _addListenersToControllers();
   }
 
   late final TextEditingController signUpUsernameController;
@@ -22,14 +30,35 @@ class SignUpViewModel extends Cubit<SignUpStates> {
   late final TextEditingController signUpPhoneController;
 
   void _initializeControllers() {
-    signUpUsernameController = TextEditingController();
-    signUpFirstNameController = TextEditingController();
-    signUpLastNameController = TextEditingController();
-    signUpEmailController = TextEditingController();
-    signUpPasswordController = TextEditingController();
-    signUpRePasswordController = TextEditingController();
-    signUpPhoneController = TextEditingController();
+    signUpUsernameController = TextEditingController(text: 'samir');
+    signUpFirstNameController = TextEditingController(text:'samir');
+    signUpLastNameController = TextEditingController(text:'ali');
+    signUpEmailController = TextEditingController(text: 'samir@gmail.com');
+    signUpPasswordController = TextEditingController(text: 'Samir@123');
+    signUpRePasswordController = TextEditingController(text: 'Samir@123');
+    signUpPhoneController = TextEditingController(text: '01020304050');
   }
+
+  void _addListenersToControllers() {
+    final controllers = [
+      signUpUsernameController,
+      signUpFirstNameController,
+      signUpLastNameController,
+      signUpEmailController,
+      signUpPasswordController,
+      signUpRePasswordController,
+      signUpPhoneController,
+    ];
+
+    for (final controller in controllers) {
+      controller.addListener(_validateForm);
+    }
+  }
+  void _validateForm() {
+    final isValid = formKey.currentState?.validate() == true;
+    emit(state.copyWith(isFormValid: isValid));
+  }
+
   void _disposeControllers() {
     signUpUsernameController.dispose();
     signUpFirstNameController.dispose();
@@ -39,6 +68,7 @@ class SignUpViewModel extends Cubit<SignUpStates> {
     signUpRePasswordController.dispose();
     signUpPhoneController.dispose();
   }
+
   @override
   Future<void> close() {
     _disposeControllers();
@@ -46,14 +76,15 @@ class SignUpViewModel extends Cubit<SignUpStates> {
   }
 
   final formKey = GlobalKey<FormState>();
-  bool obscurePassword = true;
-  bool obscureRePassword = true;
-  bool isFormValid=false;
 
   Future<void> signUp() async {
     if (formKey.currentState?.validate() == true) {
-      emit(SignUpLoadingState());
-      final result = await signUpUseCase.signUpInvoke(
+      emit(state.copyWith(
+        errorMsg: null,
+        status: SignUpStatus.loading,
+      ));
+
+      final request= SignUpRequestEntity(
         username: signUpUsernameController.text,
         firstName: signUpFirstNameController.text,
         lastName: signUpLastNameController.text,
@@ -62,28 +93,29 @@ class SignUpViewModel extends Cubit<SignUpStates> {
         rePassword: signUpRePasswordController.text,
         phone: signUpPhoneController.text,
       );
+      var result=await _signUpUseCase.invoke(request);
+      _handleResult(result);
 
-      result.fold(
-        (failure) => emit(SignUpErrorState(failures: failure)),
-        (signUpResponse) =>
-            emit(SignUpSuccessState(signUpResponseEntity: signUpResponse)),
-      );
+
+
     }
   }
+  void _handleResult(ApiResult<SignUpResponseEntity> result) {
+    switch (result) {
+      case ApiSuccessResult<SignUpResponseEntity>():
+        emit(state.copyWith(
+          response: result.data,
+          errorMsg: null,
+          status: SignUpStatus.success,
+        ));
+        break;
 
-  void checkFormValidation() {
-    List<String?> validationResults = [
-      AppValidators.validateUsername(signUpUsernameController.text),
-      AppValidators.validateFullName(signUpFirstNameController.text),
-      AppValidators.validateFullName(signUpLastNameController.text),
-      AppValidators.validateEmail(signUpEmailController.text),
-      AppValidators.validatePassword(signUpPasswordController.text),
-      AppValidators.validateConfirmPassword(signUpRePasswordController.text, signUpPasswordController.text),
-      AppValidators.validatePhoneNumber(signUpPhoneController.text),
-    ];
-
-    isFormValid = validationResults.every((result) => result == null);
-
-    emit(SignUpFormValidationState(isFormValid: isFormValid));
+      case ApiErrorResult<SignUpResponseEntity>():
+        emit(state.copyWith(
+          errorMsg: result.errorMsg,
+          status: SignUpStatus.error,
+        ));
+        break;
+    }
   }
 }

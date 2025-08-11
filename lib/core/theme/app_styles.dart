@@ -60,7 +60,11 @@ abstract class AppStyles {
     fontWeight: FontWeight.w500,
     color: AppColors.black[0],
   );
-
+  static final TextStyle medium18Green = GoogleFonts.poppins(
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColors.green,
+  );
   static final TextStyle medium18White = GoogleFonts.poppins(
     fontSize: 18.sp,
     fontWeight: FontWeight.w500,

@@ -1,5 +1,5 @@
 import 'package:online_exam_app/features/auth/api/models/user_dto.dart';
-import 'package:online_exam_app/features/auth/domain/entities/sign_in_response_entity.dart';
+import 'package:online_exam_app/features/auth/domain/entities/response_entities/sign_in_response_entity.dart';
 
 extension UserDtoMapper on UserDto {
   UserEntity toEntity() {

@@ -10,6 +10,11 @@ abstract class AppAssets {
       '${_imgPath}un_selcted_proflie.png';
   static const String selectedResultIcon = '${_imgPath}selcted_result.png';
   static const String unSelectedResultIcon = '${_imgPath}un_selcted_result.png';
+  static const String clockTimer = '${_imgPath}clock_timer.png';
+  static const String examIcon = '${_imgPath}Profit.png';
+  static const String profileImage = '${_imgPath}Photo.png';
+  static const String examImage = '${_imgPath}exam_image.png';
+  static const String userPhoto = '${_imgPath}user_photo.png';
 
   // --------------------------------------------------------------------------
 
