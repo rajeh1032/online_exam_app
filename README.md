@@ -1,4 +1,4 @@
-<img width="1920" height="945" alt="2025-08-16 01_00_30-Greenshot" src="https://github.com/user-attachments/assets/12e2a247-7761-43df-91da-26fd1a04daf2" /># Online Exam App
+
 
 A Flutter application for conducting and taking online examinations with real-time features, secure authentication, and comprehensive result tracking.
 
