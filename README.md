@@ -7,7 +7,8 @@ A Flutter application for conducting and taking online examinations with real-ti
 <!-- Add your app screenshots here -->
 <!-- Add your app screenshots here -->
 <p align="center">
-  <img src="<img width="350" height="716" alt="login_1" src="https://github.com/user-attachments/assets/ea5e8e42-2d22-43d9-b3ab-51c948292cb4" />
+  <<img width="350" height="716" alt="login_1" src="https://github.com/user-attachments/assets/27836e1e-4fb4-4690-a767-f16072d139e1" />
+ />
 " width="200" />
   <img src="<img width="343" height="724" alt="login_2" src="https://github.com/user-attachments/assets/44e9b8b5-dd7d-4f25-9572-70f07bca05eb" />
 " width="200" />
