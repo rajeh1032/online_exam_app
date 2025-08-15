@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_exam_app/core/constant/constants.dart';
 import 'package:online_exam_app/features/auth/presentation/auth/widgets/handle_state.dart';
 
 import '../../../../../core/di/di.dart';
@@ -22,7 +23,7 @@ class SignUpScreen extends StatelessWidget {
           handleState(
               context: context,
               status: state.status,
-              successMessage: state.response?.message ?? '',
+              successMessage: Constants.signUpSuccessfully,
               errorMessage: state.errorMsg ?? '');
         },
         child: const SignUpForm(),

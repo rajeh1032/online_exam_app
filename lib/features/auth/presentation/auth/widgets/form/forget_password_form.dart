@@ -5,7 +5,6 @@ import 'package:online_exam_app/features/auth/presentation/auth/cubit/states/for
 import 'package:online_exam_app/features/auth/presentation/auth/cubit/view_models/forget_password_view_model.dart';
 
 import '../../../../../../core/constant/constants.dart';
-import '../build_elevated_button.dart';
 import '../build_email_field.dart';
 import '../build_title_and_sub.dart';
 
@@ -43,11 +42,14 @@ class ForgetPasswordForm extends StatelessWidget {
                     SizedBox(height: 48.h),
                     BlocBuilder<ForgetPasswordViewModel, ForgetPasswordStates>(
                       builder: (context, state) {
-                        return BuildElevatedButton(
-                          text: Constants.continueString,
-                          onPressed: state.isFormValid
-                              ? () => viewModel.forgetPassword()
-                              : null,
+                        return SizedBox(
+                          width: double.infinity,
+                          height: 48.h,
+                          child: ElevatedButton(
+                              onPressed: state.isFormValid
+                                  ? () => viewModel.forgetPassword()
+                                  : null,
+                              child: const Text(Constants.continueString)),
                         );
                       },
                     ),

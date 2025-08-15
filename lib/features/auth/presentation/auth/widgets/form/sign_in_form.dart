@@ -8,7 +8,6 @@ import '../../cubit/states/sign_in_state.dart';
 
 import '../../cubit/view_models/sign_in_view_model.dart';
 import '../../../../../../core/utils/build_app_bar.dart';
-import '../build_elevated_button.dart';
 import '../build_email_field.dart';
 import '../build_navigation_text.dart';
 import '../build_password_field.dart';
@@ -77,13 +76,14 @@ class SignInForm extends StatelessWidget {
                     SizedBox(height: 16.h),
                     BlocBuilder<SignInViewModel, SignInState>(
                       builder: (context, state) {
-                        return BuildElevatedButton(
-                          text: Constants.login,
-                          onPressed: () {
-                            if (state.isFormValid) {
-                              viewModel.signIn();
-                            }
-                          },
+                        return SizedBox(
+                          width: double.infinity,
+                          height: 48.h,
+                          child: ElevatedButton(
+                              onPressed: state.isFormValid
+                                  ? () => viewModel.signIn()
+                                  : null,
+                              child: const Text(Constants.login)),
                         );
                       },
                     ),
