@@ -44,9 +44,15 @@ class ExamQuestionsViewModel extends Cubit<ExamQuestionsState> {
 
       switch (result) {
         case ApiSuccessResult<GetExamQuestionsResponseEntity> success:
+          final questions = success.data.questions;
+          final durationMinutes =
+              questions?.firstOrNull?.exam?.duration?.toInt() ?? 0;
+          final endTime = DateTime.now().millisecondsSinceEpoch +
+              (1000 * 60 * durationMinutes);
           emit(state.copyWith(
             examQuestionsIsLoadingArg: false,
             questionsListArg: success.data.questions,
+            examEndTime: endTime,
           ));
 
         case ApiErrorResult<GetExamQuestionsResponseEntity> error:

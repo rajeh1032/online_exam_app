@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:online_exam_app/core/assets/app_assets.dart';
 import 'package:online_exam_app/core/constant/constants.dart';
 import 'package:online_exam_app/core/route/app_routes.dart';
 import 'package:online_exam_app/core/theme/app_colors.dart';
@@ -11,7 +10,6 @@ import 'package:online_exam_app/core/utils/dialog_utils.dart';
 import 'package:online_exam_app/core/utils/shared_pref_services.dart';
 
 import 'package:online_exam_app/features/home_screen/reusable_widgets/error_state_widget.dart';
-import 'package:online_exam_app/features/home_screen/reusable_widgets/loading_state_widget.dart';
 import 'package:online_exam_app/features/home_screen/tabs/profile_tab/presentation/widget/edit_profile_form.dart';
 import 'package:online_exam_app/features/home_screen/tabs/profile_tab/presentation/widget/profile_image_widget.dart';
 
@@ -25,10 +23,13 @@ class ProfileTab extends StatelessWidget {
 
   final EditProfileViewModel viewModel = getIt<EditProfileViewModel>();
 
+  @override
   Widget build(BuildContext context) {
     final sharedPrefService = getIt<SharedPrefService>();
     return BlocProvider<EditProfileViewModel>(
-        create: (context) => viewModel..getUserData(),
+        create: (context) => viewModel
+          ..getUserData()
+          ..initializeProfilePhoto(),
         child: BlocListener<EditProfileViewModel, EditProfileState>(
           listenWhen: (previous, current) {
             return previous.status != current.status &&
@@ -77,9 +78,10 @@ class ProfileTab extends StatelessWidget {
                         SizedBox(
                           height: 12.h,
                         ),
-                        ProfileImageWidget(
-                          imagePath: AppAssets.userPhoto,
-                        ),
+                         ProfileImageWidget(
+                          onPickImage: () {
+                            viewModel.pickProfileImage();
+                          },),
                         SizedBox(
                           height: 12.h,
                         ),
@@ -88,6 +90,7 @@ class ProfileTab extends StatelessWidget {
                         ),
                         SizedBox(
                           height: 12.h,
+
                         ),
                         CustomElvatedButton(
                           borderRadius: 12.r,

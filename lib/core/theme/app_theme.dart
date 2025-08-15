@@ -10,6 +10,7 @@ abstract class AppTheme {
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        scrolledUnderElevation: 0,
         iconTheme: IconThemeData(color: colorScheme.secondary),
         titleTextStyle: TextStyle(
           fontSize: 20,
@@ -24,7 +25,7 @@ abstract class AppTheme {
           foregroundColor: colorScheme.onPrimary,
           shape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
-          disabledBackgroundColor: AppColors.gray.withOpacity(0.5),
+          disabledBackgroundColor: AppColors.blue[20],
           disabledForegroundColor: AppColors.white,
         ),
       ),

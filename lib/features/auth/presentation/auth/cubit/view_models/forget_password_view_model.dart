@@ -28,7 +28,7 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
   late final TextEditingController emailController;
 
   void _initializeControllers() {
-    emailController = TextEditingController(text: 'wasimghoniem@gmail.com');
+    emailController = TextEditingController();
   }
 
   void _addListenersToControllers() {

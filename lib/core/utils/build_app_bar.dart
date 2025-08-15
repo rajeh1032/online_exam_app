@@ -18,6 +18,7 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+
       title: Text(title),
       leading: showBackButton 
         ? IconButton(
@@ -28,6 +29,7 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
           )
         : null,
       automaticallyImplyLeading: showBackButton,
+
     );
   }
 

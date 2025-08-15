@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:online_exam_app/core/api_result/api_result.dart';
 import 'package:online_exam_app/features/home_screen/tabs/profile_tab/domain/entities/request/edit_profile_request_entity.dart';
@@ -8,17 +11,25 @@ import 'package:online_exam_app/features/home_screen/tabs/profile_tab/domain/ent
 import 'package:online_exam_app/features/home_screen/tabs/profile_tab/domain/usecases/edit_profile_use_case.dart';
 import 'package:online_exam_app/features/home_screen/tabs/profile_tab/domain/usecases/get_user_data_use_case.dart';
 import '../../../../../../core/constant/constants.dart';
+import '../../../../../../core/provider/profile_photo_provider.dart';
 import 'edit_profile_states.dart';
 
 @injectable
 class EditProfileViewModel extends Cubit<EditProfileState> {
   final GetUserDataUseCase _getUserDataUseCase;
   final EditProfileUseCase _editProfileUseCase;
+  final ImagePicker _picker = ImagePicker();
+  final ProfilePhotoProvider _profilePhotoProvider;
+
+
 
   EditProfileViewModel(
     this._getUserDataUseCase,
     this._editProfileUseCase,
-  ) : super(const EditProfileState());
+    this._profilePhotoProvider,
+  ) : super(EditProfileState(
+    selectedImagePath: _profilePhotoProvider.photoPath,
+  ));
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController userNameController = TextEditingController();
@@ -32,6 +43,32 @@ class EditProfileViewModel extends Cubit<EditProfileState> {
   String _originalLastName = '';
   String _originalEmail = '';
   String _originalPhone = '';
+
+  Future<void> pickProfileImage() async {
+    final XFile? pickedFile =
+        await _picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      emit(state.copyWith(selectedImagePath: pickedFile.path));
+
+      await _profilePhotoProvider.setPhoto(pickedFile.path);
+    }
+  }
+
+  String? get photoPath => _profilePhotoProvider.photoPath;
+
+  Future<void> initializeProfilePhoto() async {
+    final savedPhotoPath = _profilePhotoProvider.photoPath;
+
+    if (savedPhotoPath != null && savedPhotoPath.isNotEmpty) {
+      final file = File(savedPhotoPath);
+      if (await file.exists()) {
+        emit(state.copyWith(selectedImagePath: savedPhotoPath));
+      } else {
+        await _profilePhotoProvider.clearPhoto();
+      }
+    }
+  }
 
   void onFormChangedHandler() {
     final isValid = formKey.currentState?.validate() ?? false;
@@ -140,12 +177,12 @@ class EditProfileViewModel extends Cubit<EditProfileState> {
     _originalPhone = phoneNumberController.text.trim();
   }
 
-  // void resetForm() {
-  //   userNameController.text = _originalUserName;
-  //   firstNameController.text = _originalFirstName;
-  //   lastNameController.text = _originalLastName;
-  //   emailController.text = _originalEmail;
-  //   phoneNumberController.text = _originalPhone;
-  //   formKey.currentState?.reset();
-  // }
+// void resetForm() {
+//   userNameController.text = _originalUserName;
+//   firstNameController.text = _originalFirstName;
+//   lastNameController.text = _originalLastName;
+//   emailController.text = _originalEmail;
+//   phoneNumberController.text = _originalPhone;
+//   formKey.currentState?.reset();
+// }
 }

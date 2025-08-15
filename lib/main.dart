@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam_app/core/di/di.dart';
 import 'package:online_exam_app/core/l10n/translation/app_localizations.dart';
 import 'package:online_exam_app/core/provider/app_config_provider.dart';
+import 'package:online_exam_app/core/provider/profile_photo_provider.dart';
+import 'package:online_exam_app/core/provider/remember_me_provider.dart';
 import 'package:online_exam_app/core/provider/user_provider.dart';
 import 'package:online_exam_app/core/route/app_routes.dart';
 import 'package:online_exam_app/core/route/routes.dart';
@@ -12,6 +14,7 @@ import 'package:online_exam_app/core/utils/my_bloc_observer.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+
 void main() async {
   Bloc.observer = MyBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,17 +22,29 @@ void main() async {
   await configureDependencies();
   final appConfigProvider = getIt<AppConfigProvider>();
   final userProvider = getIt<UserProvider>();
+  final profilePhotoProvider = getIt<ProfilePhotoProvider>();
+  final rememberMeProvider= getIt<RememberMeProvider>();
+
+  final rememberMe=rememberMeProvider.isRememberMeEnabled;
+  final String initialRoute = rememberMe
+      ? AppRoutes.homeScreen
+      : AppRoutes.login;
+
   await appConfigProvider.loadConfig();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider.value(value: appConfigProvider),
     ChangeNotifierProvider.value(value: userProvider),
-  ], child: MyApp()));
+    ChangeNotifierProvider.value(value: profilePhotoProvider),
+    ChangeNotifierProvider.value(value: rememberMeProvider),
+  ], child: MyApp(initialRoute: initialRoute)));
 }
 
 // ignore: must_be_immutable
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  final String initialRoute;
+  MyApp({super.key, required this. initialRoute});
   late AppConfigProvider appConfigProvider;
+
   @override
   Widget build(BuildContext context) {
     appConfigProvider = Provider.of(context);
@@ -47,7 +62,7 @@ class MyApp extends StatelessWidget {
             supportedLocales: AppLocalizations.supportedLocales,
             locale: Locale(appConfigProvider.selectedLocal),
             onGenerateRoute: Routes.generateRoute,
-            initialRoute: AppRoutes.homeScreen,
+            initialRoute: initialRoute,
           );
         });
   }

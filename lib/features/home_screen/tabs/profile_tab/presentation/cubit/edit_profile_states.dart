@@ -19,6 +19,7 @@ class EditProfileState extends Equatable {
   final EditProfileStatus status;
   final bool isFormValid;
   final bool hasFormChanged;
+  final String? selectedImagePath;
 
 
 
@@ -29,6 +30,7 @@ class EditProfileState extends Equatable {
     this.status = EditProfileStatus.initial,
     this.isFormValid = false,
     this.hasFormChanged = false,
+    this.selectedImagePath,
   });
 
 
@@ -40,6 +42,7 @@ class EditProfileState extends Equatable {
     EditProfileStatus? status,
     bool? isFormValid,
     bool? hasFormChanged,
+    String? selectedImagePath,
   }) {
     return EditProfileState(
       response: response ?? this.response,
@@ -47,6 +50,7 @@ class EditProfileState extends Equatable {
       status: status ?? this.status,
       isFormValid: isFormValid ?? this.isFormValid,
       hasFormChanged: hasFormChanged ?? this.hasFormChanged,
+      selectedImagePath: selectedImagePath ?? this.selectedImagePath,
     );
   }
 
@@ -60,5 +64,6 @@ class EditProfileState extends Equatable {
     status,
     isFormValid,
     hasFormChanged,
+    selectedImagePath,
   ];
 }
