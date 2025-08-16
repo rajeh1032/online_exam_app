@@ -30,13 +30,13 @@ class SignUpViewModel extends Cubit<SignUpState> {
   late final TextEditingController signUpPhoneController;
 
   void _initializeControllers() {
-    signUpUsernameController = TextEditingController(text: 'samir');
-    signUpFirstNameController = TextEditingController(text:'samir');
-    signUpLastNameController = TextEditingController(text:'ali');
-    signUpEmailController = TextEditingController(text: 'samir@gmail.com');
-    signUpPasswordController = TextEditingController(text: 'Samir@123');
-    signUpRePasswordController = TextEditingController(text: 'Samir@123');
-    signUpPhoneController = TextEditingController(text: '01020304050');
+    signUpUsernameController = TextEditingController();
+    signUpFirstNameController = TextEditingController();
+    signUpLastNameController = TextEditingController();
+    signUpEmailController = TextEditingController();
+    signUpPasswordController = TextEditingController();
+    signUpRePasswordController = TextEditingController();
+    signUpPhoneController = TextEditingController();
   }
 
   void _addListenersToControllers() {

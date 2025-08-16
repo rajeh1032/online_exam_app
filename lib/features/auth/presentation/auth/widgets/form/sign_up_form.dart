@@ -7,7 +7,6 @@ import '../../../../../../core/route/app_routes.dart';
 import '../../cubit/states/signup_states.dart';
 import '../../cubit/view_models/signup_view_model.dart';
 import '../../../../../../core/utils/build_app_bar.dart';
-import '../build_elevated_button.dart';
 import '../build_email_field.dart';
 import '../build_first_and_last_name_field.dart';
 import '../build_navigation_text.dart';
@@ -57,11 +56,14 @@ class SignUpForm extends StatelessWidget {
                     SizedBox(height: 48.h),
                     BlocBuilder<SignUpViewModel, SignUpState>(
                       builder: (context, state) {
-                        return BuildElevatedButton(
-                          text: Constants.signUpTitle,
-                          onPressed: state.isFormValid
-                              ? () => viewModel.signUp()
-                              : null,
+                        return SizedBox(
+                          width: double.infinity,
+                          height: 48.h,
+                          child: ElevatedButton(
+                              onPressed: state.isFormValid
+                                  ? () => viewModel.signUp()
+                                  : null,
+                              child: const Text(Constants.signUpTitle)),
                         );
                       },
                     ),

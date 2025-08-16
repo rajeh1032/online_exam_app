@@ -42,6 +42,10 @@ class Constants {
   static const String emailVerificationTitle = 'Email Verification';
   static const String emailVerificationMessage =
       'Please enter the verification code sent to your email';
+//'login successfully'
+  static const String loginSuccessfully = 'Login successfully';
+  static const String signUpSuccessfully = 'Sign up successfully';
+  static const String profilePhotoPath = 'profile_photo_path';
 
   static const String resendCode = 'Resend ';
   //password changed successfully

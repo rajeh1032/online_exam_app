@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_exam_app/core/constant/constants.dart';
 import 'package:online_exam_app/core/route/app_routes.dart';
 import '../../../../../core/di/di.dart';
 import '../cubit/states/sign_in_state.dart';
@@ -20,7 +21,7 @@ class SignInScreen extends StatelessWidget {
             handleState(
                 context: context,
                 status: state.status,
-                successMessage: state.response?.message ?? '',
+                successMessage: Constants.loginSuccessfully,
                 errorMessage: state.errorMsg ?? '',
                 onSuccess: () {
                   Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);

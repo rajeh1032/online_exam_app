@@ -8,6 +8,7 @@ class ExamQuestionsState {
   final Map<String, List<String>> userAnswers;
   final int? examScore;
   final bool isExamSubmitted;
+  final int? examEndTime;
 
   ExamQuestionsState({
     this.examQuestionsIsLoading = true,
@@ -17,6 +18,7 @@ class ExamQuestionsState {
     this.userAnswers = const {},
     this.examScore,
     this.isExamSubmitted = false,
+    this.examEndTime,
   });
 
   ExamQuestionsState copyWith({
@@ -27,6 +29,7 @@ class ExamQuestionsState {
     Map<String, List<String>>? userAnswersArg,
     int? examScoreArg,
     bool? isExamSubmittedArg,
+    int? examEndTime,
   }) {
     return ExamQuestionsState(
       examQuestionsIsLoading:
@@ -38,6 +41,7 @@ class ExamQuestionsState {
       userAnswers: userAnswersArg ?? this.userAnswers,
       examScore: examScoreArg ?? this.examScore,
       isExamSubmitted: isExamSubmittedArg ?? this.isExamSubmitted,
+      examEndTime: examEndTime ?? this.examEndTime,
     );
   }
 }

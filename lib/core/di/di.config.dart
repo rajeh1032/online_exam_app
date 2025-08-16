@@ -114,6 +114,8 @@ import '../../features/home_screen/tabs/result_tab/domain/usecases/save_exam_res
 import '../../features/home_screen/tabs/result_tab/presentation/cubit/exam_result_cubit.dart'
     as _i511;
 import '../provider/app_config_provider.dart' as _i291;
+import '../provider/profile_photo_provider.dart' as _i800;
+import '../provider/remember_me_provider.dart' as _i2;
 import '../provider/save_exam_id_provider.dart' as _i524;
 import '../provider/user_provider.dart' as _i505;
 import '../utils/shared_pref_services.dart' as _i0;
@@ -138,12 +140,14 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.factory<_i147.HomeScreenViewModel>(() => _i147.HomeScreenViewModel());
-    gh.singleton<_i505.UserProvider>(() => _i505.UserProvider());
     gh.singleton<_i524.SaveExamIdProvider>(() => _i524.SaveExamIdProvider());
+    gh.singleton<_i505.UserProvider>(() => _i505.UserProvider());
     gh.lazySingleton<_i528.PrettyDioLogger>(
         () => dioModules.providePrettyDioLogger());
     gh.lazySingleton<_i361.Dio>(
         () => dioModules.provideDio(gh<_i528.PrettyDioLogger>()));
+    gh.singleton<_i800.ProfilePhotoProvider>(
+        () => _i800.ProfilePhotoProvider(gh<_i460.SharedPreferences>()));
     gh.factory<_i0.SharedPrefService>(
         () => _i0.SharedPrefService(gh<_i460.SharedPreferences>()));
     gh.factory<_i765.ExamResultLocalDataSource>(
@@ -161,6 +165,8 @@ extension GetItInjectableX on _i174.GetIt {
         homeApiClient: gh<_i952.HomeApiClient>()));
     gh.singleton<_i291.AppConfigProvider>(
         () => _i291.AppConfigProvider(gh<_i460.SharedPreferences>()));
+    gh.singleton<_i2.RememberMeProvider>(
+        () => _i2.RememberMeProvider(gh<_i460.SharedPreferences>()));
     gh.factory<_i107.AuthRemoteDataSource>(() => _i758.AuthRemoteDataSourceImpl(
           authApiClient: gh<_i213.AuthApiClient>(),
           authLocalDataSource: gh<_i284.AuthLocalDataSource>(),
@@ -236,10 +242,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i32.EditProfileViewModel>(() => _i32.EditProfileViewModel(
           gh<_i505.GetUserDataUseCase>(),
           gh<_i109.EditProfileUseCase>(),
-        ));
-    gh.factory<_i947.SignInViewModel>(() => _i947.SignInViewModel(
-          signInUseCase: gh<_i362.SignInUseCase>(),
-          appConfigProvider: gh<_i291.AppConfigProvider>(),
+          gh<_i800.ProfilePhotoProvider>(),
         ));
     gh.factory<_i833.ExamsBySubjectViewModel>(() =>
         _i833.ExamsBySubjectViewModel(
@@ -256,6 +259,11 @@ extension GetItInjectableX on _i174.GetIt {
             ));
     gh.factory<_i546.SignUpViewModel>(
         () => _i546.SignUpViewModel(signUpUseCase: gh<_i1037.SignUpUseCase>()));
+    gh.factory<_i947.SignInViewModel>(() => _i947.SignInViewModel(
+          signInUseCase: gh<_i362.SignInUseCase>(),
+          rememberMeProvider: gh<_i2.RememberMeProvider>(),
+          sharedPrefService: gh<_i0.SharedPrefService>(),
+        ));
     return this;
   }
 }

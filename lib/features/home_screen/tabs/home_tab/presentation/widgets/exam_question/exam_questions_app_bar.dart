@@ -43,14 +43,16 @@ class ExamQuestionsAppBar extends StatelessWidget
         buildWhen: (previous, current) =>
             previous.questionsList != null && current.questionsList != null,
         builder: (context, state) {
+          final endTime = state.examEndTime;
           final durationMinutes =
               state.questionsList?.firstOrNull?.exam?.duration?.toInt() ?? 0;
 
           if (durationMinutes <= 0) {
             return Text(Constants.timeUp);
           }
-          final endTime = DateTime.now().millisecondsSinceEpoch +
-              (1000 * 60 * durationMinutes);
+          if (endTime == null) {
+            return const Text('00:00');
+          }
 
           return CountdownTimer(
             endTime: endTime,

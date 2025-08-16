@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../../core/api_result/api_result.dart';
-import '../../../../../../core/provider/app_config_provider.dart';
+import '../../../../../../core/provider/remember_me_provider.dart';
+import '../../../../../../core/utils/shared_pref_services.dart';
 import '../../../../domain/entities/request_entities/sign_in_request_entity.dart';
 import '../../../../domain/entities/response_entities/sign_in_response_entity.dart';
 import '../../../../domain/usecases/sign_in_use_case.dart';
@@ -12,16 +13,19 @@ import '../states/sign_in_state.dart';
 @injectable
 class SignInViewModel extends Cubit<SignInState> {
   final SignInUseCase _signInUseCase;
-  final AppConfigProvider _appConfig;
+  final RememberMeProvider _rememberMeProvider;
+  final SharedPrefService _sharedPrefService;
 
-  SignInViewModel(
-      {required SignInUseCase signInUseCase,
-      required AppConfigProvider appConfigProvider})
-      : _signInUseCase = signInUseCase,
-        _appConfig = appConfigProvider,
+  SignInViewModel({
+    required SignInUseCase signInUseCase,
+    required RememberMeProvider rememberMeProvider,
+   required SharedPrefService sharedPrefService,
+  })  : _signInUseCase = signInUseCase,
+        _rememberMeProvider = rememberMeProvider,
+        _sharedPrefService = sharedPrefService ,
         super(const SignInState()) {
     _controllerInitiate();
-    _loadSavedCredentials();
+    _loadRememberMePreference();
     _addListenersToControllers();
   }
 
@@ -30,8 +34,7 @@ class SignInViewModel extends Cubit<SignInState> {
   late final TextEditingController signInPasswordController;
 
   void _controllerInitiate() {
-    signInEmailController =
-        TextEditingController( );
+    signInEmailController = TextEditingController();
     signInPasswordController = TextEditingController();
   }
 
@@ -48,17 +51,13 @@ class SignInViewModel extends Cubit<SignInState> {
   }
 
   void toggleRememberMe(bool value) {
+    _rememberMeProvider.setRememberMe(value);
     emit(state.copyWith(rememberMe: value, response: null, errorMsg: null));
   }
 
-  void _loadSavedCredentials() {
-    if (_appConfig.isRemembered) {
-      signInEmailController.text = _appConfig.savedEmail ?? '';
-      signInPasswordController.text = _appConfig.savedPassword ?? '';
-      emit(state.copyWith(rememberMe: true));
-    } else {
-      _appConfig.clearRememberMe();
-    }
+  void _loadRememberMePreference() {
+    final isEnabled = _rememberMeProvider.isRememberMeEnabled;
+    emit(state.copyWith(rememberMe: isEnabled));
   }
 
   Future<void> signIn() async {
@@ -83,14 +82,9 @@ class SignInViewModel extends Cubit<SignInState> {
       ApiResult<SignInResponseEntity> result) async {
     switch (result) {
       case ApiSuccessResult<SignInResponseEntity>():
+        final token = result.data.token;
         if (state.rememberMe) {
-          await _appConfig.saveRememberMe(
-            email: signInEmailController.text.trim(),
-            password: signInPasswordController.text,
-          );
-        } else {
-          signInEmailController.clear();
-          signInPasswordController.clear();
+          await _sharedPrefService.setToken(token);
         }
 
         emit(state.copyWith(
