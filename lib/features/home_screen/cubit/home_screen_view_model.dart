@@ -20,7 +20,9 @@ class HomeScreenViewModel extends Cubit<HomeScreenState> {
   ];
 
   void bottomNavOnTap(int index) {
-    selectedIndex = index;
-    emit(HomeInitialState());
+    if (selectedIndex != index) {
+      selectedIndex = index;
+      emit(HomeChangeSelectedIndexState(selectedIndex));
+    }
   }
 }

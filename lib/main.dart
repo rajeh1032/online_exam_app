@@ -14,6 +14,8 @@ import 'package:online_exam_app/core/utils/my_bloc_observer.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'core/utils/shared_pref_services.dart';
+
 
 void main() async {
   Bloc.observer = MyBlocObserver();
@@ -24,11 +26,13 @@ void main() async {
   final userProvider = getIt<UserProvider>();
   final profilePhotoProvider = getIt<ProfilePhotoProvider>();
   final rememberMeProvider= getIt<RememberMeProvider>();
+  final sharedPreferences = getIt<SharedPrefService>();
 
   final rememberMe=rememberMeProvider.isRememberMeEnabled;
-  final String initialRoute = rememberMe
+  final String initialRoute = rememberMe&&sharedPreferences.isTokenExists
       ? AppRoutes.homeScreen
       : AppRoutes.login;
+
 
   await appConfigProvider.loadConfig();
   runApp(MultiProvider(providers: [
@@ -63,7 +67,9 @@ class MyApp extends StatelessWidget {
             locale: Locale(appConfigProvider.selectedLocal),
             onGenerateRoute: Routes.generateRoute,
             initialRoute: initialRoute,
+
           );
+
         });
   }
 }
