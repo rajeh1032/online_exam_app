@@ -16,4 +16,6 @@ class SharedPrefService {
       await _prefs.setString(tokenKey, token);
 
   Future<void> clearToken() async => await _prefs.remove(tokenKey);
+
+  bool get isTokenExists => _prefs.containsKey(tokenKey);
 }
