@@ -229,8 +229,10 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 📞 Contact
 
 For any queries or support, please reach out to:
-- **Email:** [wasimghoniem@gmail.com]()
-- **GitHub:** [https://github.com/wasimGhoniem]()
+
+- **Email:** [wasimghoniem@gmail.com](mailto:wasimghoniem@gmail.com)  
+- **GitHub:** [wasimGhoniem](https://github.com/wasimGhoniem)  
+- **LinkedIn:** [wasim-ghonim](https://www.linkedin.com/in/wasim-ghonim-37bb98333)  
 
 ---
 
