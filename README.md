@@ -2,8 +2,6 @@
 
 A modern, feature-rich online examination mobile application built with Flutter, showcasing best practices in educational technology and clean architecture.
 
-![App Banner](https://github.com/user-attachments/assets/your-banner-image)
-
 ## 📱 Features
 
 ### 🔐 Authentication & Security
