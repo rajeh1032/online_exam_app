@@ -1,4 +1,4 @@
-# 📚 Online Exam App
+# 📚 Test Me App
 
 A modern, feature-rich online examination mobile application built with Flutter, showcasing best practices in educational technology and clean architecture.
 
