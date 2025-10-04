@@ -210,13 +210,22 @@ Complete examination flow with detailed results
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 👨‍💻 Developer
+## 👨‍💻 Developer 1
+**Ahmed Rajeh**
 
-**Rajeh1032**
 - GitHub: @rajeh1032
 - Email: rajeh1032@example.com
+- **LinkedIn:** [Ahme-Rajeh](https://www.linkedin.com/in/ahmed-rajeh-205621221) 
 
-## 🔮 Future Roadmap
+
+## 👨‍💻 Developer 2
+**wasimGhoniem**
+
+- **Email:** [wasimghoniem@gmail.com](mailto:wasimghoniem@gmail.com)  
+- **GitHub:** [wasimGhoniem](https://github.com/wasimGhoniem)  
+- **LinkedIn:** [wasim-ghonim](https://www.linkedin.com/in/wasim-ghonim-37bb98333)
+
+  ## 🔮 Future Roadmap
 
 - ✅ Multi-language support
 - ✅ Offline exam capability
@@ -225,14 +234,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - ✅ Certificate generation
 - ✅ Social learning features
 - ✅ AI-powered recommendations
-
-## 📞 Contact
-
-For any queries or support, please reach out to:
-
-- **Email:** [wasimghoniem@gmail.com](mailto:wasimghoniem@gmail.com)  
-- **GitHub:** [wasimGhoniem](https://github.com/wasimGhoniem)  
-- **LinkedIn:** [wasim-ghonim](https://www.linkedin.com/in/wasim-ghonim-37bb98333)  
 
 ---
 
